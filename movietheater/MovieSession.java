@@ -8,11 +8,9 @@ public class MovieSession {
     private List<Place> reservationState;
     private double priceForSession;
     private Duration duration;
-    private final Movie movie;
+    private Movie movie;
 
-    public Movie getMovie() {
-        return movie;
-    }
+
 
     public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration) {
         this.movie = movie;
@@ -49,7 +47,7 @@ public class MovieSession {
         if (!p.isReserved()) {
             p.setReserved(true);
         } else {
-            //Todo: replace with custom exception
+            //Todo: replace with custom exception (Already reserved exception)
             throw new RuntimeException("Place is already reserved!");
         }
     }
@@ -59,9 +57,13 @@ public class MovieSession {
         if (p.isReserved()) {
             p.setReserved(false);
         } else {
-            //Todo: replace with custom exception
+            //Todo: replace with custom exception (Not reserved - you can't cancel)
             throw new RuntimeException("Place is not reserved!");
         }
+    }
+
+    public Movie getMovie() {
+        return movie;
     }
 
     public LocalDateTime getLocalDateTime() {
@@ -84,11 +86,13 @@ public class MovieSession {
         return duration;
     }
 
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     public LocalDateTime getEndTime() {
         return localDateTime.plus(duration);
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
+
 }
