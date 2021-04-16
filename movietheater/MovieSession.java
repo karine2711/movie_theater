@@ -42,23 +42,21 @@ public class MovieSession {
         return reservedPlaces;
     }
 
-    public void reserve(Place place) {
+    public void reserve(Place place) throws AlreadyReservedException{
         Place p = reservationState.get(place.getNumber() - 1);
         if (!p.isReserved()) {
             p.setReserved(true);
         } else {
-            //Todo: replace with custom exception (Already reserved exception)
-            throw new RuntimeException("Place is already reserved!");
+            throw new AlreadyReservedException();
         }
     }
 
-    public void cancelReservation(Place place) {
+    public void cancelReservation(Place place) throws NotReservedException{
         Place p = reservationState.get(place.getNumber() - 1);
         if (p.isReserved()) {
             p.setReserved(false);
         } else {
-            //Todo: replace with custom exception (Not reserved - you can't cancel)
-            throw new RuntimeException("Place is not reserved!");
+            throw new NotReservedException();
         }
     }
 
