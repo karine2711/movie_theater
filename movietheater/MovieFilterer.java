@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieFilterer {
     //Todo: Please take a look at builder pattern. I suggest using it for this filterer
@@ -21,12 +22,12 @@ public class MovieFilterer {
 
     //Todo: Asya
     //Find All Movie Sessions on Time of Day
-    public List<MovieSession> filterByTimeOfDat(TimeOfDay timeOfDay, List<MovieSession> movieSessions){
-        movieSessions.stream().filter(movieSession -> {isBetween(movieSession.getLocalDateTime())})
+    public List<MovieSession> filterByTimeOfDay(TimeOfDay timeOfDay, List<MovieSession> movieSessions){
+        return movieSessions.stream().filter(movieSession -> {isBetween(movieSession.getLocalDateTime().getHour(), timeOfDay.getStart(), timeOfDay.getEnd());}).collect(Collectors.toList());
     }
 
 
-    private boolean isBetween(LocalDateTime time, LocalDateTime start, LocalDateTime end) {
-        return time.isAfter(start) && time.isBefore(end);
+    private boolean isBetween(int time, int start, int end) {
+        return time>start && time<end;
     }
 }
