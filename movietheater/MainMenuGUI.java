@@ -9,7 +9,7 @@ public class MainMenuGUI {
 
     public static void showMainMenu (){
         JFrame frame = new JFrame("Welcome");
-        frame.setBounds(100, 100, 467, 315);
+        frame.setBounds(100, 100, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 

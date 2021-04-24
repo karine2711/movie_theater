@@ -1,30 +1,23 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MovieFilterer {
-    //Todo: Please take a look at builder pattern. I suggest using it for this filterer
-    //class to add any kinds of filter combinations and return fully filtered list later
-    //I also suggest taking a look at Stream interface as it is quite useful for filtering
 
-    //Todo: Asya
-    //Provided a movie get all available sessions
-    public List<MovieSession> filterByMovie(Movie movie, List<MovieSession> movieSessions){
-        return null;
+    private List<Movie> movies = new ArrayList<>();
+
+    public MovieFilterer(List<Movie> movies) {
+        this.movies = movies;
     }
 
-    //Todo: Asya
-    //Provided a movie get all available sessions
-    public List<MovieSession> filterByDate(Date date, List<MovieSession> movieSessions){
-        return null;
+    public MovieFilterer filterByDirector(Director director) {
+        this.movies = movies.stream().filter(s -> s.getDirector().equals(director)).collect(Collectors.toList());
+        return this;
     }
 
-    //Todo: Asya
-    //Find All Movie Sessions on Time of Day
-//    public List<MovieSession> filterByTimeOfDay(TimeOfDay timeOfDay, List<MovieSession> movieSessions){
-//        return movieSessions.stream().filter(movieSession -> {isBetween(movieSession.getLocalDateTime().getHour(), timeOfDay.getStart(), timeOfDay.getEnd());}).collect(Collectors.toList());
-//    }
-
-
-    private boolean isBetween(int time, int start, int end) {
-        return time>start && time<end;
+    public MovieFilterer filterByGenre(Genre genre) {
+        this.movies =
+                movies.stream().filter(s -> s.getGenre().equals(genre)).collect(Collectors.toList());
+        return this;
     }
+
 }

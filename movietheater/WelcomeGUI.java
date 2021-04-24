@@ -7,7 +7,7 @@ public class WelcomeGUI {
 
     public static void showWelcome(){
         JFrame frame = new JFrame("Welcome");
-        frame.setBounds(100, 100, 467, 315);
+        frame.setBounds(100, 100, 500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -28,11 +28,13 @@ public class WelcomeGUI {
 
 
         JLabel label = new JLabel("Welcome to Movie Theater");
-        label.setBounds(20, 20, 80, 70 );
+        label.setBounds(200,200, 100,30 );
 
 
         JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(300, 300, 100, 300));
+        panel.setBackground(Color.gray);
+        panel.setBounds(40,80,200,200);
+        panel.setBorder(BorderFactory.createEmptyBorder(300, 300, 300, 300));
         panel.setLayout(new GridLayout(0, 1));
         panel.add(label);
         panel.add(button);
