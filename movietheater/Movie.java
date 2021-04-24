@@ -2,9 +2,14 @@ import java.util.Objects;
 
 public class Movie {
     private String name;
+    private Director director;
+    private Genre genre;
 
-    public Movie(String name) {
+    public Movie(String name, Director director, Genre genre) {
         this.name = name;
+        this.director = new Director(director);
+        this.genre = genre;
+
     }
 
     public String getName() {
@@ -15,6 +20,21 @@ public class Movie {
         this.name = name;
     }
 
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 
     @Override
     public boolean equals(Object o) {
