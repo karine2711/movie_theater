@@ -1,7 +1,4 @@
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class MovieFilterer {
     //Todo: Please take a look at builder pattern. I suggest using it for this filterer
