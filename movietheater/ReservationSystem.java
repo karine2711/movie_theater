@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
@@ -24,12 +25,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ReservationSystem extends JFrame {
-    MovieSession session = new MovieSession(new Movie("the movie"), LocalDateTime.now(), Duration.ofHours(2));
+    MovieSession session;
 
-    public static void main(String[] args) {
-        ReservationSystem reservationSystem = new ReservationSystem();
-        reservationSystem.resevationSystem();
+    public ReservationSystem(MovieSession session) throws HeadlessException {
+        this.session = session;
     }
+
+//    public static void main(String[] args) {
+//        ReservationSystem reservationSystem = new ReservationSystem();
+//        reservationSystem.resevationSystem();
+//    }
 
     private void resevationSystem() {
         this.setBounds(0, 0, 700, 800);

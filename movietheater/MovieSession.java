@@ -12,7 +12,7 @@ public class MovieSession {
 
 
 
-    public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration) {
+    public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration, double priceForSession) {
         this.movie = movie;
         this.localDateTime = localDateTime;
         reservationState = new ArrayList<>();
@@ -20,6 +20,7 @@ public class MovieSession {
             reservationState.add(new Place(number));
 
         }
+        this.priceForSession=priceForSession;
     }
 
     public List<Place> getFreePlaces() {
@@ -97,6 +98,8 @@ public class MovieSession {
         return localDateTime.plus(duration);
     }
 
-
-
+    @Override
+    public String toString() {
+        return movie.getName()+" on " + localDateTime.getDayOfMonth()+"th of "+localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
+    }
 }

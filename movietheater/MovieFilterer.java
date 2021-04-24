@@ -19,9 +19,9 @@ public class MovieFilterer {
 
     //Todo: Asya
     //Find All Movie Sessions on Time of Day
-    public List<MovieSession> filterByTimeOfDay(TimeOfDay timeOfDay, List<MovieSession> movieSessions){
-        return movieSessions.stream().filter(movieSession -> {isBetween(movieSession.getLocalDateTime().getHour(), timeOfDay.getStart(), timeOfDay.getEnd());}).collect(Collectors.toList());
-    }
+//    public List<MovieSession> filterByTimeOfDay(TimeOfDay timeOfDay, List<MovieSession> movieSessions){
+//        return movieSessions.stream().filter(movieSession -> {isBetween(movieSession.getLocalDateTime().getHour(), timeOfDay.getStart(), timeOfDay.getEnd());}).collect(Collectors.toList());
+//    }
 
 
     private boolean isBetween(int time, int start, int end) {
