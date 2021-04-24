@@ -42,8 +42,8 @@ public class MovieSession {
         return reservedPlaces;
     }
 
-    public void reserve(Place place) throws AlreadyReservedException{
-        Place p = reservationState.get(place.getNumber() - 1);
+    public void reserve(int seat) throws AlreadyReservedException{
+        Place p = reservationState.get(seat - 1);
         if (!p.isReserved()) {
             p.setReserved(true);
         } else {
@@ -51,13 +51,18 @@ public class MovieSession {
         }
     }
 
-    public void cancelReservation(Place place) throws NotReservedException{
-        Place p = reservationState.get(place.getNumber() - 1);
+    public void cancelReservation(int seatNumber) throws NotReservedException{
+        Place p = reservationState.get(seatNumber - 1);
         if (p.isReserved()) {
             p.setReserved(false);
         } else {
             throw new NotReservedException();
         }
+    }
+
+    public boolean isReserved(int placeNumber){
+        Place p = reservationState.get(placeNumber - 1);
+        return p.isReserved();
     }
 
     public Movie getMovie() {

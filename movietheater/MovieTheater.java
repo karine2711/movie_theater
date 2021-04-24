@@ -13,9 +13,9 @@ public class MovieTheater {
         session.setLocalDateTime(LocalDateTime.now());
         System.out.println(session.getFreePlaces().size());
         try {
-            session.reserve(new Place(1));
+            session.reserve(1);
             System.out.println(session.getFreePlaces().size());
-            session.reserve(new Place(1));
+            session.reserve(1);
         } catch (AlreadyReservedException e){
             System.out.println(e.getMessage());
         }
