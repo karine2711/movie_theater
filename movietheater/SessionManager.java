@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,22 @@ public class SessionManager {
             throw new RuntimeException(builder.toString());
         }
     }
+
+    public void addSession(Movie movie, LocalDateTime localDateTime,
+                           Duration duration, double priceForSession){
+        MovieSession session = new MovieSession (movie, localDateTime,
+                duration, priceForSession);
+        addSession(session);
+    }
+
+    public void deleteSession(Movie movie, LocalDateTime localDateTime,
+                              Duration duration, double priceForSession){
+        MovieSession session = new MovieSession (movie, localDateTime,
+                duration, priceForSession);
+        movieSessions.remove(session);
+    }
+
+
 
     private boolean overlaps(MovieSession session1, MovieSession session2) {
         LocalDateTime start1 = session1.getLocalDateTime();
