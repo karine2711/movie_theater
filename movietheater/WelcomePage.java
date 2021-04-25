@@ -17,8 +17,9 @@ public class WelcomePage extends JFrame {
     }
 
     private void mainMenuActionPerformed(ActionEvent e) {
-        MainMenuGUI menu = new MainMenuGUI();
-        menu.showMainMenu();
+        MainMenuPage menu = new MainMenuPage();
+        menu.pack();
+        menu.setVisible(true);
     }
 
     private void initComponents() {
@@ -36,7 +37,7 @@ public class WelcomePage extends JFrame {
 
         //---- welcome ----
         welcome.setText("Welcome to Movie Theater");
-        welcome.setFont(new Font(".AppleSystemUIFont", Font.PLAIN, 20));
+        welcome.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -47,9 +48,9 @@ public class WelcomePage extends JFrame {
                     .addComponent(mainMenu)
                     .addContainerGap(149, Short.MAX_VALUE))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(76, Short.MAX_VALUE)
+                    .addContainerGap(78, Short.MAX_VALUE)
                     .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-                    .addGap(55, 55, 55))
+                    .addGap(53, 53, 53))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -72,6 +73,9 @@ public class WelcomePage extends JFrame {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public static void main(String[] args) {
+        WelcomePage welcome = new WelcomePage();
+        welcome.pack();
+        welcome.setVisible(true);
 
     }
 
