@@ -100,6 +100,6 @@ public class MovieSession {
 
     @Override
     public String toString() {
-        return movie.getName()+" on " + localDateTime.getDayOfMonth()+"th of "+localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
+        return movie.getName()+" on " + localDateTime.getDayOfMonth() + "th of "+ localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
     }
 }

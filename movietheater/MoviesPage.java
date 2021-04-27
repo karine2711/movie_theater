@@ -31,6 +31,7 @@ public class MoviesPage extends JFrame {
         filter = new JLabel();
         comboBox1 = new JComboBox();
         comboBox2 = new JComboBox();
+        checkBox1 = new JCheckBox();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -52,6 +53,9 @@ public class MoviesPage extends JFrame {
         filter.setText("Filter");
         filter.setFont(new Font("Roboto Light", Font.BOLD | Font.ITALIC, 13));
 
+        //---- checkBox1 ----
+        checkBox1.setText("text");
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
@@ -59,22 +63,23 @@ public class MoviesPage extends JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkBox1)))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(addMovie)
                                 .addGroup(contentPaneLayout.createSequentialGroup()
                                     .addComponent(mainMenu)
-                                    .addGap(118, 118, 118)
+                                    .addGap(111, 111, 111)
                                     .addComponent(movies))
-                                .addComponent(addMovie)))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addComponent(filter))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(17, 17, 17)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addComponent(comboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                    .addContainerGap(208, Short.MAX_VALUE))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(filter)))))
+                    .addContainerGap(215, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -85,13 +90,15 @@ public class MoviesPage extends JFrame {
                         .addComponent(movies))
                     .addGap(30, 30, 30)
                     .addComponent(addMovie)
-                    .addGap(29, 29, 29)
+                    .addGap(36, 36, 36)
                     .addComponent(filter)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(comboBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(100, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addComponent(checkBox1)
+                    .addContainerGap(68, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -106,5 +113,6 @@ public class MoviesPage extends JFrame {
     private JLabel filter;
     private JComboBox comboBox1;
     private JComboBox comboBox2;
+    private JCheckBox checkBox1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

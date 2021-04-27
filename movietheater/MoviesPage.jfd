@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :::p, par l {seq {comp mainMenu:::p::p, space :p:118:p, comp movies:::p::p}, comp addMovie::l:p::p}}, seq l {space :p:34:p, comp filter:::p::p}, seq l {space :p:17:p, par t {comp comboBox2:::p::p, comp comboBox1:::p::p}}}, space ::208:x}}"
-			"$verticalGroup": "par l {seq l {space :p:16:p, par b {comp mainMenu::b:p::p, comp movies::b:p::p}, space :p:30:p, comp addMovie:::p::p, space :p:29:p, comp filter:::p::p, space :::p, comp comboBox1:::p::p, space :::p, comp comboBox2:::p::p, space ::100:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq {space :p:17:p, par l {comp comboBox1::l:p::p, comp comboBox2::l:p::p, comp checkBox1::l:p::p}}, seq l {space :::p, par l {comp addMovie::l:p::p, seq l {comp mainMenu:::p::p, space :p:111:p, comp movies:::p::p}, seq l {space :p:28:p, comp filter:::p::p}}}}, space ::215:x}}"
+			"$verticalGroup": "par l {seq l {space :p:16:p, par b {comp mainMenu::b:p::p, comp movies::b:p::p}, space :p:30:p, comp addMovie:::p::p, space :p:36:p, comp filter:::p::p, space :::p, comp comboBox1:::p::p, space u:::p, comp comboBox2:::p::p, space s:::p, comp checkBox1:::p::p, space ::68:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -35,9 +35,13 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "comboBox2"
 			} )
+			add( new FormComponent( "javax.swing.JCheckBox" ) {
+				name: "checkBox1"
+				"text": "text"
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 25 )
-			"size": new java.awt.Dimension( 495, 350 )
+			"location": new java.awt.Point( 5, 25 )
+			"size": new java.awt.Dimension( 495, 370 )
 		} )
 	}
 }

@@ -1,0 +1,85 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :0:160:x, comp movieDetails:::p::p, space :p:155:p}, seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp dirName:::p::p, comp dirSurname::l:p::p, comp genre::l:p::p}, space :p:100:p, par l:::p {comp scrollPane2:::p:127:p, comp scrollPane1:::::x, comp scrollPane3::l:::x, comp scrollPane4::l:p:129:p}}, seq l {space :p:250:p, comp submit:::p::p}, seq l {space :p:184:p, comp addSession:::p::p}}, space :::x}}"
+			"$verticalGroup": "par l {seq l {space :p:41:p, comp movieDetails:::p::p, space ::28:x, par t {seq t {par t {comp scrollPane2:::p::p, comp movieName:::p::p}, space s:::p, comp scrollPane1:::p::p}, comp dirName:::p::p}, space s:::p, par b {comp dirSurname::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par b {comp genre::b:p::p, comp scrollPane4::b:p::p}, space :p:36:p, comp submit:::p::p, space :p:33:p, comp addSession:::p::p, space :p:31:p}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea1"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addSession"
+				"text": "Add a session for this movie"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addSessionActionPerformed", true ) )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane2"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea2"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "movieName"
+				"text": "Movie Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "dirName"
+				"text": "Director Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "movieDetails"
+				"text": "Please enter the movie details"
+				"font": new java.awt.Font( "Roboto Light", 0, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "dirSurname"
+				"text": "Director Surname"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane3"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea3"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "genre"
+				"text": "Genre"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane4"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea4"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "submit"
+				"text": "Submit"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "mainMenu"
+					"text": "Main Menu"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "movies"
+					"text": "Movies"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "sessions"
+					"text": "Sessions"
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 580, 440 )
+		} )
+	}
+}

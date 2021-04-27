@@ -44,22 +44,23 @@ public class WelcomePage extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(147, 147, 147)
-                    .addComponent(mainMenu)
-                    .addContainerGap(149, Short.MAX_VALUE))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(78, Short.MAX_VALUE)
-                    .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)
-                    .addGap(53, 53, 53))
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(190, 190, 190)
+                            .addComponent(mainMenu))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(113, 113, 113)
+                            .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(118, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(84, Short.MAX_VALUE)
+                    .addGap(125, 125, 125)
                     .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                    .addGap(59, 59, 59)
+                    .addGap(84, 84, 84)
                     .addComponent(mainMenu)
-                    .addGap(70, 70, 70))
+                    .addContainerGap(104, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());

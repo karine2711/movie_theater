@@ -3,6 +3,7 @@ import java.util.*;
 public class MovieManager {
 
     private List<Movie> movieList= new ArrayList<>();
+    private List<Movie> directorList= new ArrayList<>();
 
 
     public void addMovie (String name, Director director, Genre genre) throws AlreadyInMovieListException {
