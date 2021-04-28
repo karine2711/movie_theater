@@ -2,7 +2,7 @@ package com.movie.theater.model;
 
 import java.time.LocalDateTime;
 
-public enum TimeOfDay {
+public enum TimeOfDay  {
     MORNING(9, 12), AFTERNOON(13, 16), EVENING(17, 22), NIGHT(22, 5);
 
     private int start;

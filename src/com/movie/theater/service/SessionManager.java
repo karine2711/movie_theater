@@ -1,22 +1,38 @@
 package com.movie.theater.service;
 
+import com.movie.theater.model.Movie;
+import com.movie.theater.model.MovieSession;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.movie.theater.model.Movie;
-import com.movie.theater.model.MovieSession;
 
-public class SessionManager {
-    private List<MovieSession> movieSessions= new ArrayList<>();
+public final class SessionManager {
+    private final ArrayList<MovieSession> SESSION_LIST;
+    private static final String SESSION_LIST_FILE = "src\\resources\\session-list.txt";
+    private static final SessionManager SESSION_MANAGER = new SessionManager();
 
-    public void addSession(MovieSession session) {
+    private SessionManager() {
+        try {
+            SESSION_LIST = (ArrayList<MovieSession>) SerializationUtil.readFromFile(SESSION_LIST_FILE);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Failed to initialize Movie Manager!");
+        }
+    }
+
+    public static SessionManager getSessionManager() {
+        return SESSION_MANAGER;
+    }
+
+    public void addSession(MovieSession session) throws IOException {
         LocalDateTime start = session.getLocalDateTime();
         LocalDateTime end = session.getEndTime();
-        List<MovieSession> overlaps = movieSessions.stream().filter(s -> overlaps(s, session)).collect(Collectors.toList());
+        List<MovieSession> overlaps = SESSION_LIST.stream().filter(s -> overlaps(s, session)).collect(Collectors.toList());
         if (overlaps.isEmpty()) {
-            movieSessions.add(session);
+            SESSION_LIST.add(session);
+            SerializationUtil.writeToFile(SESSION_LIST_FILE, SESSION_LIST);
         } else {
             StringBuilder builder = new StringBuilder("Your movie overlaps with { \n");
             for (MovieSession movieSession : overlaps) {
@@ -32,19 +48,19 @@ public class SessionManager {
     }
 
     public void addSession(Movie movie, LocalDateTime localDateTime,
-                           Duration duration, double priceForSession){
-        MovieSession session = new MovieSession (movie, localDateTime,
+                           Duration duration, double priceForSession) throws IOException {
+        MovieSession session = new MovieSession(movie, localDateTime,
                 duration, priceForSession);
         addSession(session);
     }
 
     public void deleteSession(Movie movie, LocalDateTime localDateTime,
-                              Duration duration, double priceForSession){
-        MovieSession session = new MovieSession (movie, localDateTime,
+                              Duration duration, double priceForSession) throws IOException {
+        MovieSession session = new MovieSession(movie, localDateTime,
                 duration, priceForSession);
-        movieSessions.remove(session);
+        SESSION_LIST.remove(session);
+        SerializationUtil.writeToFile(SESSION_LIST_FILE, SESSION_LIST);
     }
-
 
 
     private boolean overlaps(MovieSession session1, MovieSession session2) {

@@ -1,8 +1,9 @@
 package com.movie.theater.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Movie implements Filterable{
+public class Movie implements Filterable, Serializable {
     private String name;
     private Director director;
     private Genre genre;

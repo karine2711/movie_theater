@@ -1,6 +1,8 @@
 package com.movie.theater.model;
 
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
     private final int number;
     private boolean isReserved;
 

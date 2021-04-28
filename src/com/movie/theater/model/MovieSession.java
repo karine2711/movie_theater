@@ -2,14 +2,15 @@ package com.movie.theater.model;
 
 import com.movie.theater.exception.AlreadyReservedException;
 import com.movie.theater.exception.NotReservedException;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieSession implements Filterable{
+public class MovieSession implements Filterable, Serializable {
     private LocalDateTime localDateTime;
-    private List<Seat> reservationState;
+    private ArrayList<Seat> reservationState;
     private double priceForSession;
     private Duration duration;
     private Movie movie;

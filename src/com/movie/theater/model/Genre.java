@@ -1,5 +1,8 @@
 package com.movie.theater.model;
 
-public enum Genre { COMEDY, DRAMA, HORROR, ACTION, SCIENCE_FICTION, DOCUMENTARY,
+import java.io.Serializable;
+
+public enum Genre implements Serializable {
+    COMEDY, DRAMA, HORROR, ACTION, SCIENCE_FICTION, DOCUMENTARY,
     ROMANCE, MUSICAL, THRILLER, WESTERN, FANTASY, BIOGRAPHICAL
 }

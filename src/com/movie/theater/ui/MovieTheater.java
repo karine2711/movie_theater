@@ -1,8 +1,10 @@
 package com.movie.theater.ui;
 
+import com.movie.theater.service.SerializationUtil;
 import com.movie.theater.service.moviesessionfilter.SessionByDateFilter;
 import com.movie.theater.service.moviesessionfilter.SessionByPriceFilter;
 import com.movie.theater.service.moviesessionfilter.SessionFilterer;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +18,7 @@ import com.movie.theater.model.MovieSession;
 public class MovieTheater {
     private List<Movie> movies;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Movie movie1 = new Movie("movie 1", new Director("name1", "surname1"), Genre.ACTION);
         MovieSession session1 = new MovieSession(movie1, LocalDateTime.now(),
                 Duration.ofHours(2), 15);
@@ -28,12 +30,17 @@ public class MovieTheater {
         MovieSession session4 = new MovieSession(movie1,
                 LocalDateTime.now(), Duration.ofHours(2), 100);
 
-        List<MovieSession> sessions = new ArrayList<MovieSession>(List.of(session1, session2, session3, session4));
-        System.out.println(sessions);
-        SessionFilterer filterer = new SessionFilterer(sessions);
-        SessionByDateFilter byDateFilter=new SessionByDateFilter(LocalDate.now());
-        SessionByPriceFilter byPriceFilter=new SessionByPriceFilter(18,51);
-        filterer.filter(byDateFilter,byPriceFilter);
+        ArrayList<MovieSession> sessions =
+//                new ArrayList<MovieSession>(List.of(session1, session2, session3, session4));
+//        System.out.println(sessions);
+//        SessionFilterer filterer = new SessionFilterer(sessions);
+//        SessionByDateFilter byDateFilter=new SessionByDateFilter(LocalDate.now());
+//        SessionByPriceFilter byPriceFilter=new SessionByPriceFilter(18,51);
+//        filterer.filter(byDateFilter,byPriceFilter);
+//        System.out.println(sessions);
+
+//        SerializationUtil.writeToFile("src\\resources\\test.txt",sessions);
+                (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
         System.out.println(sessions);
     }
 }

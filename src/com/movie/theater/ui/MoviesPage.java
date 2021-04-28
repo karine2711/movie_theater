@@ -1,6 +1,5 @@
 package com.movie.theater.ui;
 
-import com.movie.theater.ui.MainMenuPage;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
