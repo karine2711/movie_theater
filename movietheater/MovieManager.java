@@ -1,9 +1,9 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MovieManager {
 
     private List<Movie> movieList= new ArrayList<>();
-    private List<Movie> directorList= new ArrayList<>();
 
 
     public void addMovie (String name, Director director, Genre genre) throws AlreadyInMovieListException {
@@ -26,6 +26,9 @@ public class MovieManager {
 
     }
 
+    public List<Director> directors (){
+        return movieList.stream().map(Movie::getDirector).collect(Collectors.toList());
+    }
 
 
 }

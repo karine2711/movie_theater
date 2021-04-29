@@ -12,12 +12,13 @@ new FormModel {
 				name: "movies"
 				"text": "Movies"
 				"font": new java.awt.Font( "Roboto Light", 0, 13 )
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "moviesActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "sessions"
 				"text": "Sessions"
 				"font": new java.awt.Font( "Roboto Light", 0, 13 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionsActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "movieTheater"

@@ -37,6 +37,7 @@ public class ReservationSystem extends JFrame {
                 Duration.ofHours(2), 15);
         ReservationSystem reservationSystem = new ReservationSystem(session1);
         reservationSystem.resevationSystem();
+
     }
 
     private void resevationSystem() {
@@ -68,7 +69,7 @@ public class ReservationSystem extends JFrame {
         JMenuItem menuItem = new JMenuItem(backIcon);
 
         menuItem.addActionListener((ActionEvent event) -> {
-            System.out.println("yohoo");
+            System.out.println("Back");
         });
         menu.add(menuItem)
         ;

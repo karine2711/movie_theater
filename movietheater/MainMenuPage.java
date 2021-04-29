@@ -16,10 +16,16 @@ public class MainMenuPage extends JFrame {
         initComponents();
     }
 
-    private void button1ActionPerformed(ActionEvent e) {
+    private void moviesActionPerformed(ActionEvent e) {
         MoviesPage movies = new MoviesPage();
         movies.pack();
         movies.setVisible(true);
+    }
+
+    private void sessionsActionPerformed(ActionEvent e) {
+        SessionsPage sessions = new SessionsPage();
+        sessions.pack();
+        sessions.setVisible(true);
     }
 
     private void initComponents() {
@@ -35,11 +41,12 @@ public class MainMenuPage extends JFrame {
         //---- movies ----
         movies.setText("Movies");
         movies.setFont(new Font("Roboto Light", Font.PLAIN, 13));
-        movies.addActionListener(e -> button1ActionPerformed(e));
+        movies.addActionListener(e -> moviesActionPerformed(e));
 
         //---- sessions ----
         sessions.setText("Sessions");
         sessions.setFont(new Font("Roboto Light", Font.PLAIN, 13));
+        sessions.addActionListener(e -> sessionsActionPerformed(e));
 
         //---- movieTheater ----
         movieTheater.setText("Movie Theater");
