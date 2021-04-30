@@ -44,11 +44,11 @@ public class ReservationSystem extends JFrame {
         MovieSession session1 = new MovieSession(movie1, LocalDateTime.now(),
                 Duration.ofHours(2), 15);
         ReservationSystem reservationSystem = new ReservationSystem(session1);
-        reservationSystem.resevationSystem();
+        reservationSystem.reservationSystem();
 
     }
 
-    private void resevationSystem() {
+    private void reservationSystem() {
         this.setBounds(0, 0, 700, 800);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

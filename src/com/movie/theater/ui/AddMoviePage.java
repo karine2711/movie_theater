@@ -24,13 +24,27 @@ public class AddMoviePage extends JFrame {
 
     }
 
+    private void sessionsMenuActionPerformed(ActionEvent e) {
+        SessionsPage sessions = new SessionsPage();
+        sessions.pack();
+        sessions.setVisible(true);
+        dispose();
+    }
+
+    private void moviesMenuActionPerformed(ActionEvent e) {
+        MoviesPage movies = new MoviesPage();
+        movies.pack();
+        movies.setVisible(true);
+        dispose();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Asya
         menuBar1 = new JMenuBar();
         mainMenu = new JMenu();
-        movies = new JMenu();
-        sessions = new JMenu();
+        moviesMenu = new JMenuItem();
+        sessionsMenu = new JMenuItem();
         scrollPane1 = new JScrollPane();
         textArea1 = new JTextArea();
         addSession = new JButton();
@@ -57,20 +71,18 @@ public class AddMoviePage extends JFrame {
             {
                 mainMenu.setText("Main Menu");
                 mainMenu.addActionListener(e -> mainMenuActionPerformed(e));
+
+                //---- moviesMenu ----
+                moviesMenu.setText("Movies");
+                moviesMenu.addActionListener(e -> moviesMenuActionPerformed(e));
+                mainMenu.add(moviesMenu);
+
+                //---- sessionsMenu ----
+                sessionsMenu.setText("Sessions");
+                sessionsMenu.addActionListener(e -> sessionsMenuActionPerformed(e));
+                mainMenu.add(sessionsMenu);
             }
             menuBar1.add(mainMenu);
-
-            //======== movies ========
-            {
-                movies.setText("Movies");
-            }
-            menuBar1.add(movies);
-
-            //======== sessions ========
-            {
-                sessions.setText("Sessions");
-            }
-            menuBar1.add(sessions);
         }
         setJMenuBar(menuBar1);
 
@@ -89,17 +101,17 @@ public class AddMoviePage extends JFrame {
         }
 
         //---- movieName ----
-        movieName.setText("movie.Movie Name");
+        movieName.setText("Movie Name");
 
         //---- dirName ----
-        dirName.setText("movie.Director Name");
+        dirName.setText("Director Name");
 
         //---- movieDetails ----
         movieDetails.setText("Please enter the movie details");
         movieDetails.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
         //---- dirSurname ----
-        dirSurname.setText("movie.Director Surname");
+        dirSurname.setText("Director Surname");
 
         //======== scrollPane3 ========
         {
@@ -107,7 +119,7 @@ public class AddMoviePage extends JFrame {
         }
 
         //---- genre ----
-        genre.setText("movie.Genre");
+        genre.setText("Genre");
 
         //---- submit ----
         submit.setText("Submit");
@@ -190,8 +202,8 @@ public class AddMoviePage extends JFrame {
     // Generated using JFormDesigner Evaluation license - Asya
     private JMenuBar menuBar1;
     private JMenu mainMenu;
-    private JMenu movies;
-    private JMenu sessions;
+    private JMenuItem moviesMenu;
+    private JMenuItem sessionsMenu;
     private JScrollPane scrollPane1;
     private JTextArea textArea1;
     private JButton addSession;

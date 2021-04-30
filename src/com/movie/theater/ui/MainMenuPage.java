@@ -22,12 +22,14 @@ public class MainMenuPage extends JFrame {
         MoviesPage movies = new MoviesPage();
         movies.pack();
         movies.setVisible(true);
+        dispose();
     }
 
     private void sessionsActionPerformed(ActionEvent e) {
         SessionsPage sessions = new SessionsPage();
         sessions.pack();
         sessions.setVisible(true);
+        dispose();
     }
 
     private void initComponents() {
@@ -51,7 +53,7 @@ public class MainMenuPage extends JFrame {
         sessions.addActionListener(e -> sessionsActionPerformed(e));
 
         //---- movieTheater ----
-        movieTheater.setText("movie.Movie Theater");
+        movieTheater.setText("Movie Theater");
         movieTheater.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -68,7 +70,7 @@ public class MainMenuPage extends JFrame {
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(201, 201, 201)
                             .addComponent(movieTheater)))
-                    .addContainerGap(211, Short.MAX_VALUE))
+                    .addContainerGap(153, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()

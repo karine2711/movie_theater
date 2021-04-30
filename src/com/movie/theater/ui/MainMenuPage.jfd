@@ -4,7 +4,7 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :p:209:p, par l:::p {comp sessions::::110:x, comp movies::::110:x}}, seq l {space :p:201:p, comp movieTheater:::p::p}}, space ::211:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :p:209:p, par l:::p {comp sessions::::110:x, comp movies::::110:x}}, seq l {space :p:201:p, comp movieTheater:::p::p}}, space ::153:x}}"
 			"$verticalGroup": "par l {seq l {space :p:92:p, comp movieTheater:::p::p, space :p:30:p, comp movies:::p:42:p, space :p:35:p, comp sessions:::p:43:p, space ::82:x}}"
 		} ) {
 			name: "this"
@@ -22,7 +22,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "movieTheater"
-				"text": "movie.Movie Theater"
+				"text": "Movie Theater"
 				"font": new java.awt.Font( "Roboto Light", 0, 20 )
 			} )
 		}, new FormLayoutConstraints( null ) {

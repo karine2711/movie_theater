@@ -15,7 +15,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "welcome"
-				"text": "Welcome to movie.Movie Theater"
+				"text": "Welcome to Movie Theater"
 				"font": new java.awt.Font( "Roboto Light", 0, 20 )
 			} )
 		}, new FormLayoutConstraints( null ) {

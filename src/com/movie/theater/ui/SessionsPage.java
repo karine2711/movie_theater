@@ -1,3 +1,5 @@
+package com.movie.theater.ui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,17 +20,20 @@ public class SessionsPage extends JFrame {
         MainMenuPage menu = new MainMenuPage();
         menu.pack();
         menu.setVisible(true);
+        dispose();
     }
 
     private void addMovieActionPerformed(ActionEvent e) {
         AddSessionPage addSession = new AddSessionPage();
         addSession.pack();
         addSession.setVisible(true);
+        dispose();
     }
 
     private void button1ActionPerformed(ActionEvent e) {
         // TODO add your code here
     }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -69,12 +74,12 @@ public class SessionsPage extends JFrame {
                         .addComponent(addMovie)
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addComponent(mainMenu)
-                            .addGap(111, 111, 111)
+                            .addGap(88, 88, 88)
                             .addComponent(movies))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(28, 28, 28)
                             .addComponent(filter)))
-                    .addContainerGap(198, Short.MAX_VALUE))
+                    .addContainerGap(221, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()

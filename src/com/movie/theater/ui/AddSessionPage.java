@@ -20,6 +20,21 @@ public class AddSessionPage extends JFrame {
         MainMenuPage menu = new MainMenuPage();
         menu.pack();
         menu.setVisible(true);
+        dispose();
+    }
+
+    private void sessionMenuActionPerformed(ActionEvent e) {
+        SessionsPage sessions = new SessionsPage();
+        sessions.pack();
+        sessions.setVisible(true);
+        dispose();
+    }
+
+    private void moviesMenuActionPerformed(ActionEvent e) {
+        MoviesPage movies = new MoviesPage();
+        movies.pack();
+        movies.setVisible(true);
+        dispose();
     }
 
     private void initComponents() {
@@ -27,8 +42,8 @@ public class AddSessionPage extends JFrame {
         // Generated using JFormDesigner Evaluation license - Asya
         menuBar1 = new JMenuBar();
         mainMenu = new JMenu();
-        sessions = new JMenu();
-        movies = new JMenu();
+        sessionMenu = new JMenuItem();
+        moviesMenu = new JMenuItem();
         addAnotherSession = new JButton();
         movieName = new JLabel();
         date = new JLabel();
@@ -39,9 +54,9 @@ public class AddSessionPage extends JFrame {
         price = new JLabel();
         scrollPane4 = new JScrollPane();
         textArea4 = new JTextArea();
-        button2 = new JButton();
-        comboBox1 = new JComboBox();
-        formattedTextField1 = new JFormattedTextField();
+        submitButton = new JButton();
+        moviesDropdown = new JComboBox();
+        formattedTextField2 = new JFormattedTextField();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -53,20 +68,18 @@ public class AddSessionPage extends JFrame {
             {
                 mainMenu.setText("Main Menu");
                 mainMenu.addActionListener(e -> menu1ActionPerformed(e));
+
+                //---- sessionMenu ----
+                sessionMenu.setText("Sessions");
+                sessionMenu.addActionListener(e -> sessionMenuActionPerformed(e));
+                mainMenu.add(sessionMenu);
+
+                //---- moviesMenu ----
+                moviesMenu.setText("Movies");
+                moviesMenu.addActionListener(e -> moviesMenuActionPerformed(e));
+                mainMenu.add(moviesMenu);
             }
             menuBar1.add(mainMenu);
-
-            //======== sessions ========
-            {
-                sessions.setText("Sessions");
-            }
-            menuBar1.add(sessions);
-
-            //======== movies ========
-            {
-                movies.setText("Movies");
-            }
-            menuBar1.add(movies);
         }
         setJMenuBar(menuBar1);
 
@@ -74,7 +87,7 @@ public class AddSessionPage extends JFrame {
         addAnotherSession.setText("Submit and add another session");
 
         //---- movieName ----
-        movieName.setText("movie.Movie Name");
+        movieName.setText("Movie Name");
 
         //---- date ----
         date.setText("Date");
@@ -99,8 +112,8 @@ public class AddSessionPage extends JFrame {
             scrollPane4.setViewportView(textArea4);
         }
 
-        //---- button2 ----
-        button2.setText("Submit");
+        //---- submitButton ----
+        submitButton.setText("Submit");
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -121,15 +134,15 @@ public class AddSessionPage extends JFrame {
                                 .addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
                                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(formattedTextField1, GroupLayout.Alignment.LEADING)
-                                        .addComponent(comboBox1))
+                                        .addComponent(formattedTextField2, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(moviesDropdown))
                                     .addGap(2, 2, 2))))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(135, 135, 135)
                             .addComponent(enterDetails))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(239, 239, 239)
-                            .addComponent(button2))
+                            .addComponent(submitButton))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(160, 160, 160)
                             .addComponent(addAnotherSession)))
@@ -138,18 +151,18 @@ public class AddSessionPage extends JFrame {
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(33, Short.MAX_VALUE)
+                    .addContainerGap(51, Short.MAX_VALUE)
                     .addComponent(enterDetails)
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(movieName)
-                                .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(formattedTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(date))
-                    .addGap(18, 18, 18)
+                                .addComponent(moviesDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addGap(48, 48, 48))
+                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(date)
+                            .addComponent(formattedTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(time)
                         .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -158,7 +171,7 @@ public class AddSessionPage extends JFrame {
                         .addComponent(price)
                         .addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(40, 40, 40)
-                    .addComponent(button2)
+                    .addComponent(submitButton)
                     .addGap(31, 31, 31)
                     .addComponent(addAnotherSession)
                     .addGap(29, 29, 29))
@@ -172,8 +185,8 @@ public class AddSessionPage extends JFrame {
     // Generated using JFormDesigner Evaluation license - Asya
     private JMenuBar menuBar1;
     private JMenu mainMenu;
-    private JMenu sessions;
-    private JMenu movies;
+    private JMenuItem sessionMenu;
+    private JMenuItem moviesMenu;
     private JButton addAnotherSession;
     private JLabel movieName;
     private JLabel date;
@@ -184,9 +197,9 @@ public class AddSessionPage extends JFrame {
     private JLabel price;
     private JScrollPane scrollPane4;
     private JTextArea textArea4;
-    private JButton button2;
-    private JComboBox comboBox1;
-    private JFormattedTextField formattedTextField1;
+    private JButton submitButton;
+    private JComboBox moviesDropdown;
+    private JFormattedTextField formattedTextField2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public static void main(String[] args) {

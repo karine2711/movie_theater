@@ -23,6 +23,8 @@ public class WelcomePage extends JFrame {
         MainMenuPage menu = new MainMenuPage();
         menu.pack();
         menu.setVisible(true);
+        dispose();
+
     }
 
     private void initComponents() {
@@ -39,7 +41,7 @@ public class WelcomePage extends JFrame {
         mainMenu.addActionListener(e -> mainMenuActionPerformed(e));
 
         //---- welcome ----
-        welcome.setText("Welcome to movie.Movie Theater");
+        welcome.setText("Welcome to Movie Theater");
         welcome.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -67,8 +69,6 @@ public class WelcomePage extends JFrame {
         );
         pack();
         setLocationRelativeTo(getOwner());
-
-        //TODO: JScrollPane
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
@@ -82,7 +82,6 @@ public class WelcomePage extends JFrame {
         WelcomePage welcome = new WelcomePage();
         welcome.pack();
         welcome.setVisible(true);
-new WelcomePage().initComponents();
     }
 
 

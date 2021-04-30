@@ -22,17 +22,16 @@ public class MoviesPage extends JFrame {
         MainMenuPage menu = new MainMenuPage();
         menu.pack();
         menu.setVisible(true);
+        dispose();
     }
 
     private void addMovieActionPerformed(ActionEvent e) {
         AddMoviePage addMovie = new AddMoviePage();
         addMovie.pack();
         addMovie.setVisible(true);
+        dispose();
     }
 
-    private void button1ActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -51,7 +50,7 @@ public class MoviesPage extends JFrame {
         //---- mainMenu ----
         mainMenu.setText("Main Menu");
         mainMenu.setFont(new Font("Roboto Light", Font.PLAIN, 13));
-        mainMenu.addActionListener(e -> button1ActionPerformed(e));
+        mainMenu.addActionListener(e -> mainMenuActionPerformed(e));
 
         //---- movies ----
         movies.setText("Movies");

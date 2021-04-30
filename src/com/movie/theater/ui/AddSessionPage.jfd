@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp date:::p::p, comp time::l:p::p, comp price::l:p::p}, space :p:100:p, par l:::p {comp scrollPane3::l:::x, comp scrollPane4::l:p:129:p, seq t {par t {comp formattedTextField1::l:::x, comp comboBox1:::::x}, space :p:2:p}}}, seq l {space :p:135:p, comp enterDetails:::p::p}, seq l {space :p:239:p, comp button2:::p::p}, seq l {space :p:160:p, comp addAnotherSession:::p::p}}, space ::150:x}}"
-			"$verticalGroup": "par l {seq l {space ::33:x, comp enterDetails:::p::p, space s:::p, par t {seq {par b {comp movieName::b:p::p, comp comboBox1::b:p::p}, space s:::p, comp formattedTextField1:::p::p}, comp date:::p::p}, space s:::p, par b {comp time::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par b {comp price::b:p::p, comp scrollPane4::b:p::p}, space :p:40:p, comp button2:::p::p, space :p:31:p, comp addAnotherSession:::p::p, space :p:29:p}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp date:::p::p, comp time::l:p::p, comp price::l:p::p}, space :p:100:p, par l:::p {comp scrollPane3::l:::x, comp scrollPane4::l:p:129:p, seq t {par t {comp formattedTextField2::t:p:119:p, comp moviesDropdown:::::x}, space :p:2:p}}}, seq l {space :p:135:p, comp enterDetails:::p::p}, seq l {space :p:239:p, comp submitButton:::p::p}, seq l {space :p:160:p, comp addAnotherSession:::p::p}}, space ::150:x}}"
+			"$verticalGroup": "par l {seq l {space ::51:x, comp enterDetails:::p::p, space s:::p, par t {seq {par b {comp movieName::b:p::p, comp moviesDropdown::b:p::p}, space :p:48:p}, par b {comp date::b:p::p, comp formattedTextField2::b:p::p}}, par b {comp time::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par b {comp price::b:p::p, comp scrollPane4::b:p::p}, space :p:40:p, comp submitButton:::p::p, space :p:31:p, comp addAnotherSession:::p::p, space :p:29:p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -14,7 +14,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "movieName"
-				"text": "movie.Movie Name"
+				"text": "Movie Name"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "date"
@@ -46,14 +46,14 @@ new FormModel {
 				} )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "submitButton"
 				"text": "Submit"
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBox1"
+				name: "moviesDropdown"
 			} )
 			add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-				name: "formattedTextField1"
+				name: "formattedTextField2"
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
@@ -61,14 +61,16 @@ new FormModel {
 					name: "mainMenu"
 					"text": "Main Menu"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu1ActionPerformed", true ) )
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "sessions"
-					"text": "Sessions"
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "movies"
-					"text": "Movies"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "sessionMenu"
+						"text": "Sessions"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionMenuActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "moviesMenu"
+						"text": "Movies"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "moviesMenuActionPerformed", true ) )
+					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {

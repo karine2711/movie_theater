@@ -27,11 +27,11 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "movieName"
-				"text": "movie.Movie Name"
+				"text": "Movie Name"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "dirName"
-				"text": "movie.Director Name"
+				"text": "Director Name"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "movieDetails"
@@ -40,7 +40,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "dirSurname"
-				"text": "movie.Director Surname"
+				"text": "Director Surname"
 			} )
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 				name: "scrollPane3"
@@ -50,7 +50,7 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "genre"
-				"text": "movie.Genre"
+				"text": "Genre"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "submit"
@@ -69,14 +69,16 @@ new FormModel {
 					name: "mainMenu"
 					"text": "Main Menu"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "mainMenuActionPerformed", true ) )
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "movies"
-					"text": "Movies"
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "sessions"
-					"text": "Sessions"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "moviesMenu"
+						"text": "Movies"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "moviesMenuActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "sessionsMenu"
+						"text": "Sessions"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionsMenuActionPerformed", true ) )
+					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
