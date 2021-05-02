@@ -19,7 +19,7 @@ public class MainMenuPage extends JFrame {
     }
 
     private void moviesActionPerformed(ActionEvent e) {
-        MoviesPage movies = new MoviesPage();
+        TryUI movies = new TryUI();
         movies.pack();
         movies.setVisible(true);
         dispose();

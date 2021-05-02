@@ -1,8 +1,10 @@
 package com.movie.theater.ui;
 
-import java.awt.event.*;
+import com.movie.theater.model.Genre;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 /*
  * Created by JFormDesigner on Sun Apr 25 23:54:07 AMT 2021
  */
@@ -14,6 +16,8 @@ import java.awt.*;
 public class AddMoviePage extends JFrame {
     public AddMoviePage() {
         initComponents();
+        genreEnum.setModel(new DefaultComboBoxModel(Genre.values()));
+        pack();
     }
 
     private void addSessionActionPerformed(ActionEvent e) {
@@ -40,7 +44,7 @@ public class AddMoviePage extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Asya
+        // Generated using JFormDesigner Evaluation license - unknown
         menuBar1 = new JMenuBar();
         mainMenu = new JMenu();
         moviesMenu = new JMenuItem();
@@ -132,7 +136,7 @@ public class AddMoviePage extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 150, Short.MAX_VALUE)
+                    .addGap(0, 110, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                             .addComponent(movieDetails)
@@ -155,27 +159,28 @@ public class AddMoviePage extends JFrame {
                             .addGap(100, 100, 100)
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                 .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                                 .addComponent(scrollPane3)
-                                .addComponent(genreEnum, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
+                                .addComponent(genreEnum, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                                .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGap(250, 250, 250)
                             .addComponent(submit)))
-                    .addContainerGap(118, Short.MAX_VALUE))
+                    .addContainerGap(105, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(39, 39, 39)
                     .addComponent(movieDetails)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(movieName))
-                            .addGap(18, 18, 18)
-                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(6, 6, 6))
                         .addComponent(dirName))
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -199,7 +204,7 @@ public class AddMoviePage extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Asya
+    // Generated using JFormDesigner Evaluation license - unknown
     private JMenuBar menuBar1;
     private JMenu mainMenu;
     private JMenuItem moviesMenu;

@@ -4,20 +4,27 @@ import com.movie.theater.exception.AlreadyInMovieListException;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
+
+import java.io.EOFException;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class MovieManager {
 
-    private final ArrayList<Movie> MOVIE_LIST;
+    private ArrayList<Movie> MOVIE_LIST;
     private List<Movie> directorList = new ArrayList<>();
     private static final String MOVIE_LIST_FILE = "src\\resources\\movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
 
     private MovieManager() {
+        File file = new File(MOVIE_LIST_FILE);
         try {
+            if (!file.exists()) file.createNewFile();
             MOVIE_LIST = (ArrayList<Movie>) SerializationUtil.readFromFile(MOVIE_LIST_FILE);
+        } catch (EOFException e) {
+            MOVIE_LIST = new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Failed to initialize Movie Manager!");
         }
@@ -48,5 +55,8 @@ public final class MovieManager {
         SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
     }
 
+    public List<Movie> getList() {
+        return MOVIE_LIST;
+    }
 
 }
