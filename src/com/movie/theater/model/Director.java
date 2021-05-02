@@ -34,6 +34,9 @@ public class Director implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getFullName(){
+        return firstName+" "+lastName;
+    }
     public String toString(){
         return (firstName + " " + lastName);
     }

@@ -1,17 +1,31 @@
 package com.movie.theater.ui;
 
+import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
 import com.movie.theater.service.MovieManager;
+import com.movie.theater.service.moviefilter.MovieByDirectorFilter;
+import com.movie.theater.service.moviefilter.MovieByGenreFilter;
+import com.movie.theater.service.moviefilter.MovieFilter;
+import com.movie.theater.service.moviefilter.MovieFilterer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TryUI extends JFrame {
 
     private JButton mainMenuButton;
+    private JPanel moviesPanel;
+    JPanel filterPanel;
+    JPanel movies = new JPanel();
+    List<MovieFilter> movieFilters = new ArrayList<>();
+    MovieByDirectorFilter movieByDirectorFilter = new MovieByDirectorFilter();
+    MovieByGenreFilter movieByGenreFilter = new MovieByGenreFilter();
+    MovieManager movieManager = MovieManager.getMovieManager();
+
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -28,34 +42,9 @@ public class TryUI extends JFrame {
         this.getContentPane().setLayout(layout);
 
         //Movies Page Button
-        this.addMainMenuButton();
+        addMainMenuButton();
+        initMainContainer();
 
-
-        JPanel panel1 = new JPanel();
-        panel1.setBackground(Color.GREEN);
-        gridBagConstraints.weightx = 0.8;
-        gridBagConstraints.weighty = 1;
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-
-        panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
-
-
-        JLabel moviesLabel = new JLabel("Movies");
-        Dimension label = new Dimension(panel1.getWidth() / 2, 500);
-        moviesLabel.setFont(new Font(null, Font.PLAIN, 50));
-        moviesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        moviesLabel.setPreferredSize(label);
-//        moviesLabel.setMaximumSize(label);
-//        moviesLabel.setMinimumSize(label);
-        panel1.add(moviesLabel);
-        JPanel movies = new JPanel();
-//        moviesLabel.setPreferredSize(label);
-//        moviesLabel.setMaximumSize(label);
-//        moviesLabel.setMinimumSize(label);
-        movies.setBackground(Color.pink);
         GridLayout gridLayout = new GridLayout();
         gridLayout.setColumns(3);
         gridLayout.setRows(-1);
@@ -63,283 +52,280 @@ public class TryUI extends JFrame {
         gridLayout.setVgap(50);
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        panel1.add(scrollPane);
+        moviesPanel.add(scrollPane);
 
+        populateWithMovies(movieManager.getMoveList());
 
-        MovieManager movieManager = MovieManager.getMovieManager();
-        List<Movie> moviesList = movieManager.getList();
-        moviesList.forEach((movie) ->
-        {
-            JPanel moviePanel = new JPanel();
-            moviePanel.setOpaque(false);
-
-            moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
-            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
-            Image image = backIcon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(200, 300, java.awt.Image.SCALE_SMOOTH);// scale it the smooth way
-            backIcon = new ImageIcon(newimg);  // transform it back
-            moviePanel.add(new JLabel(backIcon));
-
-            JLabel movieName = new JLabel(movie.getName(), SwingConstants.CENTER);
-            Dimension movieNameDimension = new Dimension(300, 30);
-            movieName.setPreferredSize(movieNameDimension);
-            movieName.setMinimumSize(movieNameDimension);
-            movieName.setMaximumSize(movieNameDimension);
-            movieName.setToolTipText(movie.getName());
-            movieName.setFont(new Font(null, Font.PLAIN, 25));
-            moviePanel.add(movieName);
-
-            JPanel movieFooter = new JPanel();
-//            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            movieFooter.setPreferredSize(movieNameDimension);
-            movieFooter.setMinimumSize(movieNameDimension);
-            movieFooter.setMaximumSize(movieNameDimension);
-            movieFooter.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            movieFooter.setBackground(Color.BLACK);
-            movieFooter.setOpaque(true);
-            JButton deleteButton = new JButton();
-            movieFooter.add(new JLabel(movie.getDirector().getFirstName()));
-
-//            deleteButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            movieFooter.add(deleteButton);
-            movieFooter.add(new JButton("Edit"));
-            moviePanel.add(movieFooter);
-            Dimension dimension = new Dimension(200, 500);
-            moviePanel.setPreferredSize(dimension);
-            moviePanel.setMinimumSize(dimension);
-            moviePanel.setMaximumSize(dimension);
-            moviePanel.setIgnoreRepaint(true);
-
-
-            movies.add(moviePanel);
-        });
-
-        this.getContentPane().add(panel1, gridBagConstraints);
+        this.getContentPane().add(moviesPanel, gridBagConstraints);
 
 
         ///filter panel
-        JPanel panel3 = new JPanel();
-        panel3.setBackground(Color.BLACK);
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.weighty = 0.8;
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 1;
-        this.getContentPane().add(panel3, gridBagConstraints);
-
-        panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-//        panel3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton button = new JButton("Add Movie");
-        button.setAlignmentX(CENTER_ALIGNMENT);
-        panel3.add(button);
+        initFilterPanel();
 
 
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-        JLabel filtersLabel = new JLabel("Filters");
-        filtersLabel.setAlignmentX(CENTER_ALIGNMENT);
-        filtersLabel.setForeground(Color.white);
-        panel3.add(filtersLabel);
-        this.pack();
-        this.setVisible(true);
-
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-
-//        JComboBox filtersBox = new JComboBox();
-        JList filtersBox=new JList(Genre.values());
-
-//        filtersBox.setModel(new DefaultComboBoxModel(new String[]{"Choose"}));
-//        filtersBox.addPopupMenuListener(new PopupMenuListener() {
-//            @Override
-//            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-//                filtersBox.setModel(new DefaultComboBoxModel(Genre.values()));
-//            }
-//
-//            @Override
-//            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void popupMenuCanceled(PopupMenuEvent e) {
-//
-//            }
-//        });
-        filtersBox.setAlignmentX(CENTER_ALIGNMENT);
-        Dimension dimension = new Dimension(100, 150);
-        filtersBox.setPreferredSize(dimension);
-        filtersBox.setMinimumSize(dimension);
-        filtersBox.setMaximumSize(dimension);
-//        filtersBox.setForeground(Color.white);
-        panel3.add(filtersBox);
+        List<Director> directorList = movieManager.getDirectorList();
+//        JList<Director>
         this.pack();
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        TryUI tryUI = new TryUI();
-        Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
-        tryUI.setMinimumSize(uidim);
-        tryUI.setMaximumSize(uidim);
-        tryUI.setPreferredSize(uidim);
-        GridBagLayout layout = new GridBagLayout();
-        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
-        gridBagConstraints.weightx = 1;
-        gridBagConstraints.weighty = 1;
-        layout.setConstraints(tryUI.getContentPane(), gridBagConstraints);
-        tryUI.getContentPane().setLayout(layout);
+    private void populateWithMovies(List<Movie> moviesList) {
+        movies.removeAll();
+        movies.setBackground(Color.pink);
 
-        //Movies Page Button
-        tryUI.addMainMenuButton();
+        moviesList.forEach((movie) ->
+        {
+            JPanel moviePanel = new JPanel();
+            moviePanel.setOpaque(false);
+            Dimension dimension = new Dimension(300, 520);
+            moviePanel.setPreferredSize(dimension);
+            moviePanel.setMinimumSize(dimension);
+            moviePanel.setMaximumSize(dimension);
+
+            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
+            Image image = backIcon.getImage(); // transform it
+            Image newimg = image.getScaledInstance(300, 380, Image.SCALE_AREA_AVERAGING);// scale it the smooth way
+            backIcon = new ImageIcon(newimg);  // transform it back
+            moviePanel.add(new JLabel(backIcon));
+
+            JLabel movieName = new JLabel(movie.getName(), SwingConstants.CENTER);
+            Dimension movieNameDimension = new Dimension(300, 20);
+            movieName.setPreferredSize(movieNameDimension);
+            movieName.setMinimumSize(movieNameDimension);
+            movieName.setMaximumSize(movieNameDimension);
+            movieName.setToolTipText(movie.getName());
+            movieName.setFont(new Font(null, Font.PLAIN, 20));
+            moviePanel.add(movieName);
+
+            JLabel movieDirector = new JLabel(movie.getDirector().getFirstName());
+            movieDirector.setMinimumSize(movieNameDimension);
+            movieDirector.setMaximumSize(movieNameDimension);
+            movieDirector.setPreferredSize(movieNameDimension);
+            movieDirector.setToolTipText(movie.getName());
+            movieDirector.setOpaque(true);
+            movieDirector.setBackground(Color.YELLOW);
+            movieDirector.setFont(new Font(null, Font.ITALIC, 16));
+            moviePanel.add(movieDirector);
+
+            JPanel movieFooter = new JPanel();
+            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            Dimension footerDimension = new Dimension(300, 35);
+            movieFooter.setPreferredSize(footerDimension);
+            movieFooter.setMinimumSize(footerDimension);
+            movieFooter.setMaximumSize(footerDimension);
+
+            JButton deleteButton = new JButton("Delete");
+            movieFooter.add(deleteButton);
+            movieFooter.add(new JButton("Add session"));
+            moviePanel.add(movieFooter);
+            moviePanel.setBackground(Color.orange);
+
+            movies.add(moviePanel);
+        });
+
+//        movies.repaint();
+        pack();
+    }
+
+    private void initFilterPanel() {
+        createFilterPanel();
+        addAddMovieButton();
+        addFiltersLabel();
+        addFiltersChecks();
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        addFilterButton();
+        addResetButton();
+
+    }
+
+    private void addResetButton() {
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener((e) -> {
+            movieFilters.clear();
+            movieByDirectorFilter.reset();
+            movieByGenreFilter.reset();
+           populateWithMovies(movieManager.getMoveList());
+        });
+        filterPanel.add(resetButton);
+
+    }
+
+    private void addFilterButton() {
+        JButton filterButton = new JButton("Filter");
+        filterButton.addActionListener((e) -> {
+            movieFilters.clear();
+            movieFilters.add(movieByDirectorFilter);
+            movieFilters.add(movieByGenreFilter);
+            MovieFilterer filterer = new MovieFilterer(movieManager.getMoveList());
+            List<Movie> filteredList = filterer.filter(movieFilters).getResult();
+            System.out.println(filteredList);
+            populateWithMovies(filteredList);
+        });
+        filterPanel.add(filterButton);
+
+    }
+
+    private void addFiltersChecks() {
+        JPanel filtersChecks = new JPanel();
+        filtersChecks.setLayout(new BoxLayout(filtersChecks, BoxLayout.X_AXIS));
+        filtersChecks.add(getGenreFiltersBox());
+        filtersChecks.add(Box.createRigidArea(new Dimension(30, 0)));
+        filtersChecks.add(getDirectorsFilterBox());
+        Dimension dimension = new Dimension(400, 300);
+        filtersChecks.setPreferredSize(dimension);
+        filtersChecks.setMinimumSize(dimension);
+        filtersChecks.setMaximumSize(dimension);
+        filtersChecks.setOpaque(false);
+        filterPanel.add(filtersChecks);
+    }
+
+    private JPanel getDirectorsFilterBox() {
+
+        JPanel directorsContainer = new JPanel();
+        directorsContainer.setOpaque(false);
+        directorsContainer.setLayout(new BoxLayout(directorsContainer, BoxLayout.Y_AXIS));
+        JLabel directors = new JLabel("Directors");
+        directors.setForeground(Color.WHITE);
+        directors.setFont(new Font(null, Font.BOLD, 16));
+        directorsContainer.add(directors);
+//        Dimension dimension = new Dimension(100, 120);
+//        directorFilterBox.setPreferredSize(dimension);
+//        directorFilterBox.setMinimumSize(dimension);
+
+        JPanel directorFilterBox = new JPanel();
+        directorFilterBox.setLayout(new BoxLayout(directorFilterBox, BoxLayout.Y_AXIS));
+
+        directorFilterBox.setAlignmentX(CENTER_ALIGNMENT);
+        directorFilterBox.setOpaque(false);
+        for (Director director : movieManager.getDirectorList()) {
+            String directorFullName = director.getFullName();
+            JCheckBox genreCheckBox = new JCheckBox(directorFullName);
+            genreCheckBox.addItemListener((ItemEvent e) -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    movieByDirectorFilter.addDirector(director);
+                } else {
+                    movieByDirectorFilter.removeDirector(director);
+                }
+                System.out.println(movieByDirectorFilter);
+            });
+            directorFilterBox.add(genreCheckBox);
+        }
+        directorsContainer.add(new JScrollPane(directorFilterBox));
+//        filterPanel.add(directorFilterBox);
+        return directorsContainer;
+    }
 
 
-        JPanel panel1 = new JPanel();
-        panel1.setBackground(Color.GREEN);
-        gridBagConstraints.weightx = 0.8;
+    private void createFilterPanel() {
+        filterPanel = new JPanel();
+        filterPanel.setBackground(Color.BLACK);
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.8;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 1;
+        this.getContentPane().add(filterPanel, gridBagConstraints);
+    }
+
+    private void addAddMovieButton() {
+        filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+//        panel3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton button = new JButton("Add Movie");
+        button.addActionListener(e -> {
+            AddMoviePageOld addMoviePage = new AddMoviePageOld();
+            addMoviePage.pack();
+            addMoviePage.setVisible(true);
+//            dispose();
+        });
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        filterPanel.add(button);
+    }
+
+    private void addFiltersLabel() {
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        JLabel filtersLabel = new JLabel("Filters");
+        filtersLabel.setAlignmentX(CENTER_ALIGNMENT);
+        filtersLabel.setForeground(Color.white);
+        filterPanel.add(filtersLabel);
+        this.pack();
+        this.setVisible(true);
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+    }
+
+    private JPanel getGenreFiltersBox() {
+        JPanel genresContainer = new JPanel();
+        genresContainer.setOpaque(false);
+        genresContainer.setLayout(new BoxLayout(genresContainer, BoxLayout.Y_AXIS));
+        JLabel genres = new JLabel("Genres");
+        genres.setForeground(Color.WHITE);
+        genres.setFont(new Font(null, Font.BOLD, 16));
+        genresContainer.add(genres);
+
+
+        JPanel genreFiltersBox = new JPanel();
+        genreFiltersBox.setLayout(new BoxLayout(genreFiltersBox, BoxLayout.Y_AXIS));
+
+        genreFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
+        genreFiltersBox.setOpaque(false);
+//        Dimension dimension = new Dimension(100, 120);
+//        genreFiltersBox.setPreferredSize(dimension);
+//        genreFiltersBox.setMinimumSize(dimension);
+
+        for (Genre genre : Genre.values()) {
+            String genreName = genre.name().toLowerCase();
+            String firstLetter = String.valueOf(genreName.charAt(0));
+            genreName = genreName.replace(firstLetter, firstLetter.toUpperCase());
+            JCheckBox genreCheckBox = new JCheckBox(genreName);
+            genreCheckBox.addItemListener((ItemEvent e) -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    movieByGenreFilter.addGenre(genre);
+                } else {
+                    movieByGenreFilter.removeGenre(genre);
+                }
+                System.out.println(movieByGenreFilter);
+            });
+            genreFiltersBox.add(genreCheckBox);
+        }
+        genresContainer.add(new JScrollPane(genreFiltersBox));
+//        filterPanel.add(genreFiltersBox);
+        return genresContainer;
+    }
+
+
+    private void initMainContainer() {
+        moviesPanel = new JPanel();
+        moviesPanel.setBackground(Color.GREEN);
+        gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
 
-        panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+        moviesPanel.setLayout(new BoxLayout(moviesPanel, BoxLayout.Y_AXIS));
 
 
+        addMoviesLabel();
+    }
+
+    private void addMoviesLabel() {
         JLabel moviesLabel = new JLabel("Movies");
-        Dimension label = new Dimension(panel1.getWidth() / 2, 500);
+        Dimension label = new Dimension(moviesPanel.getWidth() / 2, 500);
         moviesLabel.setFont(new Font(null, Font.PLAIN, 50));
         moviesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 //        moviesLabel.setPreferredSize(label);
 //        moviesLabel.setMaximumSize(label);
 //        moviesLabel.setMinimumSize(label);
-        panel1.add(moviesLabel);
-        JPanel movies = new JPanel();
-//        moviesLabel.setPreferredSize(label);
-//        moviesLabel.setMaximumSize(label);
-//        moviesLabel.setMinimumSize(label);
-        movies.setBackground(Color.pink);
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.setColumns(3);
-        gridLayout.setRows(-1);
-        gridLayout.setHgap(50);
-        gridLayout.setVgap(50);
-        movies.setLayout(gridLayout);
-        JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        panel1.add(scrollPane);
+        moviesPanel.add(moviesLabel);
+    }
 
 
-        MovieManager movieManager = MovieManager.getMovieManager();
-        List<Movie> moviesList = movieManager.getList();
-        moviesList.forEach((movie) ->
-        {
-            JPanel moviePanel = new JPanel();
-            moviePanel.setOpaque(false);
+    public static void main(String[] args) {
+        TryUI tryUI = new TryUI();
 
-            moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
-            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
-            Image image = backIcon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(200, 300, java.awt.Image.SCALE_SMOOTH);// scale it the smooth way
-            backIcon = new ImageIcon(newimg);  // transform it back
-            moviePanel.add(new JLabel(backIcon));
-
-            JLabel movieName = new JLabel(movie.getName(), SwingConstants.CENTER);
-            Dimension movieNameDimension = new Dimension(300, 30);
-            movieName.setPreferredSize(movieNameDimension);
-            movieName.setMinimumSize(movieNameDimension);
-            movieName.setMaximumSize(movieNameDimension);
-            movieName.setToolTipText(movie.getName());
-            movieName.setFont(new Font(null, Font.PLAIN, 25));
-            moviePanel.add(movieName);
-
-            JPanel movieFooter = new JPanel();
-//            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            movieFooter.setPreferredSize(movieNameDimension);
-            movieFooter.setMinimumSize(movieNameDimension);
-            movieFooter.setMaximumSize(movieNameDimension);
-            movieFooter.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            movieFooter.setBackground(Color.BLACK);
-            movieFooter.setOpaque(true);
-            JButton deleteButton = new JButton();
-            movieFooter.add(new JLabel(movie.getDirector().getFirstName()));
-
-//            deleteButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            movieFooter.add(deleteButton);
-            movieFooter.add(new JButton("Edit"));
-            moviePanel.add(movieFooter);
-            Dimension dimension = new Dimension(200, 500);
-            moviePanel.setPreferredSize(dimension);
-            moviePanel.setMinimumSize(dimension);
-            moviePanel.setMaximumSize(dimension);
-            moviePanel.setIgnoreRepaint(true);
-
-
-            movies.add(moviePanel);
-        });
-
-        tryUI.getContentPane().add(panel1, gridBagConstraints);
-
-
-        ///filter panel
-        JPanel panel3 = new JPanel();
-        panel3.setBackground(Color.BLACK);
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.weighty = 0.8;
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 1;
-        tryUI.getContentPane().add(panel3, gridBagConstraints);
-
-        panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-//        panel3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton button = new JButton("Add Movie");
-        button.setAlignmentX(CENTER_ALIGNMENT);
-        panel3.add(button);
-
-
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-        JLabel filtersLabel = new JLabel("Filters");
-        filtersLabel.setAlignmentX(CENTER_ALIGNMENT);
-        filtersLabel.setForeground(Color.white);
-        panel3.add(filtersLabel);
-        tryUI.pack();
-        tryUI.setVisible(true);
-
-        panel3.add(Box.createRigidArea(new Dimension(0, 50)));
-
-//        JComboBox filtersBox = new JComboBox();
-        JList filtersBox=new JList(Genre.values());
-
-//        filtersBox.setModel(new DefaultComboBoxModel(new String[]{"Choose"}));
-//        filtersBox.addPopupMenuListener(new PopupMenuListener() {
-//            @Override
-//            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-//                filtersBox.setModel(new DefaultComboBoxModel(Genre.values()));
-//            }
-//
-//            @Override
-//            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-//
-//            }
-//
-//            @Override
-//            public void popupMenuCanceled(PopupMenuEvent e) {
-//
-//            }
-//        });
-         filtersBox.setAlignmentX(CENTER_ALIGNMENT);
-        Dimension dimension = new Dimension(100, 150);
-        filtersBox.setPreferredSize(dimension);
-        filtersBox.setMinimumSize(dimension);
-        filtersBox.setMaximumSize(dimension);
-//        filtersBox.setForeground(Color.white);
-        panel3.add(filtersBox);
-        tryUI.pack();
-        tryUI.setVisible(true);
     }
 
     private void filterBoxItemStateChanged(ItemEvent e) {
@@ -350,7 +336,7 @@ public class TryUI extends JFrame {
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
         mainMenuButton.setBackground(Color.RED);
-        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

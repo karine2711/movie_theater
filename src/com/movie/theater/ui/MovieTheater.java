@@ -27,7 +27,7 @@ public class MovieTheater {
 
         List<Movie> movies = new ArrayList<>();
         movies.add(new Movie("sldljldjvlvmlkblkblbljgljgoru roi lk gh gi hei ghi hgwi oighoi ", new Director("sdds","fss"), Genre.COMEDY));
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             Movie movie = new Movie("movie" + i, new Director("name" + i, "surname1"), Genre.values()[i % 5]);
             movies.add(movie);
         }
@@ -52,12 +52,12 @@ public class MovieTheater {
 //        System.out.println(sessions);
 
 
-        ArrayList<MovieSession> movieSessions = (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
+//        ArrayList<MovieSession> movieSessions = (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
 
         SerializationUtil.writeToFile("src\\resources\\movie-list.txt", new ArrayList<>(movies));
-        System.out.println(movieSessions);
-        movieSessions.add(session1);
-        SerializationUtil.writeToFile("src\\resources\\test.txt", movieSessions);
+//        System.out.println(movieSessions);
+//        movieSessions.add(session1);
+//        SerializationUtil.writeToFile("src\\resources\\test.txt", movieSessions);
 //        System.out.println(sessions);
     }
 }

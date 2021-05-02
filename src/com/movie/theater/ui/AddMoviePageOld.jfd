@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :0:150:x, par l {seq t {comp movieDetails:::p::p, space :p:155:p}, seq t {comp addSession:::p::p, space :p:146:p}, seq t {comp button1:::p::p, space :p:180:p}}}, seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp dirName:::p::p, comp dirSurname::l:p::p, comp genre::l:p::p}, space :p:100:p, par l:::p {comp scrollPane2:::p:127:p, comp scrollPane1::::129:x, comp scrollPane3::l:::x, comp genreEnum::l::129:x}}, seq l {space :p:250:p, comp submit:::p::p}}, space ::118:x}}"
-			"$verticalGroup": "par l {seq l {space :p:39:p, comp movieDetails:::p::p, space ::15:x, par t {seq t {par t {comp scrollPane2:::p::p, comp movieName:::p::p}, space s:::p, comp scrollPane1:::p::p}, comp dirName:::p::p}, space s:::p, par b {comp dirSurname::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par l {comp genre:::p::p, comp genreEnum:::p::p}, space :p:13:p, comp submit:::p::p, space s:::p, comp button1:::p::p, space :p:14:p, comp addSession:::p::p, space :p:31:p}}"
+			"$horizontalGroup": "par l {seq t {space :0:110:x, par l {seq t {comp movieDetails:::p::p, space :p:155:p}, seq t {comp addSession:::p::p, space :p:146:p}, seq t {comp button1:::p::p, space :p:180:p}}}, seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp dirName:::p::p, comp dirSurname::l:p::p, comp genre::l:p::p}, space :p:100:p, par l:::p {comp scrollPane2:::p:127:p, comp scrollPane1::::129:x, comp scrollPane3::l:::x, comp genreEnum::l::129:x}}, seq l {space :p:250:p, comp submit:::p::p}}, space ::105:x}}"
+			"$verticalGroup": "par l {seq l {space :p:39:p, comp movieDetails:::p::p, space :::x, par t {seq t {par t {comp scrollPane2:::p::p, comp movieName:::p::p}, space s:::p, comp scrollPane1:::p::p}, comp dirName:::p::p}, space s:::p, par b {comp dirSurname::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par l {comp genre:::p::p, comp genreEnum:::p::p}, space :p:13:p, comp submit:::p::p, space s:::p, comp button1:::p::p, space :p:14:p, comp addSession:::p::p, space :p:31:p}}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -55,6 +55,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "submit"
 				"text": "Submit"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "submitActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
 				name: "genreEnum"

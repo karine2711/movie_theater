@@ -10,11 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class MovieManager {
 
     private ArrayList<Movie> MOVIE_LIST;
-    private List<Movie> directorList = new ArrayList<>();
     private static final String MOVIE_LIST_FILE = "src\\resources\\movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
 
@@ -55,8 +55,11 @@ public final class MovieManager {
         SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
     }
 
-    public List<Movie> getList() {
+    public List<Movie> getMoveList() {
         return MOVIE_LIST;
     }
 
+    public List<Director> getDirectorList() {
+        return MOVIE_LIST.stream().map(Movie::getDirector).collect(Collectors.toList());
+    }
 }

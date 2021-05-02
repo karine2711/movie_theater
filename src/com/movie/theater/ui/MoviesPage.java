@@ -26,7 +26,7 @@ public class MoviesPage extends JFrame {
     }
 
     private void addMovieActionPerformed(ActionEvent e) {
-        AddMoviePage addMovie = new AddMoviePage();
+        AddMoviePageOld addMovie = new AddMoviePageOld();
         addMovie.pack();
         addMovie.setVisible(true);
         dispose();
