@@ -53,7 +53,7 @@ public class MovieSession implements Filterable, Serializable {
         if (!p.isReserved()) {
             p.setReserved(true);
         } else {
-            throw new AlreadyReservedException();
+            throw new AlreadyReservedException("Place "+seat+ " is already reserved!");
         }
     }
 
