@@ -31,9 +31,11 @@ public class TryUI extends JFrame {
 
     public TryUI() throws HeadlessException {
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
+
         this.setMinimumSize(uidim);
         this.setMaximumSize(uidim);
         this.setPreferredSize(uidim);
+        this.setBackground(Color.BLACK);
         GridBagLayout layout = new GridBagLayout();
         gridBagConstraints.fill = GridBagConstraints.VERTICAL;
         gridBagConstraints.weightx = 1;
@@ -44,7 +46,6 @@ public class TryUI extends JFrame {
         //Movies Page Button
         addMainMenuButton();
         initMainContainer();
-
         GridLayout gridLayout = new GridLayout();
         gridLayout.setColumns(3);
         gridLayout.setRows(-1);
@@ -53,7 +54,7 @@ public class TryUI extends JFrame {
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
-
+        moviesPanel.setBackground(Color.BLACK);
         populateWithMovies(movieManager.getMoveList());
 
         this.getContentPane().add(moviesPanel, gridBagConstraints);
@@ -71,12 +72,12 @@ public class TryUI extends JFrame {
 
     private void populateWithMovies(List<Movie> moviesList) {
         movies.removeAll();
-        movies.setBackground(Color.pink);
+        movies.setBackground(Color.BLACK);
 
         moviesList.forEach((movie) ->
         {
             JPanel moviePanel = new JPanel();
-            moviePanel.setOpaque(false);
+            moviePanel.setBackground(Color.YELLOW);
             Dimension dimension = new Dimension(300, 520);
             moviePanel.setPreferredSize(dimension);
             moviePanel.setMinimumSize(dimension);
@@ -114,12 +115,17 @@ public class TryUI extends JFrame {
             movieFooter.setPreferredSize(footerDimension);
             movieFooter.setMinimumSize(footerDimension);
             movieFooter.setMaximumSize(footerDimension);
+            movieFooter.setBackground(Color.YELLOW);
 
             JButton deleteButton = new JButton("Delete");
+            deleteButton.setBackground(Color.BLACK);
+            deleteButton.setForeground(Color.WHITE);
             movieFooter.add(deleteButton);
-            movieFooter.add(new JButton("Add session"));
+            JButton addSession = new JButton("Add session");
+            addSession.setBackground(Color.BLACK);
+            addSession.setForeground(Color.WHITE);
+            movieFooter.add(addSession);
             moviePanel.add(movieFooter);
-            moviePanel.setBackground(Color.orange);
 
             movies.add(moviePanel);
         });
@@ -135,6 +141,8 @@ public class TryUI extends JFrame {
         addFiltersChecks();
         filterPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         addFilterButton();
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
         addResetButton();
 
     }
@@ -145,8 +153,14 @@ public class TryUI extends JFrame {
             movieFilters.clear();
             movieByDirectorFilter.reset();
             movieByGenreFilter.reset();
-           populateWithMovies(movieManager.getMoveList());
+            populateWithMovies(movieManager.getMoveList());
         });
+        Dimension dim=new Dimension(200,50);
+        resetButton.setPreferredSize(dim);
+        resetButton.setMinimumSize(dim);
+        resetButton.setMaximumSize(dim);
+        resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+       resetButton.setBackground(Color.YELLOW);
         filterPanel.add(resetButton);
 
     }
@@ -162,6 +176,12 @@ public class TryUI extends JFrame {
             System.out.println(filteredList);
             populateWithMovies(filteredList);
         });
+        Dimension dim=new Dimension(200,50);
+        filterButton.setPreferredSize(dim);
+        filterButton.setMinimumSize(dim);
+        filterButton.setMaximumSize(dim);
+        filterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        filterButton.setBackground(Color.YELLOW);
         filterPanel.add(filterButton);
 
     }
@@ -197,11 +217,10 @@ public class TryUI extends JFrame {
         directorFilterBox.setLayout(new BoxLayout(directorFilterBox, BoxLayout.Y_AXIS));
 
         directorFilterBox.setAlignmentX(CENTER_ALIGNMENT);
-        directorFilterBox.setOpaque(false);
         for (Director director : movieManager.getDirectorList()) {
             String directorFullName = director.getFullName();
-            JCheckBox genreCheckBox = new JCheckBox(directorFullName);
-            genreCheckBox.addItemListener((ItemEvent e) -> {
+            JCheckBox directorCheckBox = new JCheckBox(directorFullName);
+            directorCheckBox.addItemListener((ItemEvent e) -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     movieByDirectorFilter.addDirector(director);
                 } else {
@@ -209,9 +228,14 @@ public class TryUI extends JFrame {
                 }
                 System.out.println(movieByDirectorFilter);
             });
-            directorFilterBox.add(genreCheckBox);
+            directorCheckBox.setForeground(Color.WHITE);
+            directorCheckBox.setOpaque(false);
+            directorFilterBox.add(directorCheckBox);
         }
-        directorsContainer.add(new JScrollPane(directorFilterBox));
+        directorFilterBox.setBackground(Color.BLACK);
+        JScrollPane scrollPane=new JScrollPane(directorFilterBox);
+        scrollPane.setBackground(Color.BLACK);
+        directorsContainer.add(scrollPane);
 //        filterPanel.add(directorFilterBox);
         return directorsContainer;
     }
@@ -240,6 +264,7 @@ public class TryUI extends JFrame {
             addMoviePage.setVisible(true);
 //            dispose();
         });
+        button.setBackground(Color.YELLOW);
         button.setAlignmentX(CENTER_ALIGNMENT);
         filterPanel.add(button);
     }
@@ -269,7 +294,6 @@ public class TryUI extends JFrame {
         genreFiltersBox.setLayout(new BoxLayout(genreFiltersBox, BoxLayout.Y_AXIS));
 
         genreFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
-        genreFiltersBox.setOpaque(false);
 //        Dimension dimension = new Dimension(100, 120);
 //        genreFiltersBox.setPreferredSize(dimension);
 //        genreFiltersBox.setMinimumSize(dimension);
@@ -287,9 +311,15 @@ public class TryUI extends JFrame {
                 }
                 System.out.println(movieByGenreFilter);
             });
+            genreCheckBox.setForeground(Color.WHITE);
+            genreCheckBox.setOpaque(false);
             genreFiltersBox.add(genreCheckBox);
         }
-        genresContainer.add(new JScrollPane(genreFiltersBox));
+        genreFiltersBox.setBackground(Color.BLACK);
+        JScrollPane scrollPane = new JScrollPane(genreFiltersBox);
+        scrollPane.setBackground(Color.BLACK);
+        genresContainer.add(scrollPane);
+
 //        filterPanel.add(genreFiltersBox);
         return genresContainer;
     }
@@ -297,7 +327,7 @@ public class TryUI extends JFrame {
 
     private void initMainContainer() {
         moviesPanel = new JPanel();
-        moviesPanel.setBackground(Color.GREEN);
+        moviesPanel.setBackground(Color.black);
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -306,19 +336,14 @@ public class TryUI extends JFrame {
         gridBagConstraints.gridheight = 2;
 
         moviesPanel.setLayout(new BoxLayout(moviesPanel, BoxLayout.Y_AXIS));
-
-
         addMoviesLabel();
     }
 
     private void addMoviesLabel() {
         JLabel moviesLabel = new JLabel("Movies");
-        Dimension label = new Dimension(moviesPanel.getWidth() / 2, 500);
         moviesLabel.setFont(new Font(null, Font.PLAIN, 50));
         moviesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        moviesLabel.setPreferredSize(label);
-//        moviesLabel.setMaximumSize(label);
-//        moviesLabel.setMinimumSize(label);
+        moviesLabel.setForeground(Color.WHITE);
         moviesPanel.add(moviesLabel);
     }
 
@@ -335,7 +360,9 @@ public class TryUI extends JFrame {
 
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
-        mainMenuButton.setBackground(Color.RED);
+        mainMenuButton.setBackground(Color.BLACK);
+        mainMenuButton.setForeground(Color.WHITE);
+        mainMenuButton.setFont(new Font(null, Font.BOLD, 20));
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
