@@ -120,10 +120,21 @@ public class TryUI extends JFrame {
             JButton deleteButton = new JButton("Delete");
             deleteButton.setBackground(Color.BLACK);
             deleteButton.setForeground(Color.WHITE);
+            deleteButton.addActionListener(e->{movieManager.deleteMovie(movie);
+            movies.remove(moviePanel);
+            pack();});
+
             movieFooter.add(deleteButton);
             JButton addSession = new JButton("Add session");
             addSession.setBackground(Color.BLACK);
             addSession.setForeground(Color.WHITE);
+            addSession.addActionListener(e->{
+                AddSessionPage addSessionPage=new AddSessionPage(movie);
+                addSessionPage.pack();
+                addSessionPage.setVisible(true);
+                dispose();
+            });
+
             movieFooter.add(addSession);
             moviePanel.add(movieFooter);
 

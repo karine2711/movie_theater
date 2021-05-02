@@ -1,8 +1,14 @@
 package com.movie.theater.ui;
 
+import com.movie.theater.model.Movie;
+import com.movie.theater.service.MovieManager;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 /*
  * Created by JFormDesigner on Sun Apr 25 23:54:07 AMT 2021
  */
@@ -12,8 +18,18 @@ import java.awt.*;
  * @author Asya
  */
 public class AddSessionPage extends JFrame {
+    private static final MovieManager movieManager=MovieManager.getMovieManager();
+    private String currentMovie;
     public AddSessionPage() {
         initComponents();
+        List<String> movies=  movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
+        moviesDropdown.setModel(new DefaultComboBoxModel(movies.toArray()));
+        pack();
+    }
+
+    public AddSessionPage(Movie currentMovie) {
+        this();
+        moviesDropdown.setSelectedItem(currentMovie.getName());
     }
 
     private void menu1ActionPerformed(ActionEvent e) {

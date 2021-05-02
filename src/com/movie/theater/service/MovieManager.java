@@ -49,10 +49,13 @@ public final class MovieManager {
         SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
     }
 
-    public void deleteMovie(String name, Director director, Genre genre) throws IOException {
-        Movie movie = new Movie(name, director, genre);
+    public void deleteMovie(Movie movie) {
         MOVIE_LIST.remove(movie);
-        SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
+        try {
+            SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
+        } catch (IOException e) {
+           System.err.println("Failed to persist data!");
+        }
     }
 
     public List<Movie> getMoveList() {
