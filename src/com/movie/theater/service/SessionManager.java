@@ -22,6 +22,10 @@ public final class SessionManager {
         }
     }
 
+    public ArrayList<MovieSession> getSESSION_LIST() {
+        return SESSION_LIST;
+    }
+
     public static SessionManager getSessionManager() {
         return SESSION_MANAGER;
     }

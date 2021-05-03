@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public final class MovieManager {
 
     private ArrayList<Movie> MOVIE_LIST;
-    private static final String MOVIE_LIST_FILE = "src\\resources\\movie-list.txt";
+    private static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
 
     private MovieManager() {
