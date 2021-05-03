@@ -26,10 +26,14 @@ public class MoviesPage extends JFrame {
     }
 
     private void addMovieActionPerformed(ActionEvent e) {
-        AddMoviePageOld addMovie = new AddMoviePageOld();
+        AddMoviePage addMovie = new AddMoviePage();
         addMovie.pack();
         addMovie.setVisible(true);
         dispose();
+    }
+
+    private void button1ActionPerformed(ActionEvent e) {
+        // TODO add your code here
     }
 
 
@@ -50,7 +54,7 @@ public class MoviesPage extends JFrame {
         //---- mainMenu ----
         mainMenu.setText("Main Menu");
         mainMenu.setFont(new Font("Roboto Light", Font.PLAIN, 13));
-        mainMenu.addActionListener(e -> mainMenuActionPerformed(e));
+        mainMenu.addActionListener(e -> button1ActionPerformed(e));
 
         //---- movies ----
         movies.setText("Movies");

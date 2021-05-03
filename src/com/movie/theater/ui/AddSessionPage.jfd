@@ -4,78 +4,80 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq l {space :p:122:p, par l {comp movieName:::p::p, comp date:::p::p, comp time::l:p::p, comp price::l:p::p}, space :p:100:p, par l:::p {comp scrollPane3::l:::x, comp scrollPane4::l:p:129:p, seq t {par t {comp formattedTextField2::t:p:119:p, comp moviesDropdown:::::x}, space :p:2:p}}}, seq l {space :p:135:p, comp enterDetails:::p::p}, seq l {space :p:239:p, comp submitButton:::p::p}, seq l {space :p:160:p, comp addAnotherSession:::p::p}}, space ::150:x}}"
-			"$verticalGroup": "par l {seq l {space ::51:x, comp enterDetails:::p::p, space s:::p, par t {seq {par b {comp movieName::b:p::p, comp moviesDropdown::b:p::p}, space :p:48:p}, par b {comp date::b:p::p, comp formattedTextField2::b:p::p}}, par b {comp time::b:p::p, comp scrollPane3::b:p::p}, space s:::p, par b {comp price::b:p::p, comp scrollPane4::b:p::p}, space :p:40:p, comp submitButton:::p::p, space :p:31:p, comp addAnotherSession:::p::p, space :p:29:p}}"
+			"$horizontalGroup": "par l {seq t {space ::191:x, comp enterDetails:::p:318:p, space :p:169:p}, seq {par l {seq l {space :p:218:p, comp addAnotherSession:::p::p}, seq l {space :p:293:p, comp submitButton:::p::p}}, space ::226:x}, seq l {space :p:119:p, par l {seq t {comp durationText:::p:88:p, space :::x}, seq t {par l {par t:l {comp timeText:::p:88:p, comp dateText:::p:88:p, comp movieNameText:::p:88:p}, comp priceText::l:p:88:p}, space ::126:x, par l {comp priceField:::p:221:p, comp movieField:::p:225:p, comp dateField:::p:238:p, comp timeField:::p:93:p, comp durationField::l:p:221:p}, space :p:107:p}}}}"
+			"$verticalGroup": "par l {seq l {space :p:23:p, comp enterDetails:::p::p, space :p:32:p, par b {comp movieNameText::b:p:39:p, comp movieField::b:p::p}, space s:::p, par b {comp dateText::b:p:39:p, comp dateField::b:p::p}, space u:::p, par l {comp timeText:::p:39:p, comp timeField:::p::p}, space ::16:x, par b {comp durationText::b:p:39:p, comp durationField::b:p::p}, space u:::p, par b {comp priceText::b:p:39:p, comp priceField::b:p::p}, space s:::p, comp submitButton:::p::p, space s:::p, comp addAnotherSession:::p::p, space :p:33:p}}"
 		} ) {
 			name: "this"
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "addAnotherSession"
-				"text": "Submit and add another session"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "movieName"
-				"text": "Movie Name"
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "date"
-				"text": "Date"
-			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "enterDetails"
 				"text": "Please enter the session details"
 				"font": new java.awt.Font( "Roboto Light", 0, 20 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "time"
-				"text": "Time"
-			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane3"
-				add( new FormComponent( "javax.swing.JTextArea" ) {
-					name: "textArea3"
-				} )
+				name: "movieNameText"
+				"text": "Movie Name"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "price"
+				name: "dateText"
+				"text": "Date"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "timeText"
+				"text": "Time"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "priceText"
 				"text": "Price"
 			} )
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane4"
-				add( new FormComponent( "javax.swing.JTextArea" ) {
-					name: "textArea4"
-				} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "movieField"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "priceField"
+			} )
+			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+				name: "dateField"
+			} )
+			add( new FormComponent( "lu.tudor.santec.jtimechooser.JTimeChooser" ) {
+				name: "timeField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addAnotherSession"
+				"text": "Submit and add another session"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addAnotherSessionActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "submitButton"
 				"text": "Submit"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "submitButtonActionPerformed", true ) )
 			} )
-			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "moviesDropdown"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "durationText"
+				"text": "Duration"
 			} )
-			add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-				name: "formattedTextField2"
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "durationField"
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "mainMenu"
+					name: "menu1"
 					"text": "Main Menu"
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menu1ActionPerformed", true ) )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "sessionMenu"
-						"text": "Sessions"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionMenuActionPerformed", true ) )
-					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "moviesMenu"
 						"text": "Movies"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "moviesMenuActionPerformed", true ) )
 					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "sessionsMenu"
+						"text": "Sessions"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionsMenuActionPerformed", true ) )
+					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 580, 440 )
+			"location": new java.awt.Point( 55, 0 )
+			"size": new java.awt.Dimension( 680, 510 )
 		} )
 	}
 }

@@ -15,7 +15,7 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TryUI extends JFrame {
+public class Sessions extends JFrame {
 
     private JButton mainMenuButton;
     private JPanel moviesPanel;
@@ -29,7 +29,7 @@ public class TryUI extends JFrame {
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-    public TryUI() throws HeadlessException {
+    public Sessions() throws HeadlessException {
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setMinimumSize(uidim);
         this.setMaximumSize(uidim);
@@ -53,7 +53,7 @@ public class TryUI extends JFrame {
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
-        populateWithMovies(movieManager.getMoveList());
+//        populateWithMovies(movieManager.getMoveList());
         this.getContentPane().add(moviesPanel, gridBagConstraints);
 
         //movies page end
@@ -68,64 +68,64 @@ public class TryUI extends JFrame {
         this.setVisible(true);
     }
 
-    private void populateWithMovies(List<Movie> moviesList) {
-        movies.removeAll();
-        movies.setBackground(Color.pink);
-
-        moviesList.forEach((movie) ->
-        {
-            JPanel moviePanel = new JPanel();
-            moviePanel.setOpaque(false);
-            Dimension dimension = new Dimension(300, 520);
-            moviePanel.setPreferredSize(dimension);
-            moviePanel.setMinimumSize(dimension);
-            moviePanel.setMaximumSize(dimension);
-
-            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
-            Image image = backIcon.getImage(); // transform it
-            Image newimg = image.getScaledInstance(300, 380, Image.SCALE_AREA_AVERAGING);// scale it the smooth way
-            backIcon = new ImageIcon(newimg);  // transform it back
-            moviePanel.add(new JLabel(backIcon));
-
-            JLabel movieName = new JLabel(movie.getName(), SwingConstants.CENTER);
-            Dimension movieNameDimension = new Dimension(300, 20);
-            movieName.setPreferredSize(movieNameDimension);
-            movieName.setMinimumSize(movieNameDimension);
-            movieName.setMaximumSize(movieNameDimension);
-            movieName.setToolTipText(movie.getName());
-            movieName.setFont(new Font(null, Font.PLAIN, 20));
-            moviePanel.add(movieName);
-
-            JLabel movieDirector = new JLabel(movie.getDirector().getFirstName());
-            movieDirector.setMinimumSize(movieNameDimension);
-            movieDirector.setMaximumSize(movieNameDimension);
-            movieDirector.setPreferredSize(movieNameDimension);
-            movieDirector.setToolTipText(movie.getName());
-            movieDirector.setOpaque(true);
-            movieDirector.setBackground(Color.YELLOW);
-            movieDirector.setFont(new Font(null, Font.ITALIC, 16));
-            moviePanel.add(movieDirector);
-
-            JPanel movieFooter = new JPanel();
-            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            Dimension footerDimension = new Dimension(300, 35);
-            movieFooter.setPreferredSize(footerDimension);
-            movieFooter.setMinimumSize(footerDimension);
-            movieFooter.setMaximumSize(footerDimension);
-
-            JButton deleteButton = new JButton("Delete");
-            movieFooter.add(deleteButton);
-            movieFooter.add(new JButton("Add session"));
-            moviePanel.add(movieFooter);
-            moviePanel.setBackground(Color.orange);
-
-            movies.add(moviePanel);
-        });
+//    private void populateWithMovies(List<Movie> moviesList) {
+//        movies.removeAll();
+//        movies.setBackground(Color.pink);
+//
+//        moviesList.forEach((movie) ->
+//        {
+//            JPanel moviePanel = new JPanel();
+//            moviePanel.setOpaque(false);
+//            Dimension dimension = new Dimension(300, 520);
+//            moviePanel.setPreferredSize(dimension);
+//            moviePanel.setMinimumSize(dimension);
+//            moviePanel.setMaximumSize(dimension);
+//
+//            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+//            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
+//            Image image = backIcon.getImage(); // transform it
+//            Image newimg = image.getScaledInstance(300, 380, Image.SCALE_AREA_AVERAGING);// scale it the smooth way
+//            backIcon = new ImageIcon(newimg);  // transform it back
+//            moviePanel.add(new JLabel(backIcon));
+//
+//            JLabel movieName = new JLabel(movie.getName(), SwingConstants.CENTER);
+//            Dimension movieNameDimension = new Dimension(300, 20);
+//            movieName.setPreferredSize(movieNameDimension);
+//            movieName.setMinimumSize(movieNameDimension);
+//            movieName.setMaximumSize(movieNameDimension);
+//            movieName.setToolTipText(movie.getName());
+//            movieName.setFont(new Font(null, Font.PLAIN, 20));
+//            moviePanel.add(movieName);
+//
+//            JLabel movieDirector = new JLabel(movie.getDirector().getFirstName());
+//            movieDirector.setMinimumSize(movieNameDimension);
+//            movieDirector.setMaximumSize(movieNameDimension);
+//            movieDirector.setPreferredSize(movieNameDimension);
+//            movieDirector.setToolTipText(movie.getName());
+//            movieDirector.setOpaque(true);
+//            movieDirector.setBackground(Color.YELLOW);
+//            movieDirector.setFont(new Font(null, Font.ITALIC, 16));
+//            moviePanel.add(movieDirector);
+//
+//            JPanel movieFooter = new JPanel();
+//            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
+//            Dimension footerDimension = new Dimension(300, 35);
+//            movieFooter.setPreferredSize(footerDimension);
+//            movieFooter.setMinimumSize(footerDimension);
+//            movieFooter.setMaximumSize(footerDimension);
+//
+//            JButton deleteButton = new JButton("Delete");
+//            movieFooter.add(deleteButton);
+//            movieFooter.add(new JButton("Add session"));
+//            moviePanel.add(movieFooter);
+//            moviePanel.setBackground(Color.orange);
+//
+//            movies.add(moviePanel);
+//        });
 
 //        movies.repaint();
-        pack();
-    }
+//        pack();
+//    }
 
     private void initFilterPanel() {
         createFilterPanel();
@@ -144,7 +144,7 @@ public class TryUI extends JFrame {
             movieFilters.clear();
             movieByDirectorFilter.reset();
             movieByGenreFilter.reset();
-           populateWithMovies(movieManager.getMoveList());
+//           populateWithMovies(movieManager.getMoveList());
         });
         filterPanel.add(resetButton);
 
@@ -159,7 +159,7 @@ public class TryUI extends JFrame {
             MovieFilterer filterer = new MovieFilterer(movieManager.getMoveList());
             List<Movie> filteredList = filterer.filter(movieFilters).getResult();
             System.out.println(filteredList);
-            populateWithMovies(filteredList);
+//            populateWithMovies(filteredList);
         });
         filterPanel.add(filterButton);
 
@@ -323,7 +323,7 @@ public class TryUI extends JFrame {
 
 
     public static void main(String[] args) {
-        TryUI tryUI = new TryUI();
+        Sessions tryUI = new Sessions();
 
     }
 

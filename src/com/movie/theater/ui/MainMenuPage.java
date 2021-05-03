@@ -53,7 +53,7 @@ public class MainMenuPage extends JFrame {
         sessions.addActionListener(e -> sessionsActionPerformed(e));
 
         //---- movieTheater ----
-        movieTheater.setText("Movie Theater");
+        movieTheater.setText("Let's go to...");
         movieTheater.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -61,23 +61,20 @@ public class MainMenuPage extends JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(209, 209, 209)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(209, 209, 209)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(sessions, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                .addComponent(movies, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(201, 201, 201)
-                            .addComponent(movieTheater)))
-                    .addContainerGap(153, Short.MAX_VALUE))
+                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sessions, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                            .addComponent(movies, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                        .addComponent(movieTheater, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(190, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(92, 92, 92)
+                    .addGap(90, 90, 90)
                     .addComponent(movieTheater)
-                    .addGap(30, 30, 30)
+                    .addGap(32, 32, 32)
                     .addComponent(movies, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                     .addGap(35, 35, 35)
                     .addComponent(sessions, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)

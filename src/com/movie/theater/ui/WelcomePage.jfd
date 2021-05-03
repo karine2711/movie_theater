@@ -4,10 +4,11 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :p:190:p, comp mainMenu:::p::p}, seq l {space :p:113:p, comp welcome:::p:267:p}}, space ::118:x}}"
-			"$verticalGroup": "par l {seq t {space :p:125:p, comp welcome:::p:33:p, space :p:84:p, comp mainMenu:::p::p, space ::104:x}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :p:220:p, comp mainMenu:::p::p}, seq l {space :p:206:p, comp welcome:::p:171:p}, seq l {space :p:159:p, comp welcome2:::p:265:p}, seq l {space :p:242:p, comp label1:::p::p}}, space ::139:x}}"
+			"$verticalGroup": "par l {seq t {space ::47:x, comp label1:::p::p, space s:::p, comp welcome:::p:68:p, space :::p, comp welcome2:::p:68:p, space s:::p, comp mainMenu:::p::p, space :p:106:p}}"
 		} ) {
 			name: "this"
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/com/movie/theater/icons/movie-3.png" )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "mainMenu"
 				"text": "Main Menu"
@@ -15,12 +16,21 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "welcome"
-				"text": "Welcome to Movie Theater"
-				"font": new java.awt.Font( "Roboto Light", 0, 20 )
+				"text": "Hello Miranda,"
+				"font": &Font0 new java.awt.Font( "Roboto Light", 0, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "welcome2"
+				"text": "Welcome to \"And Action!\""
+				"font": #Font0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/com/movie/theater/icons/movie-3.png" )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 500, 400 )
+			"size": new java.awt.Dimension( 565, 435 )
 		} )
 	}
 }
