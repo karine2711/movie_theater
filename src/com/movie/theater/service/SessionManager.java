@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 
 public final class SessionManager {
     private final ArrayList<MovieSession> SESSION_LIST;
-    private static final String SESSION_LIST_FILE = "src\\resources\\session-list.txt";
+    private static final String SESSION_LIST_FILE = "src/resources/session-list.txt";
     private static final SessionManager SESSION_MANAGER = new SessionManager();
 
     private SessionManager() {
         try {
             SESSION_LIST = (ArrayList<MovieSession>) SerializationUtil.readFromFile(SESSION_LIST_FILE);
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException("Failed to initialize Movie Manager!");
+            throw new RuntimeException("Failed to initialize Session Manager!");
         }
     }
 
@@ -28,6 +28,10 @@ public final class SessionManager {
 
     public static SessionManager getSessionManager() {
         return SESSION_MANAGER;
+    }
+
+    public List<MovieSession> getSessionList() {
+        return SESSION_LIST;
     }
 
     public void addSession(MovieSession session) throws IOException {
