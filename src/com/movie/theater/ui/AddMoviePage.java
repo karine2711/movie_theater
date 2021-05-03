@@ -83,6 +83,10 @@ public class AddMoviePage extends JFrame {
         dirSurnameField.setText("");
     }
 
+    private void addAnotherSession2ActionPerformed(ActionEvent e) {
+        // TODO add your code here
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -103,6 +107,7 @@ public class AddMoviePage extends JFrame {
         dirSurnameField = new JTextField();
         dirNameField = new JTextField();
         genreField = new JComboBox();
+        upload = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -154,7 +159,10 @@ public class AddMoviePage extends JFrame {
 
         //---- addSession ----
         addSession.setText("Submit and add a session for this movie");
-        addSession.addActionListener(e -> addSessionActionPerformed(e));
+        addSession.addActionListener(e -> addAnotherSession2ActionPerformed(e));
+
+        //---- upload ----
+        upload.setText("text");
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -176,9 +184,11 @@ public class AddMoviePage extends JFrame {
                         .addComponent(genreField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                     .addGap(124, 124, 124))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 301, Short.MAX_VALUE)
+                    .addGap(0, 263, Short.MAX_VALUE)
                     .addComponent(submitButton)
-                    .addGap(299, 299, 299))
+                    .addGap(167, 167, 167)
+                    .addComponent(upload)
+                    .addGap(92, 92, 92))
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                     .addContainerGap(191, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup()
@@ -215,7 +225,9 @@ public class AddMoviePage extends JFrame {
                         .addComponent(genreText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
                         .addComponent(genreField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
-                    .addComponent(submitButton)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(submitButton)
+                        .addComponent(upload))
                     .addGap(18, 18, 18)
                     .addComponent(addAnotherMovie)
                     .addGap(18, 18, 18)
@@ -245,6 +257,7 @@ public class AddMoviePage extends JFrame {
     private JTextField dirSurnameField;
     private JTextField dirNameField;
     private JComboBox genreField;
+    private JButton upload;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 

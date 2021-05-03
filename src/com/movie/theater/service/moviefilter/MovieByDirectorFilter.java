@@ -11,9 +11,6 @@ import java.util.stream.Collectors;
 public class MovieByDirectorFilter implements MovieFilter {
     private final List<Director> directors = new ArrayList<>();
 
-    public MovieByDirectorFilter(Director director) {
-        directors.add(director);
-    }
 
     public MovieByDirectorFilter() {
     }
@@ -25,7 +22,6 @@ public class MovieByDirectorFilter implements MovieFilter {
         directors.add(director);
     }
 
-
     public void removeDirector(Director director) {
         directors.remove(director);
     }
@@ -33,10 +29,13 @@ public class MovieByDirectorFilter implements MovieFilter {
     public void reset(){
         directors.clear();
     }
+
     @Override
     public void filter(List<Movie> list) {
         if (directors.isEmpty()) return;
-        List<Movie> temp = list.stream().filter(s -> directors.contains(s.getDirector())).collect(Collectors.toList());
+        List<Movie> temp = list.stream()
+                .filter(s -> directors.contains(s.getDirector()))
+                .collect(Collectors.toList());
         list.clear();
         list.addAll(temp);
     }
