@@ -4,7 +4,6 @@
 
 package com.movie.theater.ui;
 
-import com.movie.theater.exception.AlreadyInMovieListException;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
@@ -13,9 +12,10 @@ import com.movie.theater.service.MovieManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 /**
- * @author Asya
+* @author Asya
  */
 public class AddMoviePage extends JFrame {
     public AddMoviePage() {
@@ -44,12 +44,8 @@ public class AddMoviePage extends JFrame {
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
-        MoviesPage moviesPage = new MoviesPage();
-        moviesPage.pack();
-        moviesPage.setVisible(true);
-        dispose();
-
         makeMovieFromText();
+        dispose();
     }
 
     private void sessionsMenuActionPerformed(ActionEvent e) {
@@ -83,15 +79,20 @@ public class AddMoviePage extends JFrame {
         dirSurnameField.setText("");
     }
 
-
-    private void uploadActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
-
     private void addAnotherSession2ActionPerformed(ActionEvent e) {
         // TODO add your code here
     }
 
+    private void uploadActionPerformed(ActionEvent e) {
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        String extension = filename.substring(filename.lastIndexOf('.'), filename.length());
+        f.renameTo(new File("src/com/movie/theater/icons/" + movieNameField.getText().replaceAll(" ", "_") + "." + extension.toLowerCase()));
+
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
