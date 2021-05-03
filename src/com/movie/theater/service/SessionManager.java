@@ -66,8 +66,14 @@ public final class SessionManager {
                               Duration duration, double priceForSession) throws IOException {
         MovieSession session = new MovieSession(movie, localDateTime,
                 duration, priceForSession);
+        deleteSession(session);
+
+    }
+
+    public void deleteSession( MovieSession session) throws IOException{
         SESSION_LIST.remove(session);
         SerializationUtil.writeToFile(SESSION_LIST_FILE, SESSION_LIST);
+
     }
 
 

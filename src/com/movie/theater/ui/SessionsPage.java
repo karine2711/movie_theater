@@ -9,7 +9,9 @@ import com.movie.theater.service.moviesessionfilter.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class SessionsPage extends JFrame {
     SessionByMovieFilter sessionByMovieFilter = null;
     SessionByPriceFilter sessionByPriceFilter = null;
     SessionManager sessionManager = SessionManager.getSessionManager();
+
+    public static final Color LIGHT_BLUE = new Color(51, 204, 255);
 
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -53,7 +57,9 @@ public class SessionsPage extends JFrame {
         sessions.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(sessions, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         sessionsPanel.add(scrollPane);
-//        populateWithSessions(sessionManager.getSessionList());
+
+
+        populateWithSessions(sessionManager.getSessionList());
         this.getContentPane().add(sessionsPanel, gridBagConstraints);
 
         //movies page end
@@ -68,18 +74,18 @@ public class SessionsPage extends JFrame {
 
     private void populateWithSessions(List<MovieSession> sessionsList) {
         sessions.removeAll();
-        sessions.setBackground(Color.pink);
+        sessions.setBackground(Color.LIGHT_GRAY);
 
         sessionsList.forEach((session) ->
         {
-            JPanel moviePanel = new JPanel();
-            moviePanel.setOpaque(false);
+            JPanel sessionPanel = new JPanel();
+            sessionPanel.setOpaque(false);
             Dimension dimension = new Dimension(300, 520);
-            moviePanel.setPreferredSize(dimension);
-            moviePanel.setMinimumSize(dimension);
-            moviePanel.setMaximumSize(dimension);
+            sessionPanel.setPreferredSize(dimension);
+            sessionPanel.setMinimumSize(dimension);
+            sessionPanel.setMaximumSize(dimension);
 
-            moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            sessionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             JLabel movieName = new JLabel(session.getMovie().getName(), SwingConstants.CENTER);
             Dimension movieNameDimension = new Dimension(300, 20);
@@ -88,7 +94,7 @@ public class SessionsPage extends JFrame {
             movieName.setMaximumSize(movieNameDimension);
             movieName.setToolTipText(session.getMovie().getName());
             movieName.setFont(new Font(null, Font.PLAIN, 20));
-            moviePanel.add(movieName);
+            sessionPanel.add(movieName);
 
             JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
             movieDirector.setMinimumSize(movieNameDimension);
@@ -97,8 +103,8 @@ public class SessionsPage extends JFrame {
             movieDirector.setToolTipText(session.getMovie().getName());
             movieDirector.setOpaque(true);
             movieDirector.setBackground(Color.YELLOW);
-            movieDirector.setFont(new Font(null, Font.ITALIC, 16));
-            moviePanel.add(movieDirector);
+            movieDirector.setFont(new Font(null, Font.PLAIN, 16));
+            sessionPanel.add(movieDirector);
 
             JLabel genre = new JLabel(session.getMovie().getGenre().toString());
             genre.setMinimumSize(movieNameDimension);
@@ -107,8 +113,8 @@ public class SessionsPage extends JFrame {
             genre.setToolTipText(session.getMovie().getName());
             genre.setOpaque(true);
             genre.setBackground(Color.YELLOW);
-            genre.setFont(new Font(null, Font.ITALIC, 16));
-            moviePanel.add(genre);
+            genre.setFont(new Font(null, Font.PLAIN, 16));
+            sessionPanel.add(genre);
 
             JLabel date = new JLabel(String.valueOf(session.getLocalDateTime()));
             date.setMinimumSize(movieNameDimension);
@@ -117,8 +123,8 @@ public class SessionsPage extends JFrame {
             date.setToolTipText(session.getMovie().getName());
             date.setOpaque(true);
             date.setBackground(Color.YELLOW);
-            date.setFont(new Font(null, Font.ITALIC, 16));
-            moviePanel.add(date);
+            date.setFont(new Font(null, Font.PLAIN, 16));
+            sessionPanel.add(date);
 
             JLabel price = new JLabel(String.valueOf(session.getPriceForSession()));
             price.setMinimumSize(movieNameDimension);
@@ -127,28 +133,52 @@ public class SessionsPage extends JFrame {
             price.setToolTipText(session.getMovie().getName());
             price.setOpaque(true);
             price.setBackground(Color.YELLOW);
-            price.setFont(new Font(null, Font.ITALIC, 16));
-            moviePanel.add(price);
+            price.setFont(new Font(null, Font.PLAIN, 16));
+            sessionPanel.add(price);
 
 
-            JPanel movieFooter = new JPanel();
-            movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            JPanel sessionFooter = new JPanel();
+            sessionFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
             Dimension footerDimension = new Dimension(300, 35);
-            movieFooter.setPreferredSize(footerDimension);
-            movieFooter.setMinimumSize(footerDimension);
-            movieFooter.setMaximumSize(footerDimension);
+            sessionFooter.setPreferredSize(footerDimension);
+            sessionFooter.setMinimumSize(footerDimension);
+            sessionFooter.setMaximumSize(footerDimension);
 
-            JButton deleteButton = new JButton("Delete");
-            movieFooter.add(deleteButton);
-            moviePanel.add(movieFooter);
-            moviePanel.setBackground(Color.orange);
+            JButton deleteButton = new JButton("Delete Session");
 
-            sessions.add(moviePanel);
+            deleteButton.addActionListener(e -> {
+                try {
+                    sessionManager.deleteSession(session);
+                sessions.remove(sessionPanel);
+                pack();
+                } catch (IOException ex){
+                    System.out.println(ex.getMessage());
+                }
+                });
+
+            JButton getTicket = new JButton("Get Tickets");
+            getTicket.addActionListener(e -> {
+                ReservationSystem reservationSystem = new ReservationSystem(session);
+                reservationSystem.pack();
+                reservationSystem.setVisible(true);
+                dispose();
+            });
+
+
+            sessionFooter.add(getTicket);
+            sessionFooter.add(deleteButton);
+            sessionPanel.add(sessionFooter);
+            sessionPanel.setBackground(Color.blue);
+
+            sessions.add(sessionPanel);
+
+
         });
 
         sessions.repaint();
         pack();
     }
+
 
     private void initFilterPanel() {
         createFilterPanel();
@@ -218,7 +248,7 @@ public class SessionsPage extends JFrame {
 //        Dimension dimension = new Dimension(100, 120);
 //        directorFilterBox.setPreferredSize(dimension);
 //        directorFilterBox.setMinimumSize(dimension);
-
+//
 //        JPanel directorFilterBox = new JPanel();
 //        directorFilterBox.setLayout(new BoxLayout(directorFilterBox, BoxLayout.Y_AXIS));
 //
@@ -240,14 +270,14 @@ public class SessionsPage extends JFrame {
 //        directorsContainer.add(new JScrollPane(directorFilterBox));
 ////        filterPanel.add(directorFilterBox);
 //        return directorsContainer;
-
-        //TODO from 203 - 223 change
+//
+//        //TODO from 203 - 223 change
 //    }
 
 
     private void createFilterPanel() {
         filterPanel = new JPanel();
-        filterPanel.setBackground(Color.BLACK);
+        filterPanel.setBackground(Color.GRAY);
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.8;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -328,7 +358,7 @@ public class SessionsPage extends JFrame {
 
     private void initMainContainer() {
         sessionsPanel = new JPanel();
-        sessionsPanel.setBackground(Color.GREEN);
+        sessionsPanel.setBackground(Color.MAGENTA);
         gridBagConstraints.weightx = 0.9;
         gridBagConstraints.weighty = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;

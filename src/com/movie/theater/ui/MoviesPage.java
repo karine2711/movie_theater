@@ -84,7 +84,7 @@ public class MoviesPage extends JFrame {
             moviePanel.setMaximumSize(dimension);
 
             moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/cover1.jpg");
+            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/" + movie.getName() + ".jpg");
             Image image = backIcon.getImage(); // transform it
             Image newimg = image.getScaledInstance(300, 380, Image.SCALE_AREA_AVERAGING);// scale it the smooth way
             backIcon = new ImageIcon(newimg);  // transform it back

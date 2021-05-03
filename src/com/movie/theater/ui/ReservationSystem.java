@@ -23,6 +23,7 @@ public class ReservationSystem extends JFrame {
 
     public ReservationSystem(MovieSession session) throws HeadlessException {
         this.session = session;
+        reservationSystem();
     }
 
     public static void main(String[] args) {
@@ -58,18 +59,17 @@ public class ReservationSystem extends JFrame {
         ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/back.png");
 
         Image image = backIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         backIcon = new ImageIcon(newimg);  // transform it back
         JMenuItem menuItem = new JMenuItem(backIcon);
 
         menuItem.addActionListener((ActionEvent event) -> {
-            MoviesPage moviesPage = new MoviesPage();
-            moviesPage.pack();
-            moviesPage.setVisible(true);
+            SessionsPage sessionsPage = new SessionsPage();
+            sessionsPage.pack();
+            sessionsPage.setVisible(true);
             dispose();
         });
-        menu.add(menuItem)
-        ;
+        menu.add(menuItem);
         menuBar.add(menuItem);
         setJMenuBar(menuBar);
 //        header.add(new JButton());

@@ -38,6 +38,7 @@ public class MainMenuPage extends JFrame {
         movies = new JButton();
         sessions = new JButton();
         movieTheater = new JLabel();
+        label1 = new JLabel();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -56,29 +57,38 @@ public class MainMenuPage extends JFrame {
         movieTheater.setText("Let's go to...");
         movieTheater.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
+        //---- label1 ----
+        label1.setIcon(new ImageIcon(getClass().getResource("/com/movie/theater/icons/1415702.png")));
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(209, 209, 209)
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap(208, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sessions, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .addComponent(movies, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                            .addComponent(sessions, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(movies, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
                         .addComponent(movieTheater, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(190, Short.MAX_VALUE))
+                    .addGap(191, 191, 191))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(232, 232, 232)
+                    .addComponent(label1)
+                    .addContainerGap(246, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(90, 90, 90)
+                    .addContainerGap()
+                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                    .addGap(12, 12, 12)
                     .addComponent(movieTheater)
                     .addGap(32, 32, 32)
                     .addComponent(movies, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
                     .addGap(35, 35, 35)
                     .addComponent(sessions, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(82, Short.MAX_VALUE))
+                    .addContainerGap(66, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -90,5 +100,6 @@ public class MainMenuPage extends JFrame {
     private JButton movies;
     private JButton sessions;
     private JLabel movieTheater;
+    private JLabel label1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

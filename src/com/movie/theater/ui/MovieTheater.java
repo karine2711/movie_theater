@@ -6,9 +6,12 @@ import com.movie.theater.model.Movie;
 import com.movie.theater.service.SerializationUtil;
 import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.SessionManager;
+import com.movie.theater.service.moviesessionfilter.SessionByDateFilter;
+import com.movie.theater.service.moviesessionfilter.SessionFilterer;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +66,7 @@ public class MovieTheater {
 
 //        ArrayList<MovieSession> movieSessions = (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
 
-        SerializationUtil.writeToFile("src\\resources\\session-list.txt", new ArrayList<>(sessions));
+        SerializationUtil.writeToFile("src/resources/session-list.txt", new ArrayList<>(sessions));
 //        System.out.println(movieSessions);
 //        movieSessions.add(session1);
 //        SerializationUtil.writeToFile("src\\resources\\test.txt", movieSessions);

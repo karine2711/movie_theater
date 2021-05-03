@@ -7,6 +7,7 @@ package com.movie.theater.ui;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AddSessionPage extends JFrame {
     public AddSessionPage() {
         initComponents();
         List<String> movies = movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
+
         movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
         pack();
     }
@@ -42,28 +44,36 @@ public class AddSessionPage extends JFrame {
         movieField.setSelectedItem(currentMovie.getName());
     }
 
-    private void makeSessionFromText(){
+    private void makeSessionFromText() {
         int price = Integer.parseInt(priceField.getText());
         int duration = Integer.parseInt(durationField.getText());
+        Date date = dateField.getDate();
+        LocalDateTime localDate = new LocalDateTime(date.toInstant());
+        int year=localDate.getYear();
+        int month=localDate.getMonthValue();
+        int dayOfMonth=localDate.getDayOfMonth();
+        int hour=timeField.getHours();
+        int minute=timeField.getMinutes();
+        LocalDateTime movieStartTime=LocalDateTime.of(year,month,dayOfMonth,hour,minute);
+        Movie movie=movieManager.getMoveList()
+                .stream()
+                .filter(m->m.getName()
+                        .equals(movieField.getSelectedItem().toString())).findFirst()
+                .get();
 
-
-        Duration.ofHours().plus(Duration.ofMinutes())
-        LocalDateTime.of()
-
-
-//        MovieSession session = new MovieSession(movie, date, Duration.ofMinutes(duration), price);
-
+        MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(duration), price);
+        System.out.println(session);
 
         try {
 
-        } catch (Exception x){
+        } catch (Exception x) {
             System.out.println(x.getMessage());
         }
 
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
-        MoviesPage sessions = new MoviesPage();
+        SessionsPage sessions = new SessionsPage();
         sessions.pack();
         sessions.setVisible(true);
         dispose();
@@ -94,7 +104,6 @@ public class AddSessionPage extends JFrame {
         movies.setVisible(true);
         dispose();
     }
-
 
 
     private void initComponents() {
@@ -172,72 +181,72 @@ public class AddSessionPage extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(191, Short.MAX_VALUE)
-                    .addComponent(enterDetails, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
-                    .addGap(169, 169, 169))
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(218, 218, 218)
-                            .addComponent(addAnotherSession))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(293, 293, 293)
-                            .addComponent(submitButton)))
-                    .addContainerGap(226, Short.MAX_VALUE))
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(119, 119, 119)
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                    .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-                                .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(priceField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(movieField, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dateField, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(timeField, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(durationField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
-                            .addGap(107, 107, 107))))
+                                .addContainerGap(191, Short.MAX_VALUE)
+                                .addComponent(enterDetails, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                                .addGap(169, 169, 169))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(218, 218, 218)
+                                                .addComponent(addAnotherSession))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(293, 293, 293)
+                                                .addComponent(submitButton)))
+                                .addContainerGap(226, Short.MAX_VALUE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(119, 119, 119)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                                .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                                .addGroup(contentPaneLayout.createParallelGroup()
+                                                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                                                .addGroup(contentPaneLayout.createParallelGroup()
+                                                        .addComponent(priceField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(movieField, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(dateField, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(timeField, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(durationField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
+                                                .addGap(107, 107, 107))))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(enterDetails)
-                    .addGap(32, 32, 32)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(movieField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(durationField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addComponent(submitButton)
-                    .addGap(18, 18, 18)
-                    .addComponent(addAnotherSession)
-                    .addGap(33, 33, 33))
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(enterDetails)
+                                .addGap(32, 32, 32)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(movieField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(timeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(durationField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(submitButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(addAnotherSession)
+                                .addGap(33, 33, 33))
         );
         pack();
         setLocationRelativeTo(getOwner());

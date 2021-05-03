@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:209:p, par l {par l:::p {comp sessions::::110:x, comp movies::::110:x}, comp movieTheater:::p:139:p}, space ::190:x}}"
-			"$verticalGroup": "par l {seq l {space :p:90:p, comp movieTheater:::p::p, space :p:32:p, comp movies:::p:42:p, space :p:35:p, comp sessions:::p:43:p, space ::82:x}}"
+			"$horizontalGroup": "par l {seq t {space ::208:x, par l {par l:l::p {comp sessions:::::x, comp movies:::p:110:p}, comp movieTheater:::p:139:p}, space :p:191:p}, seq l {space :p:232:p, comp label1:::p::p, space ::246:x}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp label1:::p:88:p, space :p:12:p, comp movieTheater:::p::p, space :p:32:p, comp movies:::p:42:p, space :p:35:p, comp sessions:::p:43:p, space ::66:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -24,6 +24,10 @@ new FormModel {
 				name: "movieTheater"
 				"text": "Let's go to..."
 				"font": new java.awt.Font( "Roboto Light", 0, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/com/movie/theater/icons/1415702.png" )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
