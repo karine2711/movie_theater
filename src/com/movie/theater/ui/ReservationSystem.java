@@ -1,39 +1,25 @@
 package com.movie.theater.ui;
 
-import static javax.swing.JOptionPane.YES_OPTION;
-
-import com.movie.theater.exception.NotReservedException;
 import com.movie.theater.exception.AlreadyReservedException;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import com.movie.theater.exception.NotReservedException;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import static javax.swing.JOptionPane.YES_OPTION;
+
 public class ReservationSystem extends JFrame {
     MovieSession session;
+    JPanel seats = new JPanel();
+    JTextField reserveRange = new JTextField();
 
     public ReservationSystem(MovieSession session) throws HeadlessException {
         this.session = session;
@@ -69,7 +55,7 @@ public class ReservationSystem extends JFrame {
         menu.setMaximumSize(dim);
         menu.setMinimumSize(dim);
         menu.setRequestFocusEnabled(true);
-        ImageIcon backIcon = new ImageIcon(getClass().getResource("com/movie/theater/icons/back.png"));
+        ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/back.png");
 
         Image image = backIcon.getImage(); // transform it
         Image newimg = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -77,7 +63,10 @@ public class ReservationSystem extends JFrame {
         JMenuItem menuItem = new JMenuItem(backIcon);
 
         menuItem.addActionListener((ActionEvent event) -> {
-            System.out.println("Back");
+            TryUI tryUI = new TryUI();
+            tryUI.pack();
+            tryUI.setVisible(true);
+            dispose();
         });
         menu.add(menuItem)
         ;
@@ -90,7 +79,7 @@ public class ReservationSystem extends JFrame {
     }
 
     private void addSeats() {
-        JPanel seats = new JPanel();
+
         LayoutManager gridManager = new GridLayout(10, 10);
 
         for (int i = 0; i < 100; i++) {
@@ -125,9 +114,47 @@ public class ReservationSystem extends JFrame {
         footer.setMaximumSize(dim);
         footer.setMinimumSize(dim);
         footer.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 10));
-        footer.add(new JTextField(""));
-        footer.add(new JButton("Reserve"));
-        footer.add(new JButton("Cancel"));
+        Dimension dimension = new Dimension(100, 50);
+        reserveRange.setPreferredSize(dimension);
+        reserveRange.setMinimumSize(dimension);
+        reserveRange.setMaximumSize(dimension);
+        footer.add(reserveRange);
+        JButton reserveButton = new JButton("Reserve");
+        reserveButton.addActionListener(e -> {
+            String text = reserveRange.getText();
+            if (text.matches("[0-9]{0,3}-[0-9]{0,3}")) {
+                String[] ranges = text.split("-");
+                int min = Integer.parseInt(ranges[0]);
+                int max = Integer.parseInt(ranges[1]);
+                for (int i = min; i <= max; i++) {
+                    try {
+                        session.reserve(i);
+                    } catch (AlreadyReservedException alreadyReservedException) {
+                        JOptionPane.showMessageDialog(this, alreadyReservedException.getMessage());
+                    }
+                    seats.getComponent(i - 1).setBackground(Color.RED);
+                }
+            }
+
+
+        });
+
+        JButton cancel = new JButton("Cancel");
+        cancel.addActionListener(e -> {
+            String[] ranges = reserveRange.getText().split("-");
+            int min = Integer.parseInt(ranges[0]);
+            int max = Integer.parseInt(ranges[1]);
+            for (int i = min; i <= max; i++) {
+                try {
+                    session.cancelReservation(i);
+                    seats.getComponent(i - 1).setBackground(Color.GREEN);
+                } catch (NotReservedException notReservedException) {
+                    notReservedException.printStackTrace();
+                }
+            }
+        });
+        footer.add(reserveButton);
+        footer.add(cancel);
         this.getContentPane().add(footer);
     }
 
