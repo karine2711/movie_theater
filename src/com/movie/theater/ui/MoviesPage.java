@@ -12,8 +12,13 @@ import com.movie.theater.service.moviefilter.MovieFilterer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class MoviesPage extends JFrame {
 
@@ -84,7 +89,14 @@ public class MoviesPage extends JFrame {
             moviePanel.setMaximumSize(dimension);
 
             moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-            ImageIcon backIcon = new ImageIcon("src/com/movie/theater/icons/" + movie.getName() + ".jpg");
+            File file = new File("src/com/movie/theater/icons/");
+            Optional<File> name = Arrays.stream(file.listFiles()).filter(f -> f.getName().startsWith(movie.getName().replaceAll(" ", "_"))).findFirst();
+            String path = "src/com/movie/theater/icons/default.png";
+            if (name.isPresent()) {
+                path = name.get().getAbsolutePath();
+            }
+
+            ImageIcon backIcon = new ImageIcon(path);
             Image image = backIcon.getImage(); // transform it
             Image newimg = image.getScaledInstance(300, 380, Image.SCALE_AREA_AVERAGING);// scale it the smooth way
             backIcon = new ImageIcon(newimg);  // transform it back
@@ -120,16 +132,18 @@ public class MoviesPage extends JFrame {
             JButton deleteButton = new JButton("Delete");
             deleteButton.setBackground(Color.BLACK);
             deleteButton.setForeground(Color.WHITE);
-            deleteButton.addActionListener(e->{movieManager.deleteMovie(movie);
+            deleteButton.addActionListener(e -> {
+                movieManager.deleteMovie(movie);
                 movies.remove(moviePanel);
-                pack();});
+                pack();
+            });
 
             movieFooter.add(deleteButton);
             JButton addSession = new JButton("Add session");
             addSession.setBackground(Color.BLACK);
             addSession.setForeground(Color.WHITE);
-            addSession.addActionListener(e->{
-                AddSessionPage addSessionPage=new AddSessionPage(movie);
+            addSession.addActionListener(e -> {
+                AddSessionPage addSessionPage = new AddSessionPage(movie);
                 addSessionPage.pack();
                 addSessionPage.setVisible(true);
                 dispose();
@@ -166,7 +180,7 @@ public class MoviesPage extends JFrame {
             movieByGenreFilter.reset();
             populateWithMovies(movieManager.getMoveList());
         });
-        Dimension dim=new Dimension(200,50);
+        Dimension dim = new Dimension(200, 50);
         resetButton.setPreferredSize(dim);
         resetButton.setMinimumSize(dim);
         resetButton.setMaximumSize(dim);
@@ -187,7 +201,7 @@ public class MoviesPage extends JFrame {
             System.out.println(filteredList);
             populateWithMovies(filteredList);
         });
-        Dimension dim=new Dimension(200,50);
+        Dimension dim = new Dimension(200, 50);
         filterButton.setPreferredSize(dim);
         filterButton.setMinimumSize(dim);
         filterButton.setMaximumSize(dim);
@@ -220,10 +234,6 @@ public class MoviesPage extends JFrame {
         directors.setForeground(Color.WHITE);
         directors.setFont(new Font(null, Font.BOLD, 16));
         directorsContainer.add(directors);
-//        Dimension dimension = new Dimension(100, 120);
-//        directorFilterBox.setPreferredSize(dimension);
-//        directorFilterBox.setMinimumSize(dimension);
-
         JPanel directorFilterBox = new JPanel();
         directorFilterBox.setLayout(new BoxLayout(directorFilterBox, BoxLayout.Y_AXIS));
 
@@ -244,7 +254,7 @@ public class MoviesPage extends JFrame {
             directorFilterBox.add(directorCheckBox);
         }
         directorFilterBox.setBackground(Color.BLACK);
-        JScrollPane scrollPane=new JScrollPane(directorFilterBox);
+        JScrollPane scrollPane = new JScrollPane(directorFilterBox);
         scrollPane.setBackground(Color.BLACK);
         directorsContainer.add(scrollPane);
 //        filterPanel.add(directorFilterBox);
@@ -267,13 +277,19 @@ public class MoviesPage extends JFrame {
     private void addAddMovieButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-//        panel3.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button = new JButton("Add Movie");
         button.addActionListener(e -> {
             AddMoviePage addMoviePage = new AddMoviePage();
             addMoviePage.pack();
             addMoviePage.setVisible(true);
-//            dispose();
+            addMoviePage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addMoviePage.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e);
+                    populateWithMovies(movieManager.getMoveList());
+                }
+            });
         });
         button.setBackground(Color.YELLOW);
         button.setAlignmentX(CENTER_ALIGNMENT);
