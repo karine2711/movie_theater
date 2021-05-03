@@ -63,9 +63,9 @@ public class ReservationSystem extends JFrame {
         JMenuItem menuItem = new JMenuItem(backIcon);
 
         menuItem.addActionListener((ActionEvent event) -> {
-            TryUI tryUI = new TryUI();
-            tryUI.pack();
-            tryUI.setVisible(true);
+            MoviesPage moviesPage = new MoviesPage();
+            moviesPage.pack();
+            moviesPage.setVisible(true);
             dispose();
         });
         menu.add(menuItem)

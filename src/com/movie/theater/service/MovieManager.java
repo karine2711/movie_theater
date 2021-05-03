@@ -21,7 +21,9 @@ public final class MovieManager {
     private MovieManager() {
         File file = new File(MOVIE_LIST_FILE);
         try {
-            if (!file.exists()) file.createNewFile();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             MOVIE_LIST = (ArrayList<Movie>) SerializationUtil.readFromFile(MOVIE_LIST_FILE);
         } catch (EOFException e) {
             MOVIE_LIST = new ArrayList<>();

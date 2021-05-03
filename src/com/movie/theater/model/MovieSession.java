@@ -20,6 +20,7 @@ public class MovieSession implements Filterable, Serializable {
     public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration, double priceForSession) {
         this.movie = movie;
         this.localDateTime = localDateTime;
+        this.duration = duration;
         reservationState = new ArrayList<>();
         for (int number = 1; number <= 100; number++) {
             reservationState.add(new Seat(number));
@@ -105,6 +106,6 @@ public class MovieSession implements Filterable, Serializable {
 
     @Override
     public String toString() {
-        return movie.getName()+" on " + localDateTime.getDayOfMonth() + "th of "+ localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
+        return movie.getName() + " on " + localDateTime.getDayOfMonth() + "th of "+ localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
     }
 }

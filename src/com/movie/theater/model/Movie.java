@@ -8,6 +8,8 @@ public class Movie implements Filterable, Serializable {
     private Director director;
     private Genre genre;
 
+    //TODO: Add serialVersionUID
+
     public Movie(String name, Director director, Genre genre) {
         this.name = name;
         this.director = new Director(director);
@@ -50,7 +52,7 @@ public class Movie implements Filterable, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(name, movie.name) && Objects.equals(director, movie.director) && genre == movie.genre;
+        return Objects.equals(name, movie.name);
     }
 
     @Override

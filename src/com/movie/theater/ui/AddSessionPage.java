@@ -9,6 +9,8 @@ import java.awt.event.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 
@@ -24,14 +26,29 @@ import lu.tudor.santec.jtimechooser.*;
  * @author Asya
  */
 public class AddSessionPage extends JFrame {
+
+    private static final MovieManager movieManager = MovieManager.getMovieManager();
+    private String currentMovie;
+
     public AddSessionPage() {
         initComponents();
+        List<String> movies = movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
+        movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
+        pack();
+    }
+
+    public AddSessionPage(Movie currentMovie) {
+        this();
+        movieField.setSelectedItem(currentMovie.getName());
     }
 
     private void makeSessionFromText(){
         int price = Integer.parseInt(priceField.getText());
         int duration = Integer.parseInt(durationField.getText());
 
+
+        Duration.ofHours().plus(Duration.ofMinutes())
+        LocalDateTime.of()
 
 
 //        MovieSession session = new MovieSession(movie, date, Duration.ofMinutes(duration), price);
@@ -46,7 +63,7 @@ public class AddSessionPage extends JFrame {
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
-        SessionsPage sessions = new SessionsPage();
+        MoviesPage sessions = new MoviesPage();
         sessions.pack();
         sessions.setVisible(true);
         dispose();
@@ -59,7 +76,7 @@ public class AddSessionPage extends JFrame {
         durationField.setText("");
         priceField.setText("");
         dateField.setDate(null);
-//        timeField.setTime(0);
+        timeField.getTimeField().setText("00:00:00");
 
         makeSessionFromText();
     }

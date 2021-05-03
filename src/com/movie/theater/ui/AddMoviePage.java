@@ -44,7 +44,7 @@ public class AddMoviePage extends JFrame {
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
-        SessionsPage sessions = new SessionsPage();
+        MoviesPage sessions = new MoviesPage();
         sessions.pack();
         sessions.setVisible(true);
         dispose();
