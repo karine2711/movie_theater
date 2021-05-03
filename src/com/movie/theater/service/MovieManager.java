@@ -41,7 +41,7 @@ public final class MovieManager {
     }
 
     public void addMovie(Movie movie) throws AlreadyInMovieListException, IOException {
-        if (MOVIE_LIST.contains(movie)) {
+        if (!MOVIE_LIST.contains(movie)) {
             MOVIE_LIST.add(movie);
         } else {
             throw new AlreadyInMovieListException();

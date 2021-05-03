@@ -1,45 +1,70 @@
-package com.movie.theater.ui;
-
-import com.movie.theater.model.Movie;
-import com.movie.theater.service.MovieManager;
-
-import java.awt.event.*;
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 /*
- * Created by JFormDesigner on Sun Apr 25 23:54:07 AMT 2021
+ * Created by JFormDesigner on Sun May 02 19:35:10 AMT 2021
  */
 
+package com.movie.theater.ui;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Date;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+
+import com.movie.theater.model.Director;
+import com.movie.theater.model.Genre;
+import com.movie.theater.model.Movie;
+import com.movie.theater.model.MovieSession;
+import com.movie.theater.service.MovieManager;
+import com.toedter.calendar.*;
+import lu.tudor.santec.jtimechooser.*;
 
 /**
  * @author Asya
  */
 public class AddSessionPage extends JFrame {
-    private static final MovieManager movieManager=MovieManager.getMovieManager();
-    private String currentMovie;
     public AddSessionPage() {
         initComponents();
-        List<String> movies=  movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
-        moviesDropdown.setModel(new DefaultComboBoxModel(movies.toArray()));
-        pack();
     }
 
-    public AddSessionPage(Movie currentMovie) {
-        this();
-        moviesDropdown.setSelectedItem(currentMovie.getName());
+    private void makeSessionFromText(){
+        int price = Integer.parseInt(priceField.getText());
+        int duration = Integer.parseInt(durationField.getText());
+
+
+
+//        MovieSession session = new MovieSession(movie, date, Duration.ofMinutes(duration), price);
+
+
+        try {
+
+        } catch (Exception x){
+            System.out.println(x.getMessage());
+        }
+
     }
 
-    private void menu1ActionPerformed(ActionEvent e) {
-        MainMenuPage menu = new MainMenuPage();
-        menu.pack();
-        menu.setVisible(true);
+    private void submitButtonActionPerformed(ActionEvent e) {
+        SessionsPage sessions = new SessionsPage();
+        sessions.pack();
+        sessions.setVisible(true);
         dispose();
+
+        makeSessionFromText();
+
     }
 
-    private void sessionMenuActionPerformed(ActionEvent e) {
+    private void addAnotherSessionActionPerformed(ActionEvent e) {
+        durationField.setText("");
+        priceField.setText("");
+        dateField.setDate(null);
+//        timeField.setTime(0);
+
+        makeSessionFromText();
+    }
+
+    private void sessionsMenuActionPerformed(ActionEvent e) {
         SessionsPage sessions = new SessionsPage();
         sessions.pack();
         sessions.setVisible(true);
@@ -53,26 +78,28 @@ public class AddSessionPage extends JFrame {
         dispose();
     }
 
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Asya
         menuBar1 = new JMenuBar();
-        mainMenu = new JMenu();
-        sessionMenu = new JMenuItem();
+        menu1 = new JMenu();
         moviesMenu = new JMenuItem();
-        addAnotherSession = new JButton();
-        movieName = new JLabel();
-        date = new JLabel();
+        sessionsMenu = new JMenuItem();
         enterDetails = new JLabel();
-        time = new JLabel();
-        scrollPane3 = new JScrollPane();
-        textArea3 = new JTextArea();
-        price = new JLabel();
-        scrollPane4 = new JScrollPane();
-        textArea4 = new JTextArea();
+        movieNameText = new JLabel();
+        dateText = new JLabel();
+        timeText = new JLabel();
+        priceText = new JLabel();
+        movieField = new JComboBox();
+        priceField = new JTextField();
+        dateField = new JDateChooser();
+        timeField = new JTimeChooser();
+        addAnotherSession = new JButton();
         submitButton = new JButton();
-        moviesDropdown = new JComboBox();
-        formattedTextField2 = new JFormattedTextField();
+        durationText = new JLabel();
+        durationField = new JTextField();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -80,117 +107,120 @@ public class AddSessionPage extends JFrame {
         //======== menuBar1 ========
         {
 
-            //======== mainMenu ========
+            //======== menu1 ========
             {
-                mainMenu.setText("Main Menu");
-                mainMenu.addActionListener(e -> menu1ActionPerformed(e));
-
-                //---- sessionMenu ----
-                sessionMenu.setText("Sessions");
-                sessionMenu.addActionListener(e -> sessionMenuActionPerformed(e));
-                mainMenu.add(sessionMenu);
+                menu1.setText("Main Menu");
 
                 //---- moviesMenu ----
                 moviesMenu.setText("Movies");
                 moviesMenu.addActionListener(e -> moviesMenuActionPerformed(e));
-                mainMenu.add(moviesMenu);
+                menu1.add(moviesMenu);
+
+                //---- sessionsMenu ----
+                sessionsMenu.setText("Sessions");
+                sessionsMenu.addActionListener(e -> sessionsMenuActionPerformed(e));
+                menu1.add(sessionsMenu);
             }
-            menuBar1.add(mainMenu);
+            menuBar1.add(menu1);
         }
         setJMenuBar(menuBar1);
-
-        //---- addAnotherSession ----
-        addAnotherSession.setText("Submit and add another session");
-
-        //---- movieName ----
-        movieName.setText("Movie Name");
-
-        //---- date ----
-        date.setText("Date");
 
         //---- enterDetails ----
         enterDetails.setText("Please enter the session details");
         enterDetails.setFont(new Font("Roboto Light", Font.PLAIN, 20));
 
-        //---- time ----
-        time.setText("Time");
+        //---- movieNameText ----
+        movieNameText.setText("Movie Name");
 
-        //======== scrollPane3 ========
-        {
-            scrollPane3.setViewportView(textArea3);
-        }
+        //---- dateText ----
+        dateText.setText("Date");
 
-        //---- price ----
-        price.setText("Price");
+        //---- timeText ----
+        timeText.setText("Time");
 
-        //======== scrollPane4 ========
-        {
-            scrollPane4.setViewportView(textArea4);
-        }
+        //---- priceText ----
+        priceText.setText("Price");
+
+        //---- addAnotherSession ----
+        addAnotherSession.setText("Submit and add another session");
+        addAnotherSession.addActionListener(e -> addAnotherSessionActionPerformed(e));
 
         //---- submitButton ----
         submitButton.setText("Submit");
+        submitButton.addActionListener(e -> submitButtonActionPerformed(e));
+
+        //---- durationText ----
+        durationText.setText("Duration");
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addContainerGap(191, Short.MAX_VALUE)
+                    .addComponent(enterDetails, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                    .addGap(169, 169, 169))
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(122, 122, 122)
+                            .addGap(218, 218, 218)
+                            .addComponent(addAnotherSession))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(293, 293, 293)
+                            .addComponent(submitButton)))
+                    .addContainerGap(226, Short.MAX_VALUE))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(119, 119, 119)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                            .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup()
-                                .addComponent(movieName)
-                                .addComponent(date)
-                                .addComponent(time)
-                                .addComponent(price))
-                            .addGap(100, 100, 100)
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(scrollPane3)
-                                .addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(formattedTextField2, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(moviesDropdown))
-                                    .addGap(2, 2, 2))))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(135, 135, 135)
-                            .addComponent(enterDetails))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(239, 239, 239)
-                            .addComponent(submitButton))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(addAnotherSession)))
-                    .addContainerGap(150, Short.MAX_VALUE))
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                    .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(priceField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(movieField, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateField, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(timeField, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(durationField, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE))
+                            .addGap(107, 107, 107))))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(51, Short.MAX_VALUE)
+                    .addGap(23, 23, 23)
                     .addComponent(enterDetails)
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(movieName)
-                                .addComponent(moviesDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                            .addGap(48, 48, 48))
-                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(date)
-                            .addComponent(formattedTextField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addGap(32, 32, 32)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(time)
-                        .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(movieField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(price)
-                        .addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(40, 40, 40)
+                        .addComponent(dateText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(timeText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(timeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(durationText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(durationField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(priceText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(priceField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
                     .addComponent(submitButton)
-                    .addGap(31, 31, 31)
+                    .addGap(18, 18, 18)
                     .addComponent(addAnotherSession)
-                    .addGap(29, 29, 29))
+                    .addGap(33, 33, 33))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -200,28 +230,27 @@ public class AddSessionPage extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Asya
     private JMenuBar menuBar1;
-    private JMenu mainMenu;
-    private JMenuItem sessionMenu;
+    private JMenu menu1;
     private JMenuItem moviesMenu;
-    private JButton addAnotherSession;
-    private JLabel movieName;
-    private JLabel date;
+    private JMenuItem sessionsMenu;
     private JLabel enterDetails;
-    private JLabel time;
-    private JScrollPane scrollPane3;
-    private JTextArea textArea3;
-    private JLabel price;
-    private JScrollPane scrollPane4;
-    private JTextArea textArea4;
+    private JLabel movieNameText;
+    private JLabel dateText;
+    private JLabel timeText;
+    private JLabel priceText;
+    private JComboBox movieField;
+    private JTextField priceField;
+    private JDateChooser dateField;
+    private JTimeChooser timeField;
+    private JButton addAnotherSession;
     private JButton submitButton;
-    private JComboBox moviesDropdown;
-    private JFormattedTextField formattedTextField2;
+    private JLabel durationText;
+    private JTextField durationField;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
-    public static void main(String[] args) {
-        AddSessionPage session = new AddSessionPage();
-        session.pack();
-        session.setVisible(true);
-    }
 
+    public static void main(String[] args) {
+        AddSessionPage newPage = new AddSessionPage();
+        newPage.setVisible(true);
+    }
 }

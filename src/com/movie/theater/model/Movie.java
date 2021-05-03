@@ -39,6 +39,12 @@ public class Movie implements Filterable, Serializable {
         this.genre = genre;
     }
 
+
+    @Override
+    public String toString() {
+        return name + " is a "+ genre + " directed by " + director + genre;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
