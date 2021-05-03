@@ -4,7 +4,7 @@ import com.movie.theater.model.MovieSession;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
+//leave as it is, use in front end
 public class SessionByDateFilter implements SessionFilter {
     private final LocalDate date;
 
