@@ -197,6 +197,7 @@ public class AddSessionPage extends JFrame {
         durationField = new JTextField();
 
         //======== this ========
+        setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
         var contentPane = getContentPane();
 
         //======== menuBar1 ========

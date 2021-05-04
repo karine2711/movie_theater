@@ -41,6 +41,7 @@ public class MainMenuPage extends JFrame {
         label1 = new JLabel();
 
         //======== this ========
+        setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
         var contentPane = getContentPane();
 
         //---- movies ----

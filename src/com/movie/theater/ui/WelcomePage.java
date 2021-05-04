@@ -110,7 +110,6 @@ public class WelcomePage extends JFrame {
         welcome.pack();
         welcome.setVisible(true);
 //
-//
 //        try {
 //            URL resource = welcome.getClass().getResource("/Users/asyakhachatryan/Desktop/movie_theater/src/com/movie/theater/icons/movie-3.png");
 //        BufferedImage image = ImageIO.read(resource);

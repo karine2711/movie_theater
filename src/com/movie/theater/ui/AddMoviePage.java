@@ -116,6 +116,7 @@ public class AddMoviePage extends JFrame {
 
         //======== this ========
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
         var contentPane = getContentPane();
 
         //======== menuBar1 ========
