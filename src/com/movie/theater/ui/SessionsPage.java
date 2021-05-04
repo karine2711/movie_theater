@@ -105,6 +105,8 @@ public class SessionsPage extends JFrame {
             movieName.setToolTipText(session.getMovie().getName());
             movieName.setFont(new Font(null, Font.PLAIN, 20));
             movieName.setBackground(new Color(27, 30, 35));
+            movieName.setForeground(Color.white);
+            movieName.setOpaque(true);
             sessionPanel.add(movieName);
 
             JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
@@ -157,7 +159,6 @@ public class SessionsPage extends JFrame {
             sessionFooter.setOpaque(false);
 
             JButton deleteButton = new JButton("Delete Session");
-            deleteButton.setBackground(new Color(98, 0, 128));
             deleteButton.setForeground(Color.BLACK);
 
             deleteButton.addActionListener(e -> {
@@ -559,7 +560,8 @@ public class SessionsPage extends JFrame {
 
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
-        mainMenuButton.setBackground(Color.RED);
+        mainMenuButton.setBackground(Color.WHITE);
+        mainMenuButton.setForeground(Color.black);
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
