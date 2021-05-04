@@ -7,6 +7,8 @@ public class Director implements Serializable {
     private String firstName;
     private String lastName;
 
+    private static final long serialVersionUID=3L;
+
 
     public Director (String firstName, String lastName){
         this.firstName = firstName;

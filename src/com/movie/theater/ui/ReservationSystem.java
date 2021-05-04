@@ -6,11 +6,13 @@ import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
+import com.movie.theater.service.SerializationUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -112,6 +114,7 @@ public class ReservationSystem extends JFrame {
         Dimension dim = new Dimension(700, 50);
         footer.setPreferredSize(dim);
         footer.setMaximumSize(dim);
+        footer.setMaximumSize(dim);
         footer.setMinimumSize(dim);
         footer.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 10));
         Dimension dimension = new Dimension(100, 50);
@@ -129,8 +132,11 @@ public class ReservationSystem extends JFrame {
                 for (int i = min; i <= max; i++) {
                     try {
                         session.reserve(i);
+                        SerializationUtil.serializeSessions();
                     } catch (AlreadyReservedException alreadyReservedException) {
                         JOptionPane.showMessageDialog(this, alreadyReservedException.getMessage());
+                    } catch (IOException ioException) {
+                        showExitCase();
                     }
                     seats.getComponent(i - 1).setBackground(Color.RED);
                 }
@@ -148,8 +154,11 @@ public class ReservationSystem extends JFrame {
                 try {
                     session.cancelReservation(i);
                     seats.getComponent(i - 1).setBackground(Color.GREEN);
+                    SerializationUtil.serializeSessions();
                 } catch (NotReservedException notReservedException) {
                     notReservedException.printStackTrace();
+                } catch (IOException ioException) {
+                    showExitCase();
                 }
             }
         });
@@ -164,8 +173,11 @@ public class ReservationSystem extends JFrame {
             try {
                 session.reserve(seatNumber);
                 seat.setBackground(Color.RED);
+                SerializationUtil.serializeSessions();
             } catch (AlreadyReservedException e) {
                 JOptionPane.showMessageDialog(this, "Place is already reserved!", "Error!", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+                showExitCase();
             }
 
         } else {
@@ -179,12 +191,20 @@ public class ReservationSystem extends JFrame {
             try {
                 session.cancelReservation(seatNumber);
                 seat.setBackground(Color.GREEN);
+                SerializationUtil.serializeSessions();
             } catch (NotReservedException e) {
                 JOptionPane.showMessageDialog(this, "Place is not reserved!", "Error!", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+                showExitCase();
             }
         } else {
             System.out.println("No");
         }
+    }
+
+    private void showExitCase() {
+        JOptionPane.showMessageDialog(this, "Sorry something went wrong! The program need to exit");
+        System.exit(-1);
     }
 
     private Image getScaledImage(Image srcImg, int w, int h) {

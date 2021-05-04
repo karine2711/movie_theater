@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class SessionManager {
-    private final ArrayList<MovieSession> SESSION_LIST;
-    private static final String SESSION_LIST_FILE = "src/resources/session-list.txt";
+    public final ArrayList<MovieSession> SESSION_LIST;
+    public static final String SESSION_LIST_FILE = "src/resources/session-list.txt";
     private static final SessionManager SESSION_MANAGER = new SessionManager();
 
     private SessionManager() {
@@ -20,10 +20,6 @@ public final class SessionManager {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Failed to initialize Session Manager!");
         }
-    }
-
-    public ArrayList<MovieSession> getSESSION_LIST() {
-        return SESSION_LIST;
     }
 
     public static SessionManager getSessionManager() {
@@ -40,7 +36,7 @@ public final class SessionManager {
         List<MovieSession> overlaps = SESSION_LIST.stream().filter(s -> overlaps(s, session)).collect(Collectors.toList());
         if (overlaps.isEmpty()) {
             SESSION_LIST.add(session);
-            SerializationUtil.writeToFile(SESSION_LIST_FILE, SESSION_LIST);
+            SerializationUtil.serializeSessions();
         } else {
             StringBuilder builder = new StringBuilder("Your movie overlaps with { \n");
             for (MovieSession movieSession : overlaps) {
@@ -72,7 +68,7 @@ public final class SessionManager {
 
     public void deleteSession( MovieSession session) throws IOException{
         SESSION_LIST.remove(session);
-        SerializationUtil.writeToFile(SESSION_LIST_FILE, SESSION_LIST);
+        SerializationUtil.serializeSessions();
 
     }
 

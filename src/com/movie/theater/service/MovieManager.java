@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 public final class MovieManager {
 
-    private ArrayList<Movie> MOVIE_LIST;
-    private static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
+    public ArrayList<Movie> MOVIE_LIST;
+    public static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
 
     private MovieManager() {
@@ -39,7 +39,7 @@ public final class MovieManager {
     public void addMovie(String name, Director director, Genre genre) throws AlreadyInMovieListException, IOException {
         Movie movie = new Movie(name, director, genre);
         addMovie(movie);
-        SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
+        SerializationUtil.serializeMovies();
     }
 
     public void addMovie(Movie movie) throws AlreadyInMovieListException, IOException {
@@ -48,13 +48,13 @@ public final class MovieManager {
         } else {
             throw new AlreadyInMovieListException();
         }
-        SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
+        SerializationUtil.serializeMovies();
     }
 
     public void deleteMovie(Movie movie) {
         MOVIE_LIST.remove(movie);
         try {
-            SerializationUtil.writeToFile(MOVIE_LIST_FILE, MOVIE_LIST);
+            SerializationUtil.serializeMovies();
         } catch (IOException e) {
            System.err.println("Failed to persist data!");
         }

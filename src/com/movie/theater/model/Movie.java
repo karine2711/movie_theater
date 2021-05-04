@@ -8,7 +8,8 @@ public class Movie implements Serializable {
     private Director director;
     private Genre genre;
 
-    //TODO: Add serialVersionUID
+    //TODO: Add
+    private static final long serialVersionUID=1L;
 
     public Movie(String name, Director director, Genre genre) {
         this.name = name;
