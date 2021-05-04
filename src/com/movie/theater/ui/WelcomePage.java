@@ -1,13 +1,8 @@
 package com.movie.theater.ui;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.GroupLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 
 /*
@@ -17,6 +12,7 @@ import javax.swing.GroupLayout;
 
 // Filter movie.Movie Filter filter()
 // Filterer --- filer(List<Filter> f .
+
 /**
  * @author Asya
  */
@@ -65,36 +61,36 @@ public class WelcomePage extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(251, 251, 251)
-                            .addComponent(label1))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(228, 228, 228)
-                            .addComponent(mainMenu))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(200, 200, 200)
-                            .addComponent(welcome3, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(208, Short.MAX_VALUE))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 118, Short.MAX_VALUE)
-                    .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
-                    .addGap(101, 101, 101))
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(251, 251, 251)
+                                                .addComponent(label1))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(228, 228, 228)
+                                                .addComponent(mainMenu))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(200, 200, 200)
+                                                .addComponent(welcome3, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(208, Short.MAX_VALUE))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                .addGap(0, 118, Short.MAX_VALUE)
+                                .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
+                                .addGap(101, 101, 101))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(74, Short.MAX_VALUE)
-                    .addComponent(label1)
-                    .addGap(48, 48, 48)
-                    .addComponent(welcome2)
-                    .addGap(18, 18, 18)
-                    .addComponent(welcome3)
-                    .addGap(30, 30, 30)
-                    .addComponent(mainMenu)
-                    .addGap(134, 134, 134))
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                .addContainerGap(74, Short.MAX_VALUE)
+                                .addComponent(label1)
+                                .addGap(48, 48, 48)
+                                .addComponent(welcome2)
+                                .addGap(18, 18, 18)
+                                .addComponent(welcome3)
+                                .addGap(30, 30, 30)
+                                .addComponent(mainMenu)
+                                .addGap(134, 134, 134))
         );
         pack();
         setLocationRelativeTo(getOwner());
