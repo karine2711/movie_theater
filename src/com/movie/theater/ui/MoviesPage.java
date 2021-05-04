@@ -59,7 +59,7 @@ public class MoviesPage extends JFrame {
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
-        moviesPanel.setBackground(Color.BLACK);
+        moviesPanel.setBackground(new Color(120, 111, 166));
         populateWithMovies(movieManager.getMoveList());
 
         this.getContentPane().add(moviesPanel, gridBagConstraints);
@@ -77,12 +77,12 @@ public class MoviesPage extends JFrame {
 
     private void populateWithMovies(List<Movie> moviesList) {
         movies.removeAll();
-        movies.setBackground(Color.BLACK);
+        movies.setBackground(new Color(87, 75, 144));
 
         moviesList.forEach((movie) ->
         {
             JPanel moviePanel = new JPanel();
-            moviePanel.setBackground(Color.YELLOW);
+            moviePanel.setBackground(new Color(205, 218, 253));
             Dimension dimension = new Dimension(300, 520);
             moviePanel.setPreferredSize(dimension);
             moviePanel.setMinimumSize(dimension);
@@ -117,7 +117,7 @@ public class MoviesPage extends JFrame {
             movieDirector.setPreferredSize(movieNameDimension);
             movieDirector.setToolTipText(movie.getName());
             movieDirector.setOpaque(true);
-            movieDirector.setBackground(Color.YELLOW);
+            movieDirector.setBackground(new Color(120, 111, 166));
             movieDirector.setFont(new Font(null, Font.ITALIC, 16));
             moviePanel.add(movieDirector);
 
@@ -127,7 +127,7 @@ public class MoviesPage extends JFrame {
             movieFooter.setPreferredSize(footerDimension);
             movieFooter.setMinimumSize(footerDimension);
             movieFooter.setMaximumSize(footerDimension);
-            movieFooter.setBackground(Color.YELLOW);
+            movieFooter.setBackground(new Color(120, 111, 166));
 
             JButton deleteButton = new JButton("Delete");
             deleteButton.setBackground(Color.BLACK);
@@ -185,7 +185,7 @@ public class MoviesPage extends JFrame {
         resetButton.setMinimumSize(dim);
         resetButton.setMaximumSize(dim);
         resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resetButton.setBackground(Color.YELLOW);
+        resetButton.setBackground(new Color(120, 111, 166));
         filterPanel.add(resetButton);
 
     }
@@ -206,7 +206,7 @@ public class MoviesPage extends JFrame {
         filterButton.setMinimumSize(dim);
         filterButton.setMaximumSize(dim);
         filterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterButton.setBackground(Color.YELLOW);
+        filterButton.setBackground(new Color(120, 111, 166));
         filterPanel.add(filterButton);
 
     }
@@ -291,7 +291,7 @@ public class MoviesPage extends JFrame {
                 }
             });
         });
-        button.setBackground(Color.YELLOW);
+        button.setBackground(new Color(120, 111, 166));
         button.setAlignmentX(CENTER_ALIGNMENT);
         filterPanel.add(button);
     }
