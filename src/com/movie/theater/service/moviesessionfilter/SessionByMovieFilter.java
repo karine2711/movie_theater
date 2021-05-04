@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 public class SessionByMovieFilter implements SessionFilter {
     private final Set<Movie> movies = new HashSet<>();
 

@@ -32,7 +32,6 @@ public class MoviesPage extends JFrame {
     MovieManager movieManager = MovieManager.getMovieManager();
 
 
-
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
     public MoviesPage() throws HeadlessException {
@@ -119,7 +118,6 @@ public class MoviesPage extends JFrame {
             movieDirector.setPreferredSize(movieNameDimension);
             movieDirector.setToolTipText(movie.getName());
             movieDirector.setOpaque(false);
-//            movieDirector.setForeground(new Color(120, 111, 166));
             movieDirector.setFont(new Font(null, Font.ITALIC, 16));
             moviePanel.add(movieDirector);
 
@@ -130,7 +128,6 @@ public class MoviesPage extends JFrame {
             movieFooter.setMinimumSize(footerDimension);
             movieFooter.setMaximumSize(footerDimension);
             movieFooter.setOpaque(false);
-//            movieFooter.setForeground(new Color(120, 111, 166));
 
             JButton deleteButton = new JButton("Delete");
             deleteButton.setBackground(new Color(100, 17, 173));
@@ -284,7 +281,7 @@ public class MoviesPage extends JFrame {
     private void addAddMovieButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-        Dimension dimension=new Dimension(200,100);
+        Dimension dimension = new Dimension(200, 100);
         JButton button = new JButton("Add Movie");
         button.addActionListener(e -> {
             AddMoviePage addMoviePage = new AddMoviePage();
