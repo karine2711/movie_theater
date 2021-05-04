@@ -33,7 +33,25 @@ public class AddSessionPage extends JFrame {
     private String currentMovie;
     private boolean isValidPrice = false;
     private boolean isValidDuration = false;
-
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Asya
+    private JMenuBar menuBar1;
+    private JMenu menu1;
+    private JMenuItem moviesMenu;
+    private JMenuItem sessionsMenu;
+    private JLabel enterDetails;
+    private JLabel movieNameText;
+    private JLabel dateText;
+    private JLabel timeText;
+    private JLabel priceText;
+    private JComboBox movieField;
+    private JTextField priceField;
+    private JDateChooser dateField;
+    private JTimeChooser timeField;
+    private JButton addAnotherSession;
+    private JButton submitButton;
+    private JLabel durationText;
+    private JTextField durationField;
     public AddSessionPage() {
         initComponents();
         List<String> movies = movieManager.getMovieList().stream().map(Movie::getName).collect(Collectors.toList());
@@ -45,10 +63,14 @@ public class AddSessionPage extends JFrame {
         movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
         pack();
     }
-
     public AddSessionPage(Movie currentMovie) {
         this();
         movieField.setSelectedItem(currentMovie.getName());
+    }
+
+    public static void main(String[] args) {
+        AddSessionPage newPage = new AddSessionPage();
+        newPage.setVisible(true);
     }
 
     public void addValidation() {
@@ -176,7 +198,7 @@ public class AddSessionPage extends JFrame {
         movies.setVisible(true);
         dispose();
     }
-
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -324,32 +346,5 @@ public class AddSessionPage extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-    }
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Asya
-    private JMenuBar menuBar1;
-    private JMenu menu1;
-    private JMenuItem moviesMenu;
-    private JMenuItem sessionsMenu;
-    private JLabel enterDetails;
-    private JLabel movieNameText;
-    private JLabel dateText;
-    private JLabel timeText;
-    private JLabel priceText;
-    private JComboBox movieField;
-    private JTextField priceField;
-    private JDateChooser dateField;
-    private JTimeChooser timeField;
-    private JButton addAnotherSession;
-    private JButton submitButton;
-    private JLabel durationText;
-    private JTextField durationField;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
-
-
-    public static void main(String[] args) {
-        AddSessionPage newPage = new AddSessionPage();
-        newPage.setVisible(true);
     }
 }

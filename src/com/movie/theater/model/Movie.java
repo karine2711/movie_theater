@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Movie implements Serializable {
+    //TODO: Add
+    private static final long serialVersionUID = 1L;
     private String name;
     private Director director;
     private Genre genre;
-
-    //TODO: Add
-    private static final long serialVersionUID=1L;
 
     public Movie(String name, Director director, Genre genre) {
         this.name = name;
@@ -45,7 +44,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return name + " is a "+ genre + " directed by " + director + genre;
+        return name + " is a " + genre + " directed by " + director + genre;
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.movie.theater.service.moviefilter;
 import com.movie.theater.model.Movie;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MovieFilterer {
@@ -19,7 +18,7 @@ public class MovieFilterer {
         return this;
     }
 
-    public List<Movie> getResult(){
+    public List<Movie> getResult() {
         return movies;
     }
 

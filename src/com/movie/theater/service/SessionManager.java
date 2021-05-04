@@ -3,6 +3,7 @@ package com.movie.theater.service;
 import com.movie.theater.exception.OverlappingException;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class SessionManager {
-    public final ArrayList<MovieSession> SESSION_LIST;
     public static final String SESSION_LIST_FILE = "src/resources/session-list.txt";
     private static final SessionManager SESSION_MANAGER = new SessionManager();
+    public final ArrayList<MovieSession> SESSION_LIST;
 
     private SessionManager() {
         try {
@@ -67,7 +68,7 @@ public final class SessionManager {
 
     }
 
-    public void deleteSession( MovieSession session) throws IOException{
+    public void deleteSession(MovieSession session) throws IOException {
         SESSION_LIST.remove(session);
         SerializationUtil.serializeSessions();
 

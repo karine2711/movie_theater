@@ -3,7 +3,10 @@ package com.movie.theater.service.moviefilter;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MovieByGenreFilter implements MovieFilter {
@@ -16,11 +19,11 @@ public class MovieByGenreFilter implements MovieFilter {
     public MovieByGenreFilter() {
     }
 
-    public void addGenre(Genre genre){
+    public void addGenre(Genre genre) {
         genres.add(genre);
     }
 
-    public void removeGenre(Genre genre){
+    public void removeGenre(Genre genre) {
         genres.remove(genre);
     }
 
@@ -33,9 +36,10 @@ public class MovieByGenreFilter implements MovieFilter {
         list.addAll(temp);
     }
 
-    public void reset(){
+    public void reset() {
         genres.clear();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -14,9 +14,10 @@ public class SessionByDateFilter implements SessionFilter {
         this.date = date;
     }
 
-    public void reset(){
-        this.date=null;
+    public void reset() {
+        this.date = null;
     }
+
     @Override
     public void filter(List<MovieSession> list) {
         if (date == null) return;

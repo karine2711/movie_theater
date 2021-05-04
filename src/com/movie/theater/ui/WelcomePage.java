@@ -17,8 +17,29 @@ import java.awt.event.ActionEvent;
  * @author Asya
  */
 public class WelcomePage extends JFrame {
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Asya
+    private JButton mainMenu;
+    private JLabel welcome2;
+    private JLabel label1;
+    private JLabel welcome3;
     public WelcomePage() {
         initComponents();
+    }
+
+    public static void main(String[] args) {
+        WelcomePage welcome = new WelcomePage();
+        welcome.pack();
+        welcome.setVisible(true);
+//
+//        try {
+//            URL resource = welcome.getClass().getResource("/Users/asyakhachatryan/Desktop/movie_theater/src/com/movie/theater/icons/movie-3.png");
+//        BufferedImage image = ImageIO.read(resource);
+//        welcome.setIconImage(image);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     private void mainMenuActionPerformed(ActionEvent e) {
@@ -28,6 +49,7 @@ public class WelcomePage extends JFrame {
         dispose();
 
     }
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -61,63 +83,40 @@ public class WelcomePage extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(251, 251, 251)
-                            .addComponent(label1))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(228, 228, 228)
-                            .addComponent(mainMenu))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(200, 200, 200)
-                            .addComponent(welcome3, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(208, Short.MAX_VALUE))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 118, Short.MAX_VALUE)
-                    .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
-                    .addGap(101, 101, 101))
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(251, 251, 251)
+                                                .addComponent(label1))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(228, 228, 228)
+                                                .addComponent(mainMenu))
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(200, 200, 200)
+                                                .addComponent(welcome3, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(208, Short.MAX_VALUE))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                .addGap(0, 118, Short.MAX_VALUE)
+                                .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
+                                .addGap(101, 101, 101))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(74, Short.MAX_VALUE)
-                    .addComponent(label1)
-                    .addGap(48, 48, 48)
-                    .addComponent(welcome2)
-                    .addGap(18, 18, 18)
-                    .addComponent(welcome3)
-                    .addGap(30, 30, 30)
-                    .addComponent(mainMenu)
-                    .addGap(134, 134, 134))
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                .addContainerGap(74, Short.MAX_VALUE)
+                                .addComponent(label1)
+                                .addGap(48, 48, 48)
+                                .addComponent(welcome2)
+                                .addGap(18, 18, 18)
+                                .addComponent(welcome3)
+                                .addGap(30, 30, 30)
+                                .addComponent(mainMenu)
+                                .addGap(134, 134, 134))
         );
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-    }
-
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Asya
-    private JButton mainMenu;
-    private JLabel welcome2;
-    private JLabel label1;
-    private JLabel welcome3;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
-
-    public static void main(String[] args) {
-        WelcomePage welcome = new WelcomePage();
-        welcome.pack();
-        welcome.setVisible(true);
-//
-//        try {
-//            URL resource = welcome.getClass().getResource("/Users/asyakhachatryan/Desktop/movie_theater/src/com/movie/theater/icons/movie-3.png");
-//        BufferedImage image = ImageIO.read(resource);
-//        welcome.setIconImage(image);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
 
 

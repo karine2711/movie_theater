@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 //similar to MovieByGenre filter
 public class SessionByGenreFilter implements SessionFilter {
     private final Set<Genre> genres = new HashSet<>();
@@ -17,17 +18,18 @@ public class SessionByGenreFilter implements SessionFilter {
         genres.add(genre);
     }
 
-    public SessionByGenreFilter(){}
+    public SessionByGenreFilter() {
+    }
 
-    public void addGenre(Genre genre){
+    public void addGenre(Genre genre) {
         genres.add(genre);
     }
 
-    public void removeGenre(Genre genre){
+    public void removeGenre(Genre genre) {
         genres.remove(genre);
     }
 
-    public void reset(){
+    public void reset() {
         genres.clear();
     }
 

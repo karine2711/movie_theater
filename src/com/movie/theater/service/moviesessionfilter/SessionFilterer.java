@@ -1,13 +1,12 @@
 package com.movie.theater.service.moviesessionfilter;
 
-import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SessionFilterer {
-    private final List<MovieSession> movieSessions=new ArrayList<>();
+    private final List<MovieSession> movieSessions = new ArrayList<>();
 
     public SessionFilterer(List<MovieSession> movieSessions) {
         this.movieSessions.addAll(movieSessions);
@@ -23,7 +22,7 @@ public class SessionFilterer {
         filter(List.of(filterList));
     }
 
-    public List<MovieSession> getResult(){
+    public List<MovieSession> getResult() {
         return movieSessions;
     }
 }

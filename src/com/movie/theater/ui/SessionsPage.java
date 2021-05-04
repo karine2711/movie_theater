@@ -26,8 +26,7 @@ import java.util.List;
 
 public class SessionsPage extends JFrame {
 
-    private JButton mainMenuButton;
-    private JPanel sessionsPanel;
+    private static final GridBagConstraints gridBagConstraints = new GridBagConstraints();
     JPanel filterPanel;
     JPanel sessions = new JPanel();
     List<SessionFilter> sessionFilters = new ArrayList<>();
@@ -41,8 +40,8 @@ public class SessionsPage extends JFrame {
     List<JCheckBox> checkBoxes = new ArrayList<>();
     List<JTextField> textFields = new ArrayList<>();
     JDateChooser dateChooser = new JDateChooser();
-
-    private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    private JButton mainMenuButton;
+    private JPanel sessionsPanel;
 
     public SessionsPage() throws HeadlessException {
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -81,6 +80,11 @@ public class SessionsPage extends JFrame {
 
         this.pack();
         this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SessionsPage sessionsPage = new SessionsPage();
+
     }
 
     private void populateWithSessions(List<MovieSession> sessionsList) {
@@ -199,7 +203,6 @@ public class SessionsPage extends JFrame {
         pack();
     }
 
-
     private void initFilterPanel() {
         createFilterPanel();
         addAddSessionButton();
@@ -223,8 +226,8 @@ public class SessionsPage extends JFrame {
             sessionByGenreFilter.reset();
             sessionByMovieFilter.reset();
             sessionByPriceFilter.reset();
-            checkBoxes.forEach(c->c.setSelected(false));
-            textFields.forEach(t->t.setText(""));
+            checkBoxes.forEach(c -> c.setSelected(false));
+            textFields.forEach(t -> t.setText(""));
             populateWithSessions(sessionManager.getSessionList());
             dateChooser.setCalendar(null);
         });
@@ -237,7 +240,6 @@ public class SessionsPage extends JFrame {
         filterButton.addActionListener((e) -> filter());
         filterPanel.add(filterButton);
     }
-
 
     private void filter() {
         sessionFilters.clear();
@@ -489,7 +491,6 @@ public class SessionsPage extends JFrame {
 
     }
 
-
     private void createFilterPanel() {
         filterPanel = new JPanel();
         filterPanel.setBackground(new Color(27, 30, 35));
@@ -530,7 +531,6 @@ public class SessionsPage extends JFrame {
         filterPanel.add(button);
     }
 
-
     private void addFiltersLabel() {
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         JLabel filtersLabel = new JLabel("Filters");
@@ -541,7 +541,6 @@ public class SessionsPage extends JFrame {
         this.setVisible(true);
 //        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
     }
-
 
     private void initMainContainer() {
         sessionsPanel = new JPanel();
@@ -570,7 +569,6 @@ public class SessionsPage extends JFrame {
         sessionsPanel.add(sessionsLabel);
     }
 
-
     private void filterBoxItemStateChanged(ItemEvent e) {
         e.setSource(Genre.values());
         System.out.println("sdsd");
@@ -593,10 +591,5 @@ public class SessionsPage extends JFrame {
             menu.setVisible(true);
             this.dispose();
         });
-    }
-
-    public static void main(String[] args) {
-        SessionsPage sessionsPage = new SessionsPage();
-
     }
 }

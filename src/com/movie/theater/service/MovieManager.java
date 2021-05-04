@@ -4,9 +4,7 @@ import com.movie.theater.exception.AlreadyInMovieListException;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
-import com.movie.theater.model.MovieSession;
 
-import javax.swing.*;
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +14,9 @@ import java.util.stream.Collectors;
 
 public final class MovieManager {
 
-    public ArrayList<Movie> MOVIE_LIST;
     public static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
+    public ArrayList<Movie> MOVIE_LIST;
 
     private MovieManager() {
         File file = new File(MOVIE_LIST_FILE);

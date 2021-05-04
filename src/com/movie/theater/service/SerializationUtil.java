@@ -1,25 +1,19 @@
 package com.movie.theater.service;
 
-import com.movie.theater.model.Movie;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class SerializationUtil {
 
     public static void serializeSessions() throws IOException {
-        SessionManager sessionManager=SessionManager.getSessionManager();
-        writeToFile(SessionManager.SESSION_LIST_FILE,sessionManager.SESSION_LIST);
+        SessionManager sessionManager = SessionManager.getSessionManager();
+        writeToFile(SessionManager.SESSION_LIST_FILE, sessionManager.SESSION_LIST);
     }
 
-    public static void  serializeMovies() throws IOException {
-        MovieManager movieManager=MovieManager.getMovieManager();
-        writeToFile(MovieManager.MOVIE_LIST_FILE,movieManager.MOVIE_LIST);
+    public static void serializeMovies() throws IOException {
+        MovieManager movieManager = MovieManager.getMovieManager();
+        writeToFile(MovieManager.MOVIE_LIST_FILE, movieManager.MOVIE_LIST);
     }
+
     public static void writeToFile(String fileName, Serializable object) throws IOException {
         FileOutputStream fileOutputStream
                 = new FileOutputStream(fileName);

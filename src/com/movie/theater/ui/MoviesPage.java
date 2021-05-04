@@ -26,8 +26,7 @@ import java.util.stream.Collectors;
 
 public class MoviesPage extends JFrame {
 
-    private JButton mainMenuButton;
-    private JPanel moviesPanel;
+    private static final GridBagConstraints gridBagConstraints = new GridBagConstraints();
     JPanel filterPanel;
     JPanel movies = new JPanel();
     List<MovieFilter> movieFilters = new ArrayList<>();
@@ -36,9 +35,8 @@ public class MoviesPage extends JFrame {
     MovieManager movieManager = MovieManager.getMovieManager();
     SessionManager sessionManager = SessionManager.getSessionManager();
     List<JCheckBox> checkBoxes = new ArrayList<>();
-
-
-    private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    private JButton mainMenuButton;
+    private JPanel moviesPanel;
 
     public MoviesPage() throws HeadlessException {
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -79,6 +77,13 @@ public class MoviesPage extends JFrame {
 //        JList<Director>
         this.pack();
         this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        MoviesPage moviesPage = new MoviesPage();
+//        moviesPage.setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
+
+
     }
 
     private void populateWithMovies(List<Movie> moviesList) {
@@ -290,7 +295,6 @@ public class MoviesPage extends JFrame {
         return directorsContainer;
     }
 
-
     private void createFilterPanel() {
         filterPanel = new JPanel();
         filterPanel.setBackground(new Color(27, 30, 35));
@@ -388,7 +392,6 @@ public class MoviesPage extends JFrame {
         return genresContainer;
     }
 
-
     private void initMainContainer() {
         moviesPanel = new JPanel();
         moviesPanel.setBackground(Color.black);
@@ -409,14 +412,6 @@ public class MoviesPage extends JFrame {
         moviesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         moviesLabel.setForeground(Color.WHITE);
         moviesPanel.add(moviesLabel);
-    }
-
-
-    public static void main(String[] args) {
-        MoviesPage moviesPage = new MoviesPage();
-//        moviesPage.setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
-
-
     }
 
     private void filterBoxItemStateChanged(ItemEvent e) {

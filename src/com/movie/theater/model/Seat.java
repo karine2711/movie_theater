@@ -3,10 +3,9 @@ package com.movie.theater.model;
 import java.io.Serializable;
 
 public class Seat implements Serializable {
+    private static final long serialVersionUID = 4L;
     private final int number;
     private boolean isReserved;
-
-    private static final long serialVersionUID=4L;
 
     public Seat(int number) {
         this.number = number;
