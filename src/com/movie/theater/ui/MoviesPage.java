@@ -426,7 +426,7 @@ public class MoviesPage extends JFrame {
 
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
-        mainMenuButton.setBackground(Color.BLACK);
+        mainMenuButton.setBackground(new Color(27, 30, 35));
         mainMenuButton.setForeground(Color.WHITE);
         mainMenuButton.setFont(new Font(null, Font.BOLD, 20));
         gridBagConstraints.weightx = 0.1;
