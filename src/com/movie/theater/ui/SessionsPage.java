@@ -136,7 +136,7 @@ public class SessionsPage extends JFrame {
             genre.setFont(new Font(null, Font.PLAIN, 16));
             sessionPanel.add(genre);
 
-            JLabel date = new JLabel(String.valueOf(session.getLocalDateTime()));
+            JLabel date = new JLabel(session.dateAsString());
             date.setMinimumSize(movieNameDimension);
             date.setMaximumSize(movieNameDimension);
             date.setPreferredSize(movieNameDimension);

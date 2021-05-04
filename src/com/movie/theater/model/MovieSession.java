@@ -78,6 +78,14 @@ public class MovieSession implements Serializable {
         return movie;
     }
 
+    public String dateAsString(){
+        String monthName = localDateTime.getMonth().name().toLowerCase();
+        String firstLetter = String.valueOf(monthName.charAt(0));
+        monthName = monthName.replace(firstLetter, firstLetter.toUpperCase());
+        return localDateTime.getDayOfMonth() + " " + monthName + " " + localDateTime.getYear()
+                + " - " + localDateTime.getHour() + ":" + localDateTime.getMinute();
+    }
+
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
