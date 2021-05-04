@@ -59,7 +59,7 @@ public class MoviesPage extends JFrame {
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
-        moviesPanel.setBackground(new Color(115, 0, 153));
+        moviesPanel.setBackground(new Color(100, 17, 173));
         populateWithMovies(movieManager.getMoveList());
 
         this.getContentPane().add(moviesPanel, gridBagConstraints);
@@ -77,7 +77,7 @@ public class MoviesPage extends JFrame {
 
     private void populateWithMovies(List<Movie> moviesList) {
         movies.removeAll();
-        movies.setBackground(new Color(115, 0, 153));
+        movies.setBackground(new Color(100, 17, 173));
         moviesList.forEach((movie) ->
         {
             JPanel moviePanel = new JPanel();
@@ -89,6 +89,7 @@ public class MoviesPage extends JFrame {
             moviePanel.setMaximumSize(dimension);
 
             moviePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
             File file = new File("src/com/movie/theater/icons/");
             Optional<File> name = Arrays.stream(file.listFiles()).filter(f -> f.getName().startsWith(movie.getName().replaceAll(" ", "_"))).findFirst();
             String path = "src/com/movie/theater/icons/default.png";
@@ -131,10 +132,9 @@ public class MoviesPage extends JFrame {
 //            movieFooter.setForeground(new Color(120, 111, 166));
 
             JButton deleteButton = new JButton("Delete");
-            deleteButton.setBackground(new Color(98,0,128));
+            deleteButton.setBackground(new Color(100, 17, 173));
             deleteButton.setForeground(Color.white);
-//            deleteBu/tton.setBackground(Color.BLACK);
-//            deleteButton.setForeground(Color.WHITE);
+
             deleteButton.addActionListener(e -> {
                 movieManager.deleteMovie(movie);
                 movies.remove(moviePanel);
@@ -143,7 +143,7 @@ public class MoviesPage extends JFrame {
 
             movieFooter.add(deleteButton);
             JButton addSession = new JButton("Add session");
-            addSession.setBackground(new Color(98,0,128));
+            addSession.setBackground(new Color(100, 17, 173));
             addSession.setForeground(Color.WHITE);
             addSession.addActionListener(e -> {
                 AddSessionPage addSessionPage = new AddSessionPage(movie);
@@ -188,7 +188,7 @@ public class MoviesPage extends JFrame {
         resetButton.setMinimumSize(dim);
         resetButton.setMaximumSize(dim);
         resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resetButton.setBackground(new Color(98, 0, 128));
+        resetButton.setBackground(new Color(100, 17, 173));
         resetButton.setBorder(BorderFactory.createBevelBorder(0));
         resetButton.setForeground(Color.white);
         filterPanel.add(resetButton);
@@ -211,7 +211,7 @@ public class MoviesPage extends JFrame {
         filterButton.setMinimumSize(dim);
         filterButton.setMaximumSize(dim);
         filterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterButton.setBackground(new Color(98, 0, 128));
+        filterButton.setBackground(new Color(100, 17, 173));
         filterButton.setBorder(BorderFactory.createBevelBorder(0));
         filterButton.setForeground(Color.white);
         filterPanel.add(filterButton);
@@ -260,7 +260,7 @@ public class MoviesPage extends JFrame {
             directorCheckBox.setOpaque(false);
             directorFilterBox.add(directorCheckBox);
         }
-        directorFilterBox.setBackground(Color.BLACK);
+        directorFilterBox.setBackground(new Color(27, 30, 35));
         JScrollPane scrollPane = new JScrollPane(directorFilterBox);
         scrollPane.setBackground(Color.BLACK);
         directorsContainer.add(scrollPane);
@@ -271,7 +271,7 @@ public class MoviesPage extends JFrame {
 
     private void createFilterPanel() {
         filterPanel = new JPanel();
-        filterPanel.setBackground(Color.BLACK);
+        filterPanel.setBackground(new Color(27, 30, 35));
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.8;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -302,7 +302,7 @@ public class MoviesPage extends JFrame {
         button.setPreferredSize(dimension);
         button.setMinimumSize(dimension);
         button.setMaximumSize(dimension);
-        button.setBackground(new Color(98, 0, 128));
+        button.setBackground(new Color(100, 17, 173));
         button.setBorder(BorderFactory.createBevelBorder(0));
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
@@ -355,7 +355,7 @@ public class MoviesPage extends JFrame {
             genreCheckBox.setOpaque(false);
             genreFiltersBox.add(genreCheckBox);
         }
-        genreFiltersBox.setBackground(Color.BLACK);
+        genreFiltersBox.setBackground(new Color(27, 30, 35));
         JScrollPane scrollPane = new JScrollPane(genreFiltersBox);
         scrollPane.setBackground(Color.BLACK);
         genresContainer.add(scrollPane);
@@ -401,7 +401,7 @@ public class MoviesPage extends JFrame {
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
         mainMenuButton.setBackground(Color.BLACK);
-        mainMenuButton.setForeground(Color.WHITE);
+        mainMenuButton.setForeground(Color.BLACK);
         mainMenuButton.setFont(new Font(null, Font.BOLD, 20));
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
