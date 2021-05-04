@@ -83,7 +83,7 @@ public class SessionsPage extends JFrame {
 
     private void populateWithSessions(List<MovieSession> sessionsList) {
         sessions.removeAll();
-        sessions.setBackground(Color.WHITE);
+        sessions.setBackground(new Color(100, 17, 173));
 
         sessionsList.forEach((session) ->
         {
@@ -104,6 +104,7 @@ public class SessionsPage extends JFrame {
             movieName.setMaximumSize(movieNameDimension);
             movieName.setToolTipText(session.getMovie().getName());
             movieName.setFont(new Font(null, Font.PLAIN, 20));
+            movieName.setBackground(new Color(27, 30, 35));
             sessionPanel.add(movieName);
 
             JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
@@ -112,7 +113,7 @@ public class SessionsPage extends JFrame {
             movieDirector.setPreferredSize(movieNameDimension);
             movieDirector.setToolTipText(session.getMovie().getName());
             movieDirector.setOpaque(false);
-            movieDirector.setBackground(Color.white);
+            movieDirector.setBackground(Color.WHITE);
             movieDirector.setFont(new Font(null, Font.PLAIN, 16));
             sessionPanel.add(movieDirector);
 
@@ -181,7 +182,7 @@ public class SessionsPage extends JFrame {
             sessionFooter.add(getTicket);
             sessionFooter.add(deleteButton);
             sessionPanel.add(sessionFooter);
-            sessionPanel.setBackground(new Color(100, 17, 173));
+            sessionPanel.setBackground(Color.WHITE);
 
             sessions.add(sessionPanel);
 
