@@ -188,7 +188,9 @@ public class MoviesPage extends JFrame {
         resetButton.setMinimumSize(dim);
         resetButton.setMaximumSize(dim);
         resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resetButton.setBackground(new Color(120, 111, 166));
+        resetButton.setBackground(new Color(98, 0, 128));
+        resetButton.setBorder(BorderFactory.createBevelBorder(0));
+        resetButton.setForeground(Color.white);
         filterPanel.add(resetButton);
 
     }
@@ -209,7 +211,9 @@ public class MoviesPage extends JFrame {
         filterButton.setMinimumSize(dim);
         filterButton.setMaximumSize(dim);
         filterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterButton.setBackground(new Color(120, 111, 166));
+        filterButton.setBackground(new Color(98, 0, 128));
+        filterButton.setBorder(BorderFactory.createBevelBorder(0));
+        filterButton.setForeground(Color.white);
         filterPanel.add(filterButton);
 
     }
@@ -280,6 +284,7 @@ public class MoviesPage extends JFrame {
     private void addAddMovieButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        Dimension dimension=new Dimension(200,100);
         JButton button = new JButton("Add Movie");
         button.addActionListener(e -> {
             AddMoviePage addMoviePage = new AddMoviePage();
@@ -294,7 +299,12 @@ public class MoviesPage extends JFrame {
                 }
             });
         });
-        button.setBackground(new Color(120, 111, 166));
+        button.setPreferredSize(dimension);
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(new Color(98, 0, 128));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+        button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         filterPanel.add(button);
     }
