@@ -32,6 +32,7 @@ public class MoviesPage extends JFrame {
     MovieManager movieManager = MovieManager.getMovieManager();
 
 
+
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
     public MoviesPage() throws HeadlessException {
@@ -390,7 +391,9 @@ public class MoviesPage extends JFrame {
 
 
     public static void main(String[] args) {
-        MoviesPage tryUI = new MoviesPage();
+        MoviesPage moviesPage = new MoviesPage();
+//        moviesPage.setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
+
 
     }
 
