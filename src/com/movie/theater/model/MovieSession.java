@@ -14,6 +14,7 @@ public class MovieSession implements Serializable {
     private double priceForSession;
     private Duration duration;
     private Movie movie;
+    private static final long serialVersionUID=2L;
 
 
 
@@ -53,6 +54,7 @@ public class MovieSession implements Serializable {
         Seat p = reservationState.get(seat - 1);
         if (!p.isReserved()) {
             p.setReserved(true);
+
         } else {
             throw new AlreadyReservedException("Place "+seat+ " is already reserved!");
         }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//TODO: just leave as it is. Let the user choose a movie from combo box and proceed to this filter
+
 public class SessionByMovieFilter implements SessionFilter {
     private final Set<Movie> movies = new HashSet<>();
 

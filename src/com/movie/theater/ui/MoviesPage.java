@@ -159,7 +159,6 @@ public class MoviesPage extends JFrame {
             movies.add(moviePanel);
         });
 
-//        movies.repaint();
         pack();
     }
 
