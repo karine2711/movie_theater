@@ -1,5 +1,6 @@
 package com.movie.theater.service.moviesessionfilter;
 
+import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import java.util.List;
 
@@ -10,12 +11,17 @@ public class SessionFilterer {
         this.movieSessions = movieSessions;
     }
 
-    public void filter(List<SessionFilter> filterList) {
+    public SessionFilterer filter(List<SessionFilter> filterList) {
         filterList.forEach(filter -> filter.filter(movieSessions));
+        return this;
     }
 
 
     public void filter(SessionFilter... filterList) {
         filter(List.of(filterList));
+    }
+
+    public List<MovieSession> getResult(){
+        return movieSessions;
     }
 }

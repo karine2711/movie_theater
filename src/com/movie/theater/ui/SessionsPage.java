@@ -23,12 +23,10 @@ public class SessionsPage extends JFrame {
     JPanel sessions = new JPanel();
     List<SessionFilter> sessionFilters = new ArrayList<>();
     SessionByDateFilter sessionByDateFilter = null;
-    SessionByGenreFilter sessionByGenreFilter = null;
+    SessionByGenreFilter sessionByGenreFilter = new SessionByGenreFilter();
     SessionByMovieFilter sessionByMovieFilter = null;
     SessionByPriceFilter sessionByPriceFilter = null;
     SessionManager sessionManager = SessionManager.getSessionManager();
-
-    public static final Color LIGHT_BLUE = new Color(51, 204, 255);
 
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -40,8 +38,8 @@ public class SessionsPage extends JFrame {
         this.setPreferredSize(uidim);
         GridBagLayout layout = new GridBagLayout();
         gridBagConstraints.fill = GridBagConstraints.VERTICAL;
-        gridBagConstraints.weightx = 1;
-        gridBagConstraints.weighty = 1;
+        gridBagConstraints.weightx = 2;
+        gridBagConstraints.weighty = 2;
         layout.setConstraints(this.getContentPane(), gridBagConstraints);
         this.getContentPane().setLayout(layout);
 
@@ -57,7 +55,6 @@ public class SessionsPage extends JFrame {
         sessions.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(sessions, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         sessionsPanel.add(scrollPane);
-
 
         populateWithSessions(sessionManager.getSessionList());
         this.getContentPane().add(sessionsPanel, gridBagConstraints);
@@ -187,6 +184,7 @@ public class SessionsPage extends JFrame {
         addFiltersChecks();
         filterPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         addFilterButton();
+        filterPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         addResetButton();
 
     }
@@ -213,10 +211,10 @@ public class SessionsPage extends JFrame {
             sessionFilters.add(sessionByGenreFilter);
             sessionFilters.add(sessionByMovieFilter);
             sessionFilters.add(sessionByPriceFilter);
-//            SessionFilterer filterer = new SessionFilterer(sessionManager.getSessionList());
-//            List<MovieSession> filteredList = filterer.filter(sessionFilters).getResult();
-//            System.out.println(filteredList);
-//            populateWithSessions(filteredList);
+            SessionFilterer filterer = new SessionFilterer(sessionManager.getSessionList());
+            List<MovieSession> filteredList = filterer.filter(sessionFilters).getResult();
+            System.out.println(filteredList);
+            populateWithSessions(filteredList);
         });
         filterPanel.add(filterButton);
 
@@ -225,9 +223,11 @@ public class SessionsPage extends JFrame {
     private void addFiltersChecks() {
         JPanel filtersChecks = new JPanel();
         filtersChecks.setLayout(new BoxLayout(filtersChecks, BoxLayout.X_AXIS));
-//        filtersChecks.add(getGenreFiltersBox());
+        filtersChecks.add(getGenreFiltersBox());
         filtersChecks.add(Box.createRigidArea(new Dimension(30, 0)));
-//        filtersChecks.add(getDirectorsFilterBox());
+        filtersChecks.add(getDateFilterBox());
+        filtersChecks.add(getMovieFiltersBox());
+        filtersChecks.add(getPriceFiltersBox());
         Dimension dimension = new Dimension(400, 300);
         filtersChecks.setPreferredSize(dimension);
         filtersChecks.setMinimumSize(dimension);
@@ -236,48 +236,127 @@ public class SessionsPage extends JFrame {
         filterPanel.add(filtersChecks);
     }
 
-//    private JPanel getDateFilterBox() {
-//
-//        JPanel directorsContainer = new JPanel();
-//        directorsContainer.setOpaque(false);
-//        directorsContainer.setLayout(new BoxLayout(directorsContainer, BoxLayout.Y_AXIS));
-//        JLabel directors = new JLabel("Directors");
-//        directors.setForeground(Color.WHITE);
-//        directors.setFont(new Font(null, Font.BOLD, 16));
-//        directorsContainer.add(directors);
-//        Dimension dimension = new Dimension(100, 120);
-//        directorFilterBox.setPreferredSize(dimension);
-//        directorFilterBox.setMinimumSize(dimension);
-//
-//        JPanel directorFilterBox = new JPanel();
-//        directorFilterBox.setLayout(new BoxLayout(directorFilterBox, BoxLayout.Y_AXIS));
-//
-//        directorFilterBox.setAlignmentX(CENTER_ALIGNMENT);
-//        directorFilterBox.setOpaque(false);
-//        for (Director director : sessionManager.getDirectorList()) {
-//            String directorFullName = director.getFullName();
-//            JCheckBox genreCheckBox = new JCheckBox(directorFullName);
-//            genreCheckBox.addItemListener((ItemEvent e) -> {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    movieByDirectorFilter.addDirector(director);
-//                } else {
-//                    movieByDirectorFilter.removeDirector(director);
-//                }
-//                System.out.println(movieByDirectorFilter);
-//            });
-//            directorFilterBox.add(genreCheckBox);
-//        }
-//        directorsContainer.add(new JScrollPane(directorFilterBox));
-////        filterPanel.add(directorFilterBox);
-//        return directorsContainer;
-//
-//        //TODO from 203 - 223 change
-//    }
+    private JPanel getDateFilterBox() {
+
+        JPanel datesContainer = new JPanel();
+        datesContainer.setOpaque(false);
+        datesContainer.setLayout(new BoxLayout(datesContainer, BoxLayout.Y_AXIS));
+        JLabel dates = new JLabel("Dates");
+        dates.setForeground(Color.WHITE);
+        dates.setFont(new Font(null, Font.BOLD, 16));
+        datesContainer.add(dates);
+
+
+        JPanel datesFilterBox = new JPanel();
+        datesFilterBox.setLayout(new BoxLayout(datesFilterBox, BoxLayout.Y_AXIS));
+//        datesFilterBox.setPreferredSize(dimension);
+//        datesFilterBox.setMinimumSize(dimension);
+
+
+        datesFilterBox.setAlignmentX(CENTER_ALIGNMENT);
+        datesFilterBox.setOpaque(false);
+
+        Dimension dimension = new Dimension(100, 120);
+        datesFilterBox.setPreferredSize(dimension);
+        datesFilterBox.setMinimumSize(dimension);
+
+        return datesContainer;
+    }
+
+        private JPanel getGenreFiltersBox() {
+        JPanel genresContainer = new JPanel();
+        genresContainer.setOpaque(false);
+        genresContainer.setLayout(new BoxLayout(genresContainer, BoxLayout.Y_AXIS));
+        JLabel genres = new JLabel("Genres");
+        genres.setForeground(Color.WHITE);
+        genres.setFont(new Font(null, Font.BOLD, 16));
+        genresContainer.add(genres);
+
+
+        JPanel genreFiltersBox = new JPanel();
+        genreFiltersBox.setLayout(new BoxLayout(genreFiltersBox, BoxLayout.Y_AXIS));
+
+        genreFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
+        genreFiltersBox.setOpaque(false);
+        Dimension dimension = new Dimension(100, 120);
+        genreFiltersBox.setPreferredSize(dimension);
+        genreFiltersBox.setMinimumSize(dimension);
+
+        for (Genre genre : Genre.values()) {
+            String genreName = genre.name().toLowerCase();
+            String firstLetter = String.valueOf(genreName.charAt(0));
+            genreName = genreName.replace(firstLetter, firstLetter.toUpperCase());
+            JCheckBox genreCheckBox = new JCheckBox(genreName);
+            genreCheckBox.addItemListener((ItemEvent e) -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    sessionByGenreFilter.addGenre(genre);
+                } else {
+                    sessionByGenreFilter.removeGenre(genre);
+                }
+                System.out.println(sessionByGenreFilter);
+            });
+            genreFiltersBox.add(genreCheckBox);
+        }
+        genresContainer.add(new JScrollPane(genreFiltersBox));
+//        filterPanel.add(genreFiltersBox);
+        return genresContainer;
+
+
+    }
+
+        private JPanel getMovieFiltersBox() {
+        JPanel moviesContainer = new JPanel();
+        moviesContainer.setOpaque(false);
+        moviesContainer.setLayout(new BoxLayout(moviesContainer, BoxLayout.Y_AXIS));
+        JLabel movies = new JLabel("Movies");
+        movies.setForeground(Color.WHITE);
+        movies.setFont(new Font(null, Font.BOLD, 16));
+        moviesContainer.add(movies);
+
+
+        JPanel movieFiltersBox = new JPanel();
+        movieFiltersBox.setLayout(new BoxLayout(movieFiltersBox, BoxLayout.Y_AXIS));
+
+        movieFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
+        movieFiltersBox.setOpaque(false);
+        Dimension dimension = new Dimension(100, 120);
+        movieFiltersBox.setPreferredSize(dimension);
+        movieFiltersBox.setMinimumSize(dimension);
+
+
+        moviesContainer.add(new JScrollPane(movieFiltersBox));
+        filterPanel.add(movieFiltersBox);
+        return moviesContainer;
+    }
+
+        private JPanel getPriceFiltersBox() {
+        JPanel priceContainer = new JPanel();
+        priceContainer.setOpaque(false);
+        priceContainer.setLayout(new BoxLayout(priceContainer, BoxLayout.Y_AXIS));
+        JLabel price = new JLabel("Price");
+        price.setForeground(Color.WHITE);
+        price.setFont(new Font(null, Font.BOLD, 16));
+        priceContainer.add(price);
+
+
+        JPanel priceFiltersBox = new JPanel();
+        priceFiltersBox.setLayout(new BoxLayout(priceFiltersBox, BoxLayout.Y_AXIS));
+
+        priceFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
+        priceFiltersBox.setOpaque(false);
+        Dimension dimension = new Dimension(100, 120);
+        priceFiltersBox.setPreferredSize(dimension);
+        priceFiltersBox.setMinimumSize(dimension);
+
+        priceContainer.add(new JScrollPane(priceFiltersBox));
+//        filterPanel.add(genreFiltersBox);
+        return priceContainer;
+    }
 
 
     private void createFilterPanel() {
         filterPanel = new JPanel();
-        filterPanel.setBackground(Color.GRAY);
+        filterPanel.setBackground(Color.BLUE);
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.8;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -302,47 +381,6 @@ public class SessionsPage extends JFrame {
         filterPanel.add(button);
     }
 
-
-//    private JPanel getGenreFiltersBox() {
-//        JPanel genresContainer = new JPanel();
-//        genresContainer.setOpaque(false);
-//        genresContainer.setLayout(new BoxLayout(genresContainer, BoxLayout.Y_AXIS));
-//        JLabel genres = new JLabel("Genres");
-//        genres.setForeground(Color.WHITE);
-//        genres.setFont(new Font(null, Font.BOLD, 16));
-//        genresContainer.add(genres);
-//
-//
-//        JPanel genreFiltersBox = new JPanel();
-//        genreFiltersBox.setLayout(new BoxLayout(genreFiltersBox, BoxLayout.Y_AXIS));
-//
-//        genreFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
-//        genreFiltersBox.setOpaque(false);
-//        Dimension dimension = new Dimension(100, 120);
-//        genreFiltersBox.setPreferredSize(dimension);
-//        genreFiltersBox.setMinimumSize(dimension);
-
-//        for (Genre genre : Genre.values()) {
-//            String genreName = genre.name().toLowerCase();
-//            String firstLetter = String.valueOf(genreName.charAt(0));
-//            genreName = genreName.replace(firstLetter, firstLetter.toUpperCase());
-//            JCheckBox genreCheckBox = new JCheckBox(genreName);
-//            genreCheckBox.addItemListener((ItemEvent e) -> {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    movieByGenreFilter.addGenre(genre);
-//                } else {
-//                    movieByGenreFilter.removeGenre(genre);
-//                }
-//                System.out.println(movieByGenreFilter);
-//            });
-//            genreFiltersBox.add(genreCheckBox);
-//        }
-//        genresContainer.add(new JScrollPane(genreFiltersBox));
-////        filterPanel.add(genreFiltersBox);
-//        return genresContainer;
-
-        //TODO 286 - 303 change
-//    }
 
     private void addFiltersLabel() {
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
