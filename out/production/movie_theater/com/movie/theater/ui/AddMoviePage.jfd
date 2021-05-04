@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:119:p, par l {comp dirNameText:::p:139:p, par t {comp genreText:::p:88:p, comp movieNameText:::p:88:p}, comp dirSurnameText:::p:152:p}, space ::62:x, par l:::p {comp movieNameField::::221:x, comp dirSurnameField::::221:x, comp dirNameField::::221:x, comp genreField::l::221:x}, space :p:124:p}, seq t {space :0:263:x, comp submitButton:::p::p, space :p:167:p, comp upload:::p::p, space :p:92:p}, seq t {space ::191:x, par l {seq t {comp enterDetails:::p:318:p, space :p:169:p}, seq t {comp addAnotherMovie:::p::p, space :p:224:p}}}, seq l {space :p:196:p, comp addSession:::p::p, space ::200:x}}"
-			"$verticalGroup": "par l {seq l {space :p:23:p, comp enterDetails:::p::p, space :p:32:p, par b {comp movieNameText::b:p:39:p, comp movieNameField::b:p::p}, space s:::p, par b {comp dirNameField::b:p::p, comp dirNameText::b:p:39:p}, space u:::p, par b {comp dirSurnameField::b:p::p, comp dirSurnameText::b:p:39:p}, space :p:19:p, par b {comp genreText::b:p:39:p, comp genreField::b:p::p}, space s:::p, par b {comp submitButton::b:p::p, comp upload::b:p::p}, space s:::p, comp addAnotherMovie:::p::p, space s:::p, comp addSession:::p::p, space :::x}}"
+			"$horizontalGroup": "par l {seq t {space ::191:x, comp enterDetails:::p:318:p, space :p:169:p}, seq t {space :p:119:p, par l {comp dirSurnameText::l:p:152:p, comp genreText::l:p:88:p, comp dirNameText::l:p:139:p, comp movieNameText::l:p:88:p, comp genreText2::l:p:133:p}, space ::62:x, par l {par l:::p {comp movieNameField::::221:x, comp dirSurnameField::::221:x, comp dirNameField::::221:x, comp genreField::l::221:x}, comp upload:::p::p}, space :p:124:p}, seq {par l {seq l {space :p:230:p, comp addAnotherMovie:::p::p}, seq {space :p:196:p, comp addSession:::p::p}, seq l {space :p:299:p, comp submitButton:::p::p}}, space ::200:x}}"
+			"$verticalGroup": "par l {seq l {space :p:23:p, comp enterDetails:::p::p, space :p:32:p, par b {comp movieNameField::b:p::p, comp movieNameText::b:p:30:p}, space s:::p, par l {comp dirNameField:::p::p, comp dirNameText:::p:33:p}, space s:::p, par b {comp dirSurnameField::b:p::p, comp dirSurnameText::b:p:30:p}, space :p:24:p, par b {comp genreField::b:p::p, comp genreText::b:p:30:p}, space u:::p, par b {comp genreText2::b:p:30:p, comp upload::b:p::p}, space ::22:x, comp submitButton:::p::p, space u:::p, comp addAnotherMovie:::p::p, space s:::p, comp addSession:::p::p, space :p:15:p}}"
 		} ) {
 			name: "this"
 			"defaultCloseOperation": 2
@@ -59,8 +59,12 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "upload"
-				"text": "text"
+				"text": "Choose photo"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "uploadActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "genreText2"
+				"text": "Upload banner"
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
