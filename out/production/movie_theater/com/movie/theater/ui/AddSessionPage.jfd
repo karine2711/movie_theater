@@ -38,7 +38,7 @@ new FormModel {
 			add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
 				name: "dateField"
 			} )
-			add( new FormComponent( "jtimechooser.JTimeChooser" ) {
+			add( new FormComponent( "lu.tudor.santec.jtimechooser.JTimeChooser" ) {
 				name: "timeField"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
