@@ -29,6 +29,9 @@ public class SessionByMovieFilter implements SessionFilter {
     }
 
 
+    public void reset(){
+        movies.clear();
+    }
     @Override
     public void filter(List<MovieSession> list) {
         if (movies.isEmpty()) return;

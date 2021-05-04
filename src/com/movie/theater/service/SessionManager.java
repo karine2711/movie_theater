@@ -1,5 +1,6 @@
 package com.movie.theater.service;
 
+import com.movie.theater.exception.OverlappingException;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public final class SessionManager {
             }
             builder.append("}");
 
-            throw new RuntimeException(builder.toString());
+            throw new OverlappingException(builder.toString());
         }
     }
 

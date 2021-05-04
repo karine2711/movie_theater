@@ -20,6 +20,10 @@ public class SessionByPriceFilter implements SessionFilter {
         this.maxPrice = maxPrice;
     }
 
+    public void reset(){
+        minPrice=0;
+        maxPrice=9990;
+    }
     @Override
     public void filter(List<MovieSession> list) {
          List<MovieSession> temp =

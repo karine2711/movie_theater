@@ -4,7 +4,9 @@ import com.movie.theater.exception.AlreadyInMovieListException;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
+import com.movie.theater.model.MovieSession;
 
+import javax.swing.*;
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
@@ -55,8 +57,9 @@ public final class MovieManager {
         MOVIE_LIST.remove(movie);
         try {
             SerializationUtil.serializeMovies();
+            SerializationUtil.serializeSessions();
         } catch (IOException e) {
-           System.err.println("Failed to persist data!");
+            System.err.println("Failed to persist data!");
         }
     }
 
@@ -67,4 +70,5 @@ public final class MovieManager {
     public List<Director> getDirectorList() {
         return MOVIE_LIST.stream().map(Movie::getDirector).collect(Collectors.toList());
     }
+
 }

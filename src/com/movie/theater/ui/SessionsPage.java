@@ -38,7 +38,9 @@ public class SessionsPage extends JFrame {
     SessionManager sessionManager = SessionManager.getSessionManager();
     MovieManager movieManager = MovieManager.getMovieManager();
     boolean isValidPrice;
-
+    List<JCheckBox> checkBoxes = new ArrayList<>();
+    List<JTextField> textFields = new ArrayList<>();
+    JDateChooser dateChooser = new JDateChooser();
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -217,11 +219,14 @@ public class SessionsPage extends JFrame {
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener((e) -> {
             sessionFilters.clear();
-//            sessionByDateFilter.reset();
-//            sessionByGenreFilter.reset();
-//            sessionByMovieFilter.reset();
-//            sessionByPriceFilter.reset();
+            sessionByDateFilter.reset();
+            sessionByGenreFilter.reset();
+            sessionByMovieFilter.reset();
+            sessionByPriceFilter.reset();
+            checkBoxes.forEach(c->c.setSelected(false));
+            textFields.forEach(t->t.setText(""));
             populateWithSessions(sessionManager.getSessionList());
+            dateChooser.setCalendar(null);
         });
         filterPanel.add(resetButton);
 
@@ -293,7 +298,6 @@ public class SessionsPage extends JFrame {
         dates.setForeground(Color.WHITE);
         dates.setFont(new Font(null, Font.BOLD, 16));
         datesContainer.add(dates);
-        JDateChooser dateChooser = new JDateChooser();
         datesContainer.add(Box.createRigidArea(new Dimension(0, 25)));
         datesContainer.add(dateChooser);
         dateChooser.getDateEditor().setEnabled(false);
@@ -342,6 +346,7 @@ public class SessionsPage extends JFrame {
             });
             genreCheckBox.setForeground(Color.BLACK);
             genreCheckBox.setOpaque(false);
+            checkBoxes.add(genreCheckBox);
             genreFiltersBox.add(genreCheckBox);
         }
         genresContainer.add(new JScrollPane(genreFiltersBox));
@@ -383,6 +388,7 @@ public class SessionsPage extends JFrame {
             });
             movieCheckBox.setForeground(Color.BLACK);
             movieCheckBox.setOpaque(false);
+            checkBoxes.add(movieCheckBox);
             movieFiltersBox.add(movieCheckBox);
         }
 
@@ -412,6 +418,8 @@ public class SessionsPage extends JFrame {
         validateMaxPrice(maximum);
         priceContainer.add(maxLabel);
         priceContainer.add(maximum);
+        textFields.add(minimum);
+        textFields.add(maximum);
         return priceContainer;
     }
 
@@ -433,7 +441,7 @@ public class SessionsPage extends JFrame {
             }
 
             private void validate() {
-                if (field.getText().matches("[0-9]{2,3}0")) {
+                if (field.getText().matches("^[1-9][0-9]{2,3}0")) {
                     field.setBackground(Color.WHITE);
                     sessionByPriceFilter.setMinPrice(Integer.parseInt(field.getText()));
                 } else if (field.getText().isEmpty()) {

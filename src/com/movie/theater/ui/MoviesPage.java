@@ -3,7 +3,9 @@ package com.movie.theater.ui;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
+import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.MovieManager;
+import com.movie.theater.service.SessionManager;
 import com.movie.theater.service.moviefilter.MovieByDirectorFilter;
 import com.movie.theater.service.moviefilter.MovieByGenreFilter;
 import com.movie.theater.service.moviefilter.MovieFilter;
@@ -15,10 +17,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MoviesPage extends JFrame {
 
@@ -30,6 +34,8 @@ public class MoviesPage extends JFrame {
     MovieByDirectorFilter movieByDirectorFilter = new MovieByDirectorFilter();
     MovieByGenreFilter movieByGenreFilter = new MovieByGenreFilter();
     MovieManager movieManager = MovieManager.getMovieManager();
+    SessionManager sessionManager = SessionManager.getSessionManager();
+    List<JCheckBox> checkBoxes = new ArrayList<>();
 
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -134,6 +140,19 @@ public class MoviesPage extends JFrame {
             deleteButton.setForeground(Color.white);
 
             deleteButton.addActionListener(e -> {
+                List<MovieSession> sessionsToDelete = SessionManager
+                        .getSessionManager()
+                        .SESSION_LIST
+                        .stream()
+                        .filter(s -> s.getMovie().equals(movie))
+                        .collect(Collectors.toList());
+                sessionsToDelete.forEach(s -> {
+                    try {
+                        sessionManager.deleteSession(s);
+                    } catch (IOException exception) {
+                        showExitCase();
+                    }
+                });
                 movieManager.deleteMovie(movie);
                 movies.remove(moviePanel);
                 pack();
@@ -147,7 +166,7 @@ public class MoviesPage extends JFrame {
                 AddSessionPage addSessionPage = new AddSessionPage(movie);
                 addSessionPage.pack();
                 addSessionPage.setVisible(true);
-                dispose();
+                addSessionPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             });
 
             movieFooter.add(addSession);
@@ -157,6 +176,11 @@ public class MoviesPage extends JFrame {
         });
 
         pack();
+    }
+
+    private void showExitCase() {
+        JOptionPane.showMessageDialog(this, "Sorry something went wrong! The program need to exit");
+        System.exit(-1);
     }
 
     private void initFilterPanel() {
@@ -178,6 +202,7 @@ public class MoviesPage extends JFrame {
             movieFilters.clear();
             movieByDirectorFilter.reset();
             movieByGenreFilter.reset();
+            checkBoxes.forEach(c -> c.setSelected(false));
             populateWithMovies(movieManager.getMovieList());
         });
         Dimension dim = new Dimension(200, 50);
@@ -200,7 +225,6 @@ public class MoviesPage extends JFrame {
             movieFilters.add(movieByGenreFilter);
             MovieFilterer filterer = new MovieFilterer(movieManager.getMovieList());
             List<Movie> filteredList = filterer.filter(movieFilters).getResult();
-            System.out.println(filteredList);
             populateWithMovies(filteredList);
         });
         Dimension dim = new Dimension(200, 50);
@@ -255,6 +279,7 @@ public class MoviesPage extends JFrame {
             });
             directorCheckBox.setForeground(Color.WHITE);
             directorCheckBox.setOpaque(false);
+            checkBoxes.add(directorCheckBox);
             directorFilterBox.add(directorCheckBox);
         }
         directorFilterBox.setBackground(new Color(27, 30, 35));
@@ -350,6 +375,7 @@ public class MoviesPage extends JFrame {
             });
             genreCheckBox.setForeground(Color.WHITE);
             genreCheckBox.setOpaque(false);
+            checkBoxes.add(genreCheckBox);
             genreFiltersBox.add(genreCheckBox);
         }
         genreFiltersBox.setBackground(new Color(27, 30, 35));

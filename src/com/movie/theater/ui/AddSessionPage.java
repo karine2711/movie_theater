@@ -4,6 +4,7 @@
 
 package com.movie.theater.ui;
 
+import com.movie.theater.exception.OverlappingException;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.MovieManager;
@@ -95,7 +96,7 @@ public class AddSessionPage extends JFrame {
             }
 
             private void validate() {
-                if (!priceField.getText().matches("[0-9]{2,3}0")) {
+                if (!priceField.getText().matches("^[0-9][0-9]{2,3}0")) {
                     priceField.setBackground(new Color(255, 153, 153));
                     isValidPrice = false;
                 } else {
@@ -138,6 +139,8 @@ public class AddSessionPage extends JFrame {
             sessionManager.addSession(session);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (OverlappingException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
 
     }
