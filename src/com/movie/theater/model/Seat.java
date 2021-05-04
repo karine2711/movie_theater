@@ -6,7 +6,7 @@ public class Seat implements Serializable {
     private final int number;
     private boolean isReserved;
 
-    private static final long serialVersionUID=4L;
+    private static final long serialVersionUID = 4L;
 
     public Seat(int number) {
         this.number = number;

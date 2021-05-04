@@ -88,6 +88,7 @@ public class SessionsPage extends JFrame {
         sessionsList.forEach((session) ->
         {
             JPanel sessionPanel = new JPanel();
+            sessionPanel.setLayout(new GridLayout(6, 1));
             sessionPanel.setBackground(new Color(249, 250, 255));
             sessionPanel.setBorder(BorderFactory.createSoftBevelBorder(0));
             Dimension dimension = new Dimension(300, 200);
@@ -107,7 +108,10 @@ public class SessionsPage extends JFrame {
             movieName.setBackground(new Color(27, 30, 35));
             movieName.setForeground(Color.white);
             movieName.setOpaque(true);
-            sessionPanel.add(movieName);
+            JPanel movieInPanel = new JPanel();
+            movieInPanel.setBackground(new Color(27, 30, 35));
+            movieInPanel.add(movieName);
+            sessionPanel.add(movieInPanel);
 
             JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
             movieDirector.setMinimumSize(movieNameDimension);
