@@ -59,7 +59,7 @@ public class MoviesPage extends JFrame {
         movies.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
-        moviesPanel.setBackground(new Color(120, 111, 166));
+        moviesPanel.setBackground(new Color(115, 0, 153));
         populateWithMovies(movieManager.getMoveList());
 
         this.getContentPane().add(moviesPanel, gridBagConstraints);
@@ -77,12 +77,12 @@ public class MoviesPage extends JFrame {
 
     private void populateWithMovies(List<Movie> moviesList) {
         movies.removeAll();
-        movies.setBackground(new Color(87, 75, 144));
-
+        movies.setBackground(new Color(115, 0, 153));
         moviesList.forEach((movie) ->
         {
             JPanel moviePanel = new JPanel();
-            moviePanel.setBackground(new Color(205, 218, 253));
+            moviePanel.setBackground(new Color(249, 250, 255));
+            moviePanel.setBorder(BorderFactory.createSoftBevelBorder(0));
             Dimension dimension = new Dimension(300, 520);
             moviePanel.setPreferredSize(dimension);
             moviePanel.setMinimumSize(dimension);
@@ -116,8 +116,8 @@ public class MoviesPage extends JFrame {
             movieDirector.setMaximumSize(movieNameDimension);
             movieDirector.setPreferredSize(movieNameDimension);
             movieDirector.setToolTipText(movie.getName());
-            movieDirector.setOpaque(true);
-            movieDirector.setBackground(new Color(120, 111, 166));
+            movieDirector.setOpaque(false);
+//            movieDirector.setForeground(new Color(120, 111, 166));
             movieDirector.setFont(new Font(null, Font.ITALIC, 16));
             moviePanel.add(movieDirector);
 
@@ -127,11 +127,14 @@ public class MoviesPage extends JFrame {
             movieFooter.setPreferredSize(footerDimension);
             movieFooter.setMinimumSize(footerDimension);
             movieFooter.setMaximumSize(footerDimension);
-            movieFooter.setBackground(new Color(120, 111, 166));
+            movieFooter.setOpaque(false);
+//            movieFooter.setForeground(new Color(120, 111, 166));
 
             JButton deleteButton = new JButton("Delete");
-            deleteButton.setBackground(Color.BLACK);
-            deleteButton.setForeground(Color.WHITE);
+            deleteButton.setBackground(new Color(98,0,128));
+            deleteButton.setForeground(Color.white);
+//            deleteBu/tton.setBackground(Color.BLACK);
+//            deleteButton.setForeground(Color.WHITE);
             deleteButton.addActionListener(e -> {
                 movieManager.deleteMovie(movie);
                 movies.remove(moviePanel);
@@ -140,7 +143,7 @@ public class MoviesPage extends JFrame {
 
             movieFooter.add(deleteButton);
             JButton addSession = new JButton("Add session");
-            addSession.setBackground(Color.BLACK);
+            addSession.setBackground(new Color(98,0,128));
             addSession.setForeground(Color.WHITE);
             addSession.addActionListener(e -> {
                 AddSessionPage addSessionPage = new AddSessionPage(movie);

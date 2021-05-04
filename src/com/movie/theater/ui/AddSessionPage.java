@@ -4,26 +4,22 @@
 
 package com.movie.theater.ui;
 
+import com.movie.theater.model.Movie;
+import com.movie.theater.model.MovieSession;
+import com.movie.theater.service.MovieManager;
+import com.toedter.calendar.JDateChooser;
+import lu.tudor.santec.jtimechooser.JTimeChooser;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.swing.*;
-import javax.swing.GroupLayout;
-
-import com.movie.theater.model.Director;
-import com.movie.theater.model.Genre;
-import com.movie.theater.model.Movie;
-import com.movie.theater.model.MovieSession;
-import com.movie.theater.service.MovieManager;
-import com.toedter.calendar.*;
-//import jtimechooser.*;
-import jtimechooser.*;
-import jtimechooser.JTimeChooser;
 
 /**
  * @author Asya
@@ -32,11 +28,17 @@ public class AddSessionPage extends JFrame {
 
     private static final MovieManager movieManager = MovieManager.getMovieManager();
     private String currentMovie;
+    private boolean isValidPrice = false;
+    private boolean isValidDuration = false;
 
     public AddSessionPage() {
         initComponents();
         List<String> movies = movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
-
+        addValidation();
+        dateField.setMinSelectableDate(new Date());
+        dateField.getDateEditor().setEnabled(false);
+        durationField.setToolTipText("Format: hour:minute");
+        priceField.setToolTipText("100 to 9990");
         movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
         pack();
     }
@@ -46,39 +48,99 @@ public class AddSessionPage extends JFrame {
         movieField.setSelectedItem(currentMovie.getName());
     }
 
-    private void makeSessionFromText() {
-        int price = Integer.parseInt(priceField.getText());
-        int duration = Integer.parseInt(durationField.getText());
-        Date date = dateField.getDate();
-        LocalDateTime localDate =  LocalDateTime.parse(date.toString());
-        int year=localDate.getYear();
-        int month=localDate.getMonthValue();
-        int dayOfMonth=localDate.getDayOfMonth();
-//        int hour=timeField.getHours();
-//        int minute=timeField.getMinutes();
-//        LocalDateTime movieStartTime=LocalDateTime.of(year,month,dayOfMonth,hour,minute);
-        Movie movie=movieManager.getMoveList()
-                .stream()
-                .filter(m->m.getName()
-                        .equals(movieField.getSelectedItem().toString())).findFirst()
-                .get();
+    public void addValidation() {
+        durationField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validate();
+            }
 
-//        MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(duration), price);
-//        System.out.println(session);
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validate();
+            }
 
-        try {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validate();
+            }
 
-        } catch (Exception x) {
-            System.out.println(x.getMessage());
-        }
+            private void validate() {
+                if (!durationField.getText().matches("[0-9]{1,2}:[0-9]{2}")) {
+                    durationField.setBackground(new Color(255, 153, 153));
+                    isValidDuration = false;
+                } else {
+                    durationField.setBackground(Color.WHITE);
+                    isValidDuration = true;
+                }
+            }
+
+        });
+        priceField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            private void validate() {
+                if (!priceField.getText().matches("[0-9]{2,3}0")) {
+                    priceField.setBackground(new Color(255, 153, 153));
+                    isValidPrice = false;
+                } else {
+                    priceField.setBackground(Color.WHITE);
+                    isValidPrice = true;
+                }
+            }
+        });
 
     }
 
-    private void submitButtonActionPerformed(ActionEvent e) {
+    private void makeSessionFromText() {
+        String stringPrice = priceField.getText();
+        String duration = durationField.getText();
+         if (!isValidDuration){
+            JOptionPane.showMessageDialog(this, "Duration must be in format hh:mm, for example 2:30");
+        }
+
+        if(!isValidPrice){
+            JOptionPane.showMessageDialog(this, "Price must be an integer from 100 to 9990");
+        }
+        int price = Integer.parseInt(stringPrice);
+        Date date = dateField.getDate();
+        int year = date.getYear();
+        int month = date.getMonth();
+        int dayOfMonth = date.getDate();
+        int hour = timeField.getHours();
+        int minute = timeField.getMinutes();
+        LocalDateTime movieStartTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
+        Movie movie = movieManager.getMoveList()
+                .stream()
+                .filter(m -> m.getName()
+                        .equals(movieField.getSelectedItem().toString())).findFirst()
+                .get();
+
+
+        MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(2), price);
+        System.out.println(session);
+
         SessionsPage sessions = new SessionsPage();
         sessions.pack();
         sessions.setVisible(true);
         dispose();
+
+    }
+
+    private void submitButtonActionPerformed(ActionEvent e) {
 
         makeSessionFromText();
 
