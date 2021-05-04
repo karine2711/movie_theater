@@ -108,10 +108,7 @@ public class SessionsPage extends JFrame {
             movieName.setBackground(new Color(27, 30, 35));
             movieName.setForeground(Color.white);
             movieName.setOpaque(true);
-            JPanel movieInPanel = new JPanel();
-            movieInPanel.setBackground(new Color(27, 30, 35));
-            movieInPanel.add(movieName);
-            sessionPanel.add(movieInPanel);
+            sessionPanel.add(movieName);
 
             JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
             movieDirector.setMinimumSize(movieNameDimension);
