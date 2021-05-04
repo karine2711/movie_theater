@@ -1,0 +1,86 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:119:p, par l {comp dirNameText:::p:139:p, par t {comp genreText:::p:88:p, comp movieNameText:::p:88:p}, comp dirSurnameText:::p:152:p}, space ::62:x, par l:::p {comp movieNameField::::221:x, comp dirSurnameField::::221:x, comp dirNameField::::221:x, comp genreField::l::221:x}, space :p:124:p}, seq t {space :0:223:x, comp submitButton:::p::p, space :p:167:p, comp upload:::p::p, space :p:92:p}, seq t {space ::191:x, par l {seq t {comp enterDetails:::p:318:p, space :p:169:p}, seq t {comp addAnotherMovie:::p::p, space :p:224:p}}}, seq l {space :p:196:p, comp addSession:::p::p, space ::160:x}}"
+			"$verticalGroup": "par l {seq l {space :p:23:p, comp enterDetails:::p::p, space :p:32:p, par b {comp movieNameText::b:p:39:p, comp movieNameField::b:p::p}, space s:::p, par b {comp dirNameField::b:p::p, comp dirNameText::b:p:39:p}, space u:::p, par b {comp dirSurnameField::b:p::p, comp dirSurnameText::b:p:39:p}, space :p:19:p, par b {comp genreText::b:p:39:p, comp genreField::b:p::p}, space s:::p, par b {comp submitButton::b:p::p, comp upload::b:p::p}, space s:::p, comp addAnotherMovie:::p::p, space s:::p, comp addSession:::p::p, space :::x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "enterDetails"
+				"text": "Please enter the movie detalis"
+				"font": new java.awt.Font( "Roboto Light", 0, 20 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "movieNameText"
+				"text": "Movie Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "dirNameText"
+				"text": "Director Name"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "dirSurnameText"
+				"text": "Director Surname"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "genreText"
+				"text": "Genre"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addAnotherMovie"
+				"text": "Submit and add another movie"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addAnotherMovieActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "submitButton"
+				"text": "Submit"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "submitButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addSession"
+				"text": "Submit and add a session for this movie"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addAnotherSession2ActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "movieNameField"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dirSurnameField"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dirNameField"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "genreField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "upload"
+				"text": "text"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "uploadActionPerformed", true ) )
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "Main Menu"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "moviesMenu"
+						"text": "Movies"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "moviesMenuActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "sessionsMenu"
+						"text": "Sessions"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sessionsMenuActionPerformed", true ) )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 55, 0 )
+			"size": new java.awt.Dimension( 680, 510 )
+		} )
+	}
+}

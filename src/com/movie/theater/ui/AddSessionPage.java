@@ -21,7 +21,9 @@ import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.MovieManager;
 import com.toedter.calendar.*;
-import lu.tudor.santec.jtimechooser.*;
+//import jtimechooser.*;
+import jtimechooser.*;
+import jtimechooser.JTimeChooser;
 
 /**
  * @author Asya
@@ -48,21 +50,21 @@ public class AddSessionPage extends JFrame {
         int price = Integer.parseInt(priceField.getText());
         int duration = Integer.parseInt(durationField.getText());
         Date date = dateField.getDate();
-        LocalDateTime localDate = new LocalDateTime(date.toInstant());
+        LocalDateTime localDate =  LocalDateTime.parse(date.toString());
         int year=localDate.getYear();
         int month=localDate.getMonthValue();
         int dayOfMonth=localDate.getDayOfMonth();
-        int hour=timeField.getHours();
-        int minute=timeField.getMinutes();
-        LocalDateTime movieStartTime=LocalDateTime.of(year,month,dayOfMonth,hour,minute);
+//        int hour=timeField.getHours();
+//        int minute=timeField.getMinutes();
+//        LocalDateTime movieStartTime=LocalDateTime.of(year,month,dayOfMonth,hour,minute);
         Movie movie=movieManager.getMoveList()
                 .stream()
                 .filter(m->m.getName()
                         .equals(movieField.getSelectedItem().toString())).findFirst()
                 .get();
 
-        MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(duration), price);
-        System.out.println(session);
+//        MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(duration), price);
+//        System.out.println(session);
 
         try {
 
