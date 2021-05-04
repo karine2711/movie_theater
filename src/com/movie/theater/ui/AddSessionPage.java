@@ -33,7 +33,7 @@ public class AddSessionPage extends JFrame {
 
     public AddSessionPage() {
         initComponents();
-        List<String> movies = movieManager.getMoveList().stream().map(Movie::getName).collect(Collectors.toList());
+        List<String> movies = movieManager.getMovieList().stream().map(Movie::getName).collect(Collectors.toList());
         addValidation();
         dateField.setMinSelectableDate(new Date());
         dateField.getDateEditor().setEnabled(false);
@@ -123,7 +123,7 @@ public class AddSessionPage extends JFrame {
         int hour = timeField.getHours();
         int minute = timeField.getMinutes();
         LocalDateTime movieStartTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
-        Movie movie = movieManager.getMoveList()
+        Movie movie = movieManager.getMovieList()
                 .stream()
                 .filter(m -> m.getName()
                         .equals(movieField.getSelectedItem().toString())).findFirst()

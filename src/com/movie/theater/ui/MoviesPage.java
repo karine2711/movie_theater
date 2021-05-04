@@ -60,7 +60,7 @@ public class MoviesPage extends JFrame {
         JScrollPane scrollPane = new JScrollPane(movies, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         moviesPanel.add(scrollPane);
         moviesPanel.setBackground(new Color(100, 17, 173));
-        populateWithMovies(movieManager.getMoveList());
+        populateWithMovies(movieManager.getMovieList());
 
         this.getContentPane().add(moviesPanel, gridBagConstraints);
 
@@ -181,7 +181,7 @@ public class MoviesPage extends JFrame {
             movieFilters.clear();
             movieByDirectorFilter.reset();
             movieByGenreFilter.reset();
-            populateWithMovies(movieManager.getMoveList());
+            populateWithMovies(movieManager.getMovieList());
         });
         Dimension dim = new Dimension(200, 50);
         resetButton.setPreferredSize(dim);
@@ -201,7 +201,7 @@ public class MoviesPage extends JFrame {
             movieFilters.clear();
             movieFilters.add(movieByDirectorFilter);
             movieFilters.add(movieByGenreFilter);
-            MovieFilterer filterer = new MovieFilterer(movieManager.getMoveList());
+            MovieFilterer filterer = new MovieFilterer(movieManager.getMovieList());
             List<Movie> filteredList = filterer.filter(movieFilters).getResult();
             System.out.println(filteredList);
             populateWithMovies(filteredList);
@@ -295,7 +295,7 @@ public class MoviesPage extends JFrame {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     super.windowClosed(e);
-                    populateWithMovies(movieManager.getMoveList());
+                    populateWithMovies(movieManager.getMovieList());
                 }
             });
         });
@@ -356,6 +356,7 @@ public class MoviesPage extends JFrame {
             genreFiltersBox.add(genreCheckBox);
         }
         genreFiltersBox.setBackground(new Color(27, 30, 35));
+
         JScrollPane scrollPane = new JScrollPane(genreFiltersBox);
         scrollPane.setBackground(Color.BLACK);
         genresContainer.add(scrollPane);
@@ -401,7 +402,7 @@ public class MoviesPage extends JFrame {
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
         mainMenuButton.setBackground(Color.BLACK);
-        mainMenuButton.setForeground(Color.BLACK);
+        mainMenuButton.setForeground(Color.WHITE);
         mainMenuButton.setFont(new Font(null, Font.BOLD, 20));
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;

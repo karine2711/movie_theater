@@ -60,7 +60,7 @@ public final class MovieManager {
         }
     }
 
-    public List<Movie> getMoveList() {
+    public List<Movie> getMovieList() {
         return MOVIE_LIST;
     }
 

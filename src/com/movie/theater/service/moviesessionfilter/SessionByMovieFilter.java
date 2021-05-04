@@ -2,20 +2,39 @@ package com.movie.theater.service.moviesessionfilter;
 
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
 //TODO: just leave as it is. Let the user choose a movie from combo box and proceed to this filter
 public class SessionByMovieFilter implements SessionFilter {
-    private final Movie movie;
+    private final Set<Movie> movies = new HashSet<>();
 
     public SessionByMovieFilter(Movie movie) {
-        this.movie = movie;
+        movies.add(movie);
     }
+
+    public SessionByMovieFilter() {
+
+    }
+
+    public void addMovie(Movie movie) {
+        movies.add(movie);
+    }
+
+
+    public void removeMovie(Movie movie) {
+        movies.remove(movie);
+    }
+
 
     @Override
     public void filter(List<MovieSession> list) {
         List<MovieSession> temp =
-                list.stream().filter((s) -> s.getMovie().equals(movie)).collect(Collectors.toList());
+                list.stream().filter((MovieSession m) -> movies.contains(m.getMovie()))
+                        .collect(Collectors.toList());
         list.clear();
         list.addAll(temp);
     }

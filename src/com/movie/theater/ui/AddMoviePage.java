@@ -33,7 +33,7 @@ public class AddMoviePage extends JFrame {
 
 
         MovieManager manager = MovieManager.getMovieManager();
-        System.out.println(manager.getMoveList().contains(movie));
+        System.out.println(manager.getMovieList().contains(movie));
         try {
             manager.addMovie(movie);
             System.out.println(movie.toString());
@@ -96,7 +96,7 @@ public class AddMoviePage extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Asya
+        // Generated using JFormDesigner Evaluation license - unknown
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
         moviesMenu = new JMenuItem();
@@ -248,7 +248,7 @@ public class AddMoviePage extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Asya
+    // Generated using JFormDesigner Evaluation license - unknown
     private JMenuBar menuBar1;
     private JMenu menu1;
     private JMenuItem moviesMenu;

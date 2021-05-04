@@ -3,13 +3,11 @@ package com.movie.theater.service.moviefilter;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Movie;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MovieByDirectorFilter implements MovieFilter {
-    private final List<Director> directors = new ArrayList<>();
+    private final Set<Director> directors = new HashSet<>();
 
 
     public MovieByDirectorFilter() {
