@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 
 public final class MovieManager {
 
-    public ArrayList<Movie> MOVIE_LIST;
     public static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
+    public ArrayList<Movie> MOVIE_LIST;
 
     private MovieManager() {
         File file = new File(MOVIE_LIST_FILE);
@@ -55,8 +55,9 @@ public final class MovieManager {
         MOVIE_LIST.remove(movie);
         try {
             SerializationUtil.serializeMovies();
+            SerializationUtil.serializeSessions();
         } catch (IOException e) {
-           System.err.println("Failed to persist data!");
+            System.err.println("Failed to persist data!");
         }
     }
 
@@ -67,4 +68,5 @@ public final class MovieManager {
     public List<Director> getDirectorList() {
         return MOVIE_LIST.stream().map(Movie::getDirector).collect(Collectors.toList());
     }
+
 }

@@ -2,6 +2,7 @@ package com.movie.theater.model;
 
 import com.movie.theater.exception.AlreadyReservedException;
 import com.movie.theater.exception.NotReservedException;
+
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -9,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieSession implements Serializable {
+    private static final long serialVersionUID = 2L;
     private LocalDateTime localDateTime;
-    private ArrayList<Seat> reservationState;
+    private final ArrayList<Seat> reservationState;
     private double priceForSession;
     private Duration duration;
-    private Movie movie;
-    private static final long serialVersionUID=2L;
-
+    private final Movie movie;
 
 
     public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration, double priceForSession) {
@@ -27,7 +27,7 @@ public class MovieSession implements Serializable {
             reservationState.add(new Seat(number));
 
         }
-        this.priceForSession=priceForSession;
+        this.priceForSession = priceForSession;
     }
 
     public List<Seat> getFreePlaces() {
@@ -56,7 +56,7 @@ public class MovieSession implements Serializable {
             p.setReserved(true);
 
         } else {
-            throw new AlreadyReservedException("Place "+seat+ " is already reserved!");
+            throw new AlreadyReservedException("Place " + seat + " is already reserved!");
         }
     }
 
@@ -69,7 +69,7 @@ public class MovieSession implements Serializable {
         }
     }
 
-    public boolean isReserved(int placeNumber){
+    public boolean isReserved(int placeNumber) {
         Seat p = reservationState.get(placeNumber - 1);
         return p.isReserved();
     }
@@ -108,6 +108,6 @@ public class MovieSession implements Serializable {
 
     @Override
     public String toString() {
-        return movie.getName() + " on " + localDateTime.getDayOfMonth() + "th of "+ localDateTime.getMonth().name().toLowerCase()+". Price: " + priceForSession;
+        return movie.getName() + " on " + localDateTime.getDayOfMonth() + "th of " + localDateTime.getMonth().name().toLowerCase() + ". Price: " + priceForSession;
     }
 }

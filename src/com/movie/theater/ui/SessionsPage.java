@@ -26,8 +26,7 @@ import java.util.List;
 
 public class SessionsPage extends JFrame {
 
-    private JButton mainMenuButton;
-    private JPanel sessionsPanel;
+    private static final GridBagConstraints gridBagConstraints = new GridBagConstraints();
     JPanel filterPanel;
     JPanel sessions = new JPanel();
     List<SessionFilter> sessionFilters = new ArrayList<>();
@@ -38,9 +37,11 @@ public class SessionsPage extends JFrame {
     SessionManager sessionManager = SessionManager.getSessionManager();
     MovieManager movieManager = MovieManager.getMovieManager();
     boolean isValidPrice;
-
-
-    private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    List<JCheckBox> checkBoxes = new ArrayList<>();
+    List<JTextField> textFields = new ArrayList<>();
+    JDateChooser dateChooser = new JDateChooser();
+    private JButton mainMenuButton;
+    private JPanel sessionsPanel;
 
     public SessionsPage() throws HeadlessException {
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -79,6 +80,11 @@ public class SessionsPage extends JFrame {
 
         this.pack();
         this.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SessionsPage sessionsPage = new SessionsPage();
+
     }
 
     private void populateWithSessions(List<MovieSession> sessionsList) {
@@ -198,7 +204,6 @@ public class SessionsPage extends JFrame {
         pack();
     }
 
-
     private void initFilterPanel() {
         createFilterPanel();
         addAddSessionButton();
@@ -218,11 +223,14 @@ public class SessionsPage extends JFrame {
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener((e) -> {
             sessionFilters.clear();
-//            sessionByDateFilter.reset();
-//            sessionByGenreFilter.reset();
-//            sessionByMovieFilter.reset();
-//            sessionByPriceFilter.reset();
+            sessionByDateFilter.reset();
+            sessionByGenreFilter.reset();
+            sessionByMovieFilter.reset();
+            sessionByPriceFilter.reset();
+            checkBoxes.forEach(c -> c.setSelected(false));
+            textFields.forEach(t -> t.setText(""));
             populateWithSessions(sessionManager.getSessionList());
+            dateChooser.setCalendar(null);
         });
         filterPanel.add(resetButton);
 
@@ -233,7 +241,6 @@ public class SessionsPage extends JFrame {
         filterButton.addActionListener((e) -> filter());
         filterPanel.add(filterButton);
     }
-
 
     private void filter() {
         sessionFilters.clear();
@@ -294,7 +301,6 @@ public class SessionsPage extends JFrame {
         dates.setForeground(Color.WHITE);
         dates.setFont(new Font(null, Font.BOLD, 16));
         datesContainer.add(dates);
-        JDateChooser dateChooser = new JDateChooser();
         datesContainer.add(Box.createRigidArea(new Dimension(0, 25)));
         datesContainer.add(dateChooser);
         dateChooser.getDateEditor().setEnabled(false);
@@ -343,6 +349,7 @@ public class SessionsPage extends JFrame {
             });
             genreCheckBox.setForeground(Color.BLACK);
             genreCheckBox.setOpaque(false);
+            checkBoxes.add(genreCheckBox);
             genreFiltersBox.add(genreCheckBox);
         }
         genresContainer.add(new JScrollPane(genreFiltersBox));
@@ -384,6 +391,7 @@ public class SessionsPage extends JFrame {
             });
             movieCheckBox.setForeground(Color.BLACK);
             movieCheckBox.setOpaque(false);
+            checkBoxes.add(movieCheckBox);
             movieFiltersBox.add(movieCheckBox);
         }
 
@@ -413,6 +421,8 @@ public class SessionsPage extends JFrame {
         validateMaxPrice(maximum);
         priceContainer.add(maxLabel);
         priceContainer.add(maximum);
+        textFields.add(minimum);
+        textFields.add(maximum);
         return priceContainer;
     }
 
@@ -434,7 +444,7 @@ public class SessionsPage extends JFrame {
             }
 
             private void validate() {
-                if (field.getText().matches("[0-9]{2,3}0")) {
+                if (field.getText().matches("^[1-9][0-9]{2,3}0")) {
                     field.setBackground(Color.WHITE);
                     sessionByPriceFilter.setMinPrice(Integer.parseInt(field.getText()));
                 } else if (field.getText().isEmpty()) {
@@ -482,7 +492,6 @@ public class SessionsPage extends JFrame {
 
     }
 
-
     private void createFilterPanel() {
         filterPanel = new JPanel();
         filterPanel.setBackground(new Color(27, 30, 35));
@@ -523,7 +532,6 @@ public class SessionsPage extends JFrame {
         filterPanel.add(button);
     }
 
-
     private void addFiltersLabel() {
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         JLabel filtersLabel = new JLabel("Filters");
@@ -534,7 +542,6 @@ public class SessionsPage extends JFrame {
         this.setVisible(true);
 //        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
     }
-
 
     private void initMainContainer() {
         sessionsPanel = new JPanel();
@@ -563,7 +570,6 @@ public class SessionsPage extends JFrame {
         sessionsPanel.add(sessionsLabel);
     }
 
-
     private void filterBoxItemStateChanged(ItemEvent e) {
         e.setSource(Genre.values());
         System.out.println("sdsd");
@@ -586,10 +592,5 @@ public class SessionsPage extends JFrame {
             menu.setVisible(true);
             this.dispose();
         });
-    }
-
-    public static void main(String[] args) {
-        SessionsPage sessionsPage = new SessionsPage();
-
     }
 }

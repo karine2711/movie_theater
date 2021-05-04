@@ -3,7 +3,10 @@ package com.movie.theater.service.moviefilter;
 import com.movie.theater.model.Director;
 import com.movie.theater.model.Movie;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MovieByDirectorFilter implements MovieFilter {
@@ -24,7 +27,7 @@ public class MovieByDirectorFilter implements MovieFilter {
         directors.remove(director);
     }
 
-    public void reset(){
+    public void reset() {
         directors.clear();
     }
 
@@ -54,6 +57,6 @@ public class MovieByDirectorFilter implements MovieFilter {
     @Override
     public String toString() {
         return "Filter by Director: " +
-              directors ;
+                directors;
     }
 }
