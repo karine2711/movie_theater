@@ -159,7 +159,8 @@ public class SessionsPage extends JFrame {
             sessionFooter.setOpaque(false);
 
             JButton deleteButton = new JButton("Delete Session");
-            deleteButton.setForeground(Color.BLACK);
+            deleteButton.setBackground(new Color(100, 17, 173));
+            deleteButton.setForeground(Color.white);
 
             deleteButton.addActionListener(e -> {
                 try {
@@ -172,6 +173,8 @@ public class SessionsPage extends JFrame {
             });
 
             JButton getTicket = new JButton("Get Tickets");
+            getTicket.setBackground(new Color(100, 17, 173));
+            getTicket.setForeground(Color.WHITE);
             getTicket.addActionListener(e -> {
                 ReservationSystem reservationSystem = new ReservationSystem(session);
                 reservationSystem.pack();
@@ -494,6 +497,7 @@ public class SessionsPage extends JFrame {
     private void addAddSessionButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        Dimension dimension = new Dimension(200, 100);
         JButton button = new JButton("Add Session");
         button.addActionListener(e -> {
             AddSessionPage addSessionPage = new AddSessionPage();
@@ -508,6 +512,12 @@ public class SessionsPage extends JFrame {
                 }
             });
         });
+        button.setPreferredSize(dimension);
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(new Color(100, 17, 173));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+        button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         filterPanel.add(button);
     }
