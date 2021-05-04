@@ -37,9 +37,9 @@ public class WelcomePage extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Asya
         mainMenu = new JButton();
-        welcome = new JLabel();
         welcome2 = new JLabel();
         label1 = new JLabel();
+        welcome3 = new JLabel();
 
         //======== this ========
         setIconImage(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")).getImage());
@@ -49,16 +49,18 @@ public class WelcomePage extends JFrame {
         mainMenu.setText("Main Menu");
         mainMenu.addActionListener(e -> mainMenuActionPerformed(e));
 
-        //---- welcome ----
-        welcome.setText("Hello Miranda,");
-        welcome.setFont(new Font("Roboto Light", Font.PLAIN, 20));
-
         //---- welcome2 ----
-        welcome2.setText("Welcome to \"And Action!\"");
+        welcome2.setText("WELCOME TO MOVIE THEATER");
         welcome2.setFont(new Font("Roboto Light", Font.PLAIN, 20));
+        welcome2.setHorizontalAlignment(SwingConstants.CENTER);
 
         //---- label1 ----
         label1.setIcon(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")));
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- welcome3 ----
+        welcome3.setFont(new Font("Roboto Light", Font.PLAIN, 20));
+        welcome3.setHorizontalAlignment(SwingConstants.CENTER);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -67,31 +69,32 @@ public class WelcomePage extends JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(220, 220, 220)
+                            .addGap(251, 251, 251)
+                            .addComponent(label1))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGap(228, 228, 228)
                             .addComponent(mainMenu))
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(206, 206, 206)
-                            .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(159, 159, 159)
-                            .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(242, 242, 242)
-                            .addComponent(label1)))
-                    .addContainerGap(139, Short.MAX_VALUE))
+                            .addGap(200, 200, 200)
+                            .addComponent(welcome3, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(208, Short.MAX_VALUE))
+                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                    .addGap(0, 118, Short.MAX_VALUE)
+                    .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 344, GroupLayout.PREFERRED_SIZE)
+                    .addGap(101, 101, 101))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(47, Short.MAX_VALUE)
+                    .addContainerGap(74, Short.MAX_VALUE)
                     .addComponent(label1)
+                    .addGap(48, 48, 48)
+                    .addComponent(welcome2)
                     .addGap(18, 18, 18)
-                    .addComponent(welcome, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(welcome2, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addComponent(welcome3)
+                    .addGap(30, 30, 30)
                     .addComponent(mainMenu)
-                    .addGap(106, 106, 106))
+                    .addGap(134, 134, 134))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -101,9 +104,9 @@ public class WelcomePage extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Asya
     private JButton mainMenu;
-    private JLabel welcome;
     private JLabel welcome2;
     private JLabel label1;
+    private JLabel welcome3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     public static void main(String[] args) {
