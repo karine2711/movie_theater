@@ -9,11 +9,19 @@ import com.movie.theater.service.moviesessionfilter.*;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SessionsPage extends JFrame {
@@ -23,12 +31,13 @@ public class SessionsPage extends JFrame {
     JPanel filterPanel;
     JPanel sessions = new JPanel();
     List<SessionFilter> sessionFilters = new ArrayList<>();
-    SessionByDateFilter sessionByDateFilter = null;
+    SessionByDateFilter sessionByDateFilter = new SessionByDateFilter();
     SessionByGenreFilter sessionByGenreFilter = new SessionByGenreFilter();
-    SessionByMovieFilter sessionByMovieFilter = null;
-    SessionByPriceFilter sessionByPriceFilter = null;
+    SessionByMovieFilter sessionByMovieFilter = new SessionByMovieFilter();
+    SessionByPriceFilter sessionByPriceFilter = new SessionByPriceFilter();
     SessionManager sessionManager = SessionManager.getSessionManager();
     MovieManager movieManager = MovieManager.getMovieManager();
+    boolean isValidPrice;
 
 
     private static GridBagConstraints gridBagConstraints = new GridBagConstraints();
@@ -50,10 +59,10 @@ public class SessionsPage extends JFrame {
         initMainContainer();
 
         GridLayout gridLayout = new GridLayout();
-        gridLayout.setColumns(2);
+        gridLayout.setColumns(3);
         gridLayout.setRows(-1);
-        gridLayout.setHgap(50);
-        gridLayout.setVgap(50);
+        gridLayout.setHgap(20);
+        gridLayout.setVgap(10);
         sessions.setLayout(gridLayout);
         JScrollPane scrollPane = new JScrollPane(sessions, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         sessionsPanel.add(scrollPane);
@@ -81,7 +90,7 @@ public class SessionsPage extends JFrame {
             JPanel sessionPanel = new JPanel();
             sessionPanel.setBackground(new Color(249, 250, 255));
             sessionPanel.setBorder(BorderFactory.createSoftBevelBorder(0));
-            Dimension dimension = new Dimension(300, 400);
+            Dimension dimension = new Dimension(300, 200);
             sessionPanel.setPreferredSize(dimension);
             sessionPanel.setMinimumSize(dimension);
             sessionPanel.setMaximumSize(dimension);
@@ -215,19 +224,21 @@ public class SessionsPage extends JFrame {
 
     private void addFilterButton() {
         JButton filterButton = new JButton("Filter");
-        filterButton.addActionListener((e) -> {
-            sessionFilters.clear();
-            sessionFilters.add(sessionByDateFilter);
-            sessionFilters.add(sessionByGenreFilter);
-            sessionFilters.add(sessionByMovieFilter);
-            sessionFilters.add(sessionByPriceFilter);
-            SessionFilterer filterer = new SessionFilterer(sessionManager.getSessionList());
-            List<MovieSession> filteredList = filterer.filter(sessionFilters).getResult();
-            System.out.println(filteredList);
-            populateWithSessions(filteredList);
-        });
+        filterButton.addActionListener((e) -> filter());
         filterPanel.add(filterButton);
+    }
 
+
+    private void filter() {
+        sessionFilters.clear();
+        sessionFilters.add(sessionByDateFilter);
+        sessionFilters.add(sessionByGenreFilter);
+        sessionFilters.add(sessionByMovieFilter);
+        sessionFilters.add(sessionByPriceFilter);
+        SessionFilterer filterer = new SessionFilterer(sessionManager.getSessionList());
+        List<MovieSession> filteredList = filterer.filter(sessionFilters).getResult();
+        System.out.println(filteredList);
+        populateWithSessions(filteredList);
     }
 
     private void addFiltersChecks() {
@@ -281,7 +292,17 @@ public class SessionsPage extends JFrame {
         datesContainer.add(Box.createRigidArea(new Dimension(0, 25)));
         datesContainer.add(dateChooser);
         dateChooser.getDateEditor().setEnabled(false);
-        dateChooser.setMinSelectableDate(new Date());
+//        dateChooser.setMinSelectableDate(new Date());
+        dateChooser.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if (dateChooser.getDate() == null) return;
+                LocalDate localDate = Instant.ofEpochMilli(dateChooser.getDate().getTime())
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+                sessionByDateFilter.setDate(localDate);
+            }
+        });
 
         return datesContainer;
     }
@@ -382,9 +403,77 @@ public class SessionsPage extends JFrame {
         JTextField maximum = new JTextField();
         priceContainer.add(minLabel);
         priceContainer.add(minimum);
+        validateMinPrice(minimum);
+        validateMaxPrice(maximum);
         priceContainer.add(maxLabel);
         priceContainer.add(maximum);
         return priceContainer;
+    }
+
+    public void validateMinPrice(JTextField field) {
+        field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            private void validate() {
+                if (field.getText().matches("[0-9]{2,3}0")) {
+                    field.setBackground(Color.WHITE);
+                    sessionByPriceFilter.setMinPrice(Integer.parseInt(field.getText()));
+                } else if (field.getText().isEmpty()) {
+                    field.setBackground(Color.WHITE);
+                    sessionByPriceFilter.setMinPrice(0);
+                } else {
+                    field.setBackground(new Color(255, 153, 153));
+                    sessionByPriceFilter.setMinPrice(0);
+                }
+            }
+        });
+
+    }
+
+    public void validateMaxPrice(JTextField field) {
+        field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            private void validate() {
+                if (field.getText().matches("[0-9]{2,3}0")) {
+                    field.setBackground(Color.WHITE);
+                    sessionByPriceFilter.setMaxPrice(Integer.parseInt(field.getText()));
+                } else if (field.getText().isEmpty()) {
+                    field.setBackground(Color.WHITE);
+                    sessionByPriceFilter.setMaxPrice(9990);
+                } else {
+                    field.setBackground(new Color(255, 153, 153));
+                    sessionByPriceFilter.setMaxPrice(9990);
+                }
+            }
+        });
+
     }
 
 
@@ -403,13 +492,19 @@ public class SessionsPage extends JFrame {
     private void addAddSessionButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
-//        panel3.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button = new JButton("Add Session");
         button.addActionListener(e -> {
             AddSessionPage addSessionPage = new AddSessionPage();
             addSessionPage.pack();
             addSessionPage.setVisible(true);
-//            dispose();
+            addSessionPage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            addSessionPage.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e);
+                    populateWithSessions(sessionManager.getSessionList());
+                }
+            });
         });
         button.setAlignmentX(CENTER_ALIGNMENT);
         filterPanel.add(button);
@@ -439,7 +534,6 @@ public class SessionsPage extends JFrame {
         gridBagConstraints.gridheight = 2;
 
         sessionsPanel.setLayout(new BoxLayout(sessionsPanel, BoxLayout.Y_AXIS));
-
 
         addSessionsLabel();
     }

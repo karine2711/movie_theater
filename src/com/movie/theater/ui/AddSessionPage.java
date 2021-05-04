@@ -7,6 +7,7 @@ package com.movie.theater.ui;
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.MovieManager;
+import com.movie.theater.service.SessionManager;
 import com.toedter.calendar.JDateChooser;
 import lu.tudor.santec.jtimechooser.JTimeChooser;
 
@@ -15,8 +16,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.io.IOException;
+import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class AddSessionPage extends JFrame {
 
     private static final MovieManager movieManager = MovieManager.getMovieManager();
+    private static final SessionManager sessionManager=SessionManager.getSessionManager();
     private String currentMovie;
     private boolean isValidPrice = false;
     private boolean isValidDuration = false;
@@ -105,24 +107,24 @@ public class AddSessionPage extends JFrame {
 
     }
 
-    private void makeSessionFromText() {
+    private void makeSessionFromText()  {
         String stringPrice = priceField.getText();
         String duration = durationField.getText();
-         if (!isValidDuration){
+        if (!isValidDuration) {
             JOptionPane.showMessageDialog(this, "Duration must be in format hh:mm, for example 2:30");
         }
 
-        if(!isValidPrice){
+        if (!isValidPrice) {
             JOptionPane.showMessageDialog(this, "Price must be an integer from 100 to 9990");
         }
         int price = Integer.parseInt(stringPrice);
         Date date = dateField.getDate();
-        int year = date.getYear();
-        int month = date.getMonth();
-        int dayOfMonth = date.getDate();
+        LocalDate localDate = Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
         int hour = timeField.getHours();
         int minute = timeField.getMinutes();
-        LocalDateTime movieStartTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
+        LocalDateTime movieStartTime = LocalDateTime.of(localDate, LocalTime.of(hour, minute));
         Movie movie = movieManager.getMovieList()
                 .stream()
                 .filter(m -> m.getName()
@@ -132,6 +134,11 @@ public class AddSessionPage extends JFrame {
 
         MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(2), price);
         System.out.println(session);
+        try {
+            sessionManager.addSession(session);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         SessionsPage sessions = new SessionsPage();
         sessions.pack();

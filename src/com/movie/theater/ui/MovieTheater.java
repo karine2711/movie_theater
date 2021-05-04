@@ -40,7 +40,7 @@ public class MovieTheater {
         for (int i = 0; i < 5; i++) {
             Movie movie = new Movie("movie" + i, new Director("name" + i, "surname1"), Genre.values()[i % 5]);
             movies.add(movie);
-            sessions.add(new MovieSession(movie,LocalDateTime.of(2021,5,i%28+1,i%24,i%60),Duration.ofHours(2),i+10));
+            sessions.add(new MovieSession(movie,LocalDateTime.of(2021,5,i%28+1,i%24,i%60),Duration.ofHours(2),i*100));
         }
 
 

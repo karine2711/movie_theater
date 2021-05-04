@@ -2,13 +2,15 @@ package com.movie.theater.service.moviesessionfilter;
 
 import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionFilterer {
-    private final List<MovieSession> movieSessions;
+    private final List<MovieSession> movieSessions=new ArrayList<>();
 
     public SessionFilterer(List<MovieSession> movieSessions) {
-        this.movieSessions = movieSessions;
+        this.movieSessions.addAll(movieSessions);
     }
 
     public SessionFilterer filter(List<SessionFilter> filterList) {

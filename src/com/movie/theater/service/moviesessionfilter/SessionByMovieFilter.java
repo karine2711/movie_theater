@@ -32,6 +32,7 @@ public class SessionByMovieFilter implements SessionFilter {
 
     @Override
     public void filter(List<MovieSession> list) {
+        if (movies.isEmpty()) return;
         List<MovieSession> temp =
                 list.stream().filter((MovieSession m) -> movies.contains(m.getMovie()))
                         .collect(Collectors.toList());

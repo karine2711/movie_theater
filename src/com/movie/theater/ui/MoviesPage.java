@@ -290,7 +290,7 @@ public class MoviesPage extends JFrame {
             AddMoviePage addMoviePage = new AddMoviePage();
             addMoviePage.pack();
             addMoviePage.setVisible(true);
-            addMoviePage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addMoviePage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             addMoviePage.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
