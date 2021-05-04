@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class AddSessionPage extends JFrame {
 
     private static final MovieManager movieManager = MovieManager.getMovieManager();
-    private static final SessionManager sessionManager=SessionManager.getSessionManager();
+    private static final SessionManager sessionManager = SessionManager.getSessionManager();
     private String currentMovie;
     private boolean isValidPrice = false;
     private boolean isValidDuration = false;
@@ -68,12 +68,12 @@ public class AddSessionPage extends JFrame {
             }
 
             private void validate() {
-                if (!durationField.getText().matches("[0-9]{1,2}:[0-9]{2}")) {
-                    durationField.setBackground(new Color(255, 153, 153));
-                    isValidDuration = false;
-                } else {
+                if (durationField.getText().matches("[0-9]{1,2}:[0-9]{2}")) {
                     durationField.setBackground(Color.WHITE);
                     isValidDuration = true;
+                } else {
+                    durationField.setBackground(new Color(255, 153, 153));
+                    isValidDuration = false;
                 }
             }
 
@@ -107,7 +107,7 @@ public class AddSessionPage extends JFrame {
 
     }
 
-    private void makeSessionFromText()  {
+    private void makeSessionFromText() {
         String stringPrice = priceField.getText();
         String duration = durationField.getText();
         if (!isValidDuration) {
@@ -140,26 +140,24 @@ public class AddSessionPage extends JFrame {
             e.printStackTrace();
         }
 
-        SessionsPage sessions = new SessionsPage();
-        sessions.pack();
-        sessions.setVisible(true);
-        dispose();
-
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
 
         makeSessionFromText();
-
+        dispose();
     }
 
     private void addAnotherSessionActionPerformed(ActionEvent e) {
-        durationField.setText("");
-        priceField.setText("");
-        dateField.setDate(null);
-        timeField.getTimeField().setText("00:00:00");
-
         makeSessionFromText();
+        if (isValidPrice && isValidDuration) {
+            durationField.setText("");
+            priceField.setText("");
+            dateField.setDate(null);
+            timeField.getTimeField().setText("00:00:00");
+            durationField.setBackground(Color.WHITE);
+            priceField.setBackground(Color.WHITE);
+        }
     }
 
     private void sessionsMenuActionPerformed(ActionEvent e) {

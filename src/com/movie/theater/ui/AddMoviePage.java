@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 /**
-* @author Asya
+ * @author Asya
  */
 public class AddMoviePage extends JFrame {
     public AddMoviePage() {
@@ -23,7 +23,7 @@ public class AddMoviePage extends JFrame {
         genreField.setModel(new DefaultComboBoxModel(Genre.values()));
     }
 
-    private void makeMovieFromText(){
+    private void makeMovieFromText() {
         String dirSurname = dirSurnameField.getText();
         String dirName = dirNameField.getText();
         String movieName = movieNameField.getText();
@@ -31,13 +31,12 @@ public class AddMoviePage extends JFrame {
 
         Movie movie = new Movie(movieName, new Director(dirName, dirSurname), Genre.valueOf(genre.toUpperCase()));
 
-
         MovieManager manager = MovieManager.getMovieManager();
         System.out.println(manager.getMovieList().contains(movie));
         try {
             manager.addMovie(movie);
             System.out.println(movie.toString());
-        } catch (Exception x){
+        } catch (Exception x) {
             System.out.println(x.getMessage());
         }
 
@@ -176,72 +175,72 @@ public class AddMoviePage extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(119, 119, 119)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(dirNameText, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(genreText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(dirSurnameText, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(movieNameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                        .addComponent(dirSurnameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                        .addComponent(dirNameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                        .addComponent(genreField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-                    .addGap(124, 124, 124))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addGap(0, 263, Short.MAX_VALUE)
-                    .addComponent(submitButton)
-                    .addGap(167, 167, 167)
-                    .addComponent(upload)
-                    .addGap(92, 92, 92))
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap(191, Short.MAX_VALUE)
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(119, 119, 119)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(dirNameText, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                                .addComponent(genreText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(dirSurnameText, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(movieNameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(dirSurnameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(dirNameField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(genreField, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                                .addGap(124, 124, 124))
                         .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addComponent(enterDetails, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
-                            .addGap(169, 169, 169))
+                                .addGap(0, 263, Short.MAX_VALUE)
+                                .addComponent(submitButton)
+                                .addGap(167, 167, 167)
+                                .addComponent(upload)
+                                .addGap(92, 92, 92))
                         .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addComponent(addAnotherMovie)
-                            .addGap(224, 224, 224))))
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(196, 196, 196)
-                    .addComponent(addSession)
-                    .addContainerGap(200, Short.MAX_VALUE))
+                                .addContainerGap(191, Short.MAX_VALUE)
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                                .addComponent(enterDetails, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(169, 169, 169))
+                                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                                .addComponent(addAnotherMovie)
+                                                .addGap(224, 224, 224))))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(196, 196, 196)
+                                .addComponent(addSession)
+                                .addContainerGap(200, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(enterDetails)
-                    .addGap(32, 32, 32)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(movieNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(dirNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dirNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(dirSurnameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dirSurnameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-                    .addGap(19, 19, 19)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(genreText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(genreField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(submitButton)
-                        .addComponent(upload))
-                    .addGap(18, 18, 18)
-                    .addComponent(addAnotherMovie)
-                    .addGap(18, 18, 18)
-                    .addComponent(addSession)
-                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(enterDetails)
+                                .addGap(32, 32, 32)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(movieNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(movieNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(dirNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dirNameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(dirSurnameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dirSurnameText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+                                .addGap(19, 19, 19)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(genreText, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(genreField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(submitButton)
+                                        .addComponent(upload))
+                                .addGap(18, 18, 18)
+                                .addComponent(addAnotherMovie)
+                                .addGap(18, 18, 18)
+                                .addComponent(addSession)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
