@@ -82,115 +82,112 @@ public class SessionsPage extends JFrame {
     private void populateWithSessions(List<MovieSession> sessionsList) {
         sessions.removeAll();
         sessions.setBackground(new Color(100, 17, 173));
-
-        sessionsList.forEach((session) ->
-        {
-            JPanel sessionPanel = new JPanel();
-            sessionPanel.setLayout(new GridLayout(6, 1));
-            sessionPanel.setBackground(new Color(249, 250, 255));
-            sessionPanel.setBorder(BorderFactory.createSoftBevelBorder(0));
-            Dimension dimension = new Dimension(300, 200);
-            sessionPanel.setPreferredSize(dimension);
-            sessionPanel.setMinimumSize(dimension);
-            sessionPanel.setMaximumSize(dimension);
-            sessionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-            JLabel movieName = new JLabel(session.getMovie().getName(), SwingConstants.CENTER);
-            Dimension movieNameDimension = new Dimension(300, 20);
-            movieName.setPreferredSize(movieNameDimension);
-            movieName.setMinimumSize(movieNameDimension);
-            movieName.setMaximumSize(movieNameDimension);
-            movieName.setToolTipText(session.getMovie().getName());
-            movieName.setFont(new Font(null, Font.PLAIN, 20));
-            movieName.setBackground(new Color(27, 30, 35));
-            movieName.setForeground(Color.white);
-            movieName.setOpaque(true);
-            sessionPanel.add(movieName);
-
-            JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
-            movieDirector.setMinimumSize(movieNameDimension);
-            movieDirector.setMaximumSize(movieNameDimension);
-            movieDirector.setPreferredSize(movieNameDimension);
-            movieDirector.setToolTipText(session.getMovie().getName());
-            movieDirector.setOpaque(false);
-            movieDirector.setBackground(Color.WHITE);
-            movieDirector.setFont(new Font(null, Font.PLAIN, 16));
-            sessionPanel.add(movieDirector);
-
-            JLabel genre = new JLabel(session.getMovie().getGenre().toString());
-            genre.setMinimumSize(movieNameDimension);
-            genre.setMaximumSize(movieNameDimension);
-            genre.setPreferredSize(movieNameDimension);
-            genre.setToolTipText(session.getMovie().getName());
-            genre.setOpaque(true);
-            genre.setBackground(Color.WHITE);
-            genre.setFont(new Font(null, Font.PLAIN, 16));
-            sessionPanel.add(genre);
-
-            JLabel date = new JLabel(session.dateAsString());
-            date.setMinimumSize(movieNameDimension);
-            date.setMaximumSize(movieNameDimension);
-            date.setPreferredSize(movieNameDimension);
-            date.setToolTipText(session.getMovie().getName());
-            date.setOpaque(true);
-            date.setBackground(Color.WHITE);
-            date.setFont(new Font(null, Font.PLAIN, 16));
-            sessionPanel.add(date);
-
-            JLabel price = new JLabel(String.valueOf(session.getPriceForSession()));
-            price.setMinimumSize(movieNameDimension);
-            price.setMaximumSize(movieNameDimension);
-            price.setPreferredSize(movieNameDimension);
-            price.setToolTipText(session.getMovie().getName());
-            price.setOpaque(true);
-            price.setBackground(Color.WHITE);
-            price.setFont(new Font(null, Font.PLAIN, 16));
-            sessionPanel.add(price);
-
-            JPanel sessionFooter = new JPanel();
-            sessionFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            Dimension footerDimension = new Dimension(300, 35);
-            sessionFooter.setPreferredSize(footerDimension);
-            sessionFooter.setMinimumSize(footerDimension);
-            sessionFooter.setMaximumSize(footerDimension);
-            sessionFooter.setOpaque(false);
-
-            JButton deleteButton = new JButton("Delete Session");
-            deleteButton.setBackground(new Color(100, 17, 173));
-            deleteButton.setForeground(Color.white);
-
-            deleteButton.addActionListener(e -> {
-                try {
-                    sessionManager.deleteSession(session);
-                    sessions.remove(sessionPanel);
-                    pack();
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            });
-
-            JButton getTicket = new JButton("Get Tickets");
-            getTicket.setBackground(new Color(100, 17, 173));
-            getTicket.setForeground(Color.WHITE);
-            getTicket.addActionListener(e -> {
-                ReservationSystem reservationSystem = new ReservationSystem(session);
-                reservationSystem.pack();
-                reservationSystem.setVisible(true);
-                dispose();
-            });
-
-            sessionFooter.add(getTicket);
-            sessionFooter.add(deleteButton);
-            sessionPanel.add(sessionFooter);
-            sessionPanel.setBackground(Color.WHITE);
-
-            sessions.add(sessionPanel);
-
-
-        });
-
+        sessionsList.forEach(this::addPanelForSession);
         sessions.repaint();
         pack();
+    }
+
+    private void addPanelForSession(MovieSession session) {
+        JPanel sessionPanel = new JPanel();
+        sessionPanel.setLayout(new GridLayout(6, 1));
+        sessionPanel.setBackground(new Color(249, 250, 255));
+        sessionPanel.setBorder(BorderFactory.createSoftBevelBorder(0));
+        Dimension dimension = new Dimension(300, 200);
+        sessionPanel.setPreferredSize(dimension);
+        sessionPanel.setMinimumSize(dimension);
+        sessionPanel.setMaximumSize(dimension);
+        sessionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel movieName = new JLabel(session.getMovie().getName(), SwingConstants.CENTER);
+        Dimension movieNameDimension = new Dimension(300, 20);
+        movieName.setPreferredSize(movieNameDimension);
+        movieName.setMinimumSize(movieNameDimension);
+        movieName.setMaximumSize(movieNameDimension);
+        movieName.setToolTipText(session.getMovie().getName());
+        movieName.setFont(new Font(null, Font.PLAIN, 20));
+        movieName.setBackground(new Color(27, 30, 35));
+        movieName.setForeground(Color.white);
+        movieName.setOpaque(true);
+        sessionPanel.add(movieName);
+
+        JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
+        movieDirector.setMinimumSize(movieNameDimension);
+        movieDirector.setMaximumSize(movieNameDimension);
+        movieDirector.setPreferredSize(movieNameDimension);
+        movieDirector.setToolTipText(session.getMovie().getName());
+        movieDirector.setOpaque(false);
+        movieDirector.setBackground(Color.WHITE);
+        movieDirector.setFont(new Font(null, Font.PLAIN, 16));
+        sessionPanel.add(movieDirector);
+
+        JLabel genre = new JLabel(session.getMovie().getGenre().toString());
+        genre.setMinimumSize(movieNameDimension);
+        genre.setMaximumSize(movieNameDimension);
+        genre.setPreferredSize(movieNameDimension);
+        genre.setToolTipText(session.getMovie().getName());
+        genre.setOpaque(true);
+        genre.setBackground(Color.WHITE);
+        genre.setFont(new Font(null, Font.PLAIN, 16));
+        sessionPanel.add(genre);
+
+        JLabel date = new JLabel(session.dateAsString());
+        date.setMinimumSize(movieNameDimension);
+        date.setMaximumSize(movieNameDimension);
+        date.setPreferredSize(movieNameDimension);
+        date.setToolTipText(session.getMovie().getName());
+        date.setOpaque(true);
+        date.setBackground(Color.WHITE);
+        date.setFont(new Font(null, Font.PLAIN, 16));
+        sessionPanel.add(date);
+
+        JLabel price = new JLabel(String.valueOf(session.getPriceForSession()));
+        price.setMinimumSize(movieNameDimension);
+        price.setMaximumSize(movieNameDimension);
+        price.setPreferredSize(movieNameDimension);
+        price.setToolTipText(session.getMovie().getName());
+        price.setOpaque(true);
+        price.setBackground(Color.WHITE);
+        price.setFont(new Font(null, Font.PLAIN, 16));
+        sessionPanel.add(price);
+
+        JPanel sessionFooter = new JPanel();
+        sessionFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        Dimension footerDimension = new Dimension(300, 35);
+        sessionFooter.setPreferredSize(footerDimension);
+        sessionFooter.setMinimumSize(footerDimension);
+        sessionFooter.setMaximumSize(footerDimension);
+        sessionFooter.setOpaque(false);
+
+        JButton deleteButton = new JButton("Delete Session");
+        deleteButton.setBackground(new Color(100, 17, 173));
+        deleteButton.setForeground(Color.white);
+
+        deleteButton.addActionListener(e -> {
+            try {
+                sessionManager.deleteSession(session);
+                sessions.remove(sessionPanel);
+                pack();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+
+        JButton getTicket = new JButton("Get Tickets");
+        getTicket.setBackground(new Color(100, 17, 173));
+        getTicket.setForeground(Color.WHITE);
+        getTicket.addActionListener(e -> {
+            ReservationSystem reservationSystem = new ReservationSystem(session);
+            reservationSystem.pack();
+            reservationSystem.setVisible(true);
+            dispose();
+        });
+
+        sessionFooter.add(getTicket);
+        sessionFooter.add(deleteButton);
+        sessionPanel.add(sessionFooter);
+        sessionPanel.setBackground(Color.WHITE);
+
+        sessions.add(sessionPanel);
     }
 
     private void initFilterPanel() {

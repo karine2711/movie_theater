@@ -114,6 +114,12 @@ public class MovieSession implements Serializable {
         return localDateTime.plus(duration);
     }
 
+    public String getFileName(){
+        String dateString=localDateTime.toString().replace("-","_");
+        dateString=dateString.replace(":","_");
+        return movie.getName().concat(dateString).concat(".txt");
+    }
+
     @Override
     public String toString() {
         return movie.getName() + " on " + localDateTime.getDayOfMonth() + "th of " + localDateTime.getMonth().name().toLowerCase() + ". Price: " + priceForSession;

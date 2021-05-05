@@ -6,6 +6,7 @@ import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 import com.movie.theater.service.SerializationUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -35,11 +36,28 @@ public class MovieTheater {
         movies.add(new Movie("sldljldjvlvmlkblkblbljgljgoru roi lk gh gi hei ghi hgwi oighoi ", new Director("sdds", "fss"), Genre.COMEDY));
         for (int i = 0; i < 5; i++) {
             Movie movie = new Movie("movie" + i, new Director("name" + i, "surname1"), Genre.values()[i % 5]);
+//            SerializationUtil.writeToFile("src/resources/movies/"+movie.getName().replaceAll(" ","_")+".txt",movie);
+
             movies.add(movie);
             sessions.add(new MovieSession(movie, LocalDateTime.of(2021, 5, i % 28 + 1, i % 24, i % 60), Duration.ofHours(2), i * 100));
         }
 
+        List<Movie> movieee= (List<Movie>) SerializationUtil.readFromFile("src/resources/movie-list.txt");
+        File movieDir=new File("src/resources/movies/");
+        ArrayList<Movie> movieList=new ArrayList<>();
+        for (Movie moviele:movieee){
+//            SerializationUtil.writeToFile("src/resources/movies/"+moviele.getName().replace(" ","_")+".txt",moviele);
+        }
 
+//
+//        ArrayList<MovieSession> sessionList= (ArrayList<MovieSession>) SerializationUtil.readFromFile("src/resources/session-list.txt");
+//        File sessionDir=new File("src/resources/movies/");
+//        ArrayList<Movie> sessionl=new ArrayList<>();
+//        for (MovieSession session:sessionList){
+//            SerializationUtil.writeToFile("src/resources/sessions/"+session.getFileName()+".txt",sessionList);
+//        }
+//        return movieList;
+        System.out.println(movieList);
         MovieSession session1 = new MovieSession(movie1, LocalDateTime.now(),
                 Duration.ofHours(2), 15);
 //        MovieSession session2 =
@@ -61,8 +79,8 @@ public class MovieTheater {
 
 
 //        ArrayList<MovieSession> movieSessions = (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
-        SerializationUtil.writeToFile("src/resources/movie-list.txt", new ArrayList<>(movies));
-        SerializationUtil.writeToFile("src/resources/session-list.txt", new ArrayList<>(sessions));
+//        SerializationUtil.writeToFile("src/resources/movie-list.txt", new ArrayList<>(movies));
+//        SerializationUtil.writeToFile("src/resources/session-list.txt", new ArrayList<>(sessions));
 //        System.out.println(movieSessions);
 //        movieSessions.add(session1);
 //        SerializationUtil.writeToFile("src\\resources\\test.txt", movieSessions);

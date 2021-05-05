@@ -8,12 +8,15 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public final class MovieManager {
 
     public static final String MOVIE_LIST_FILE = "src/resources/movie-list.txt";
+    public static final String MOVIE_LIST_DIR = "src/resources/movies/";
+
     private static final MovieManager MOVIE_MANAGER = new MovieManager();
     public ArrayList<Movie> MOVIE_LIST;
 
@@ -23,7 +26,7 @@ public final class MovieManager {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            MOVIE_LIST = (ArrayList<Movie>) SerializationUtil.readFromFile(MOVIE_LIST_FILE);
+            MOVIE_LIST = SerializationUtil.deserializeMovies();
         } catch (EOFException e) {
             MOVIE_LIST = new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
@@ -41,16 +44,19 @@ public final class MovieManager {
         } else {
             throw new AlreadyInMovieListException();
         }
-        SerializationUtil.serializeMovies();
+        SerializationUtil.serializeMovie(movie);
     }
 
     public void deleteMovie(Movie movie) {
         MOVIE_LIST.remove(movie);
+        File moviesDir = new File(MOVIE_LIST_DIR);
+        File sessionsDir = new File("src/resources/sessions");
+        Arrays.stream(moviesDir.listFiles()).filter(f -> f.getName().startsWith(movie.getName().replaceAll(" ", "_"))).forEach(f -> f.delete());
+        Arrays.stream(sessionsDir.listFiles()).filter(f -> f.getName().startsWith(movie.getName().replaceAll(" ", "_"))).forEach(f -> f.delete());
         try {
-            SerializationUtil.serializeMovies();
-            SerializationUtil.serializeSessions();
-        } catch (IOException e) {
-            System.err.println("Failed to persist data!");
+            SerializationUtil.deserializeSessions();
+        } catch (IOException | ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
     }
 

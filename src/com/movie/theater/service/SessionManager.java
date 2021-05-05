@@ -3,6 +3,7 @@ package com.movie.theater.service;
 import com.movie.theater.exception.OverlappingException;
 import com.movie.theater.model.MovieSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public final class SessionManager {
 
     private SessionManager() {
         try {
-            SESSION_LIST = (ArrayList<MovieSession>) SerializationUtil.readFromFile(SESSION_LIST_FILE);
+            SESSION_LIST = SerializationUtil.deserializeSessions();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Failed to initialize Session Manager!");
         }
@@ -37,7 +38,7 @@ public final class SessionManager {
                 .collect(Collectors.toList());
         if (overlaps.isEmpty()) {
             SESSION_LIST.add(session);
-            SerializationUtil.serializeSessions();
+            SerializationUtil.serializeSession(session);
         } else {
             StringBuilder builder = new StringBuilder("Your movie overlaps with { \n");
             for (MovieSession movieSession : overlaps) {
@@ -53,7 +54,8 @@ public final class SessionManager {
 
     public void deleteSession(MovieSession session) throws IOException {
         SESSION_LIST.remove(session);
-        SerializationUtil.serializeSessions();
+        File file = new File("src/resources/sessions/" + session.getFileName());
+        if (file.exists()) file.delete();
     }
 
     private boolean overlaps(MovieSession session1, MovieSession session2) {
