@@ -158,7 +158,7 @@ public class MoviesPage extends JFrame {
         movieName.setFont(new Font(null, Font.PLAIN, 20));
         moviePanel.add(movieName);
 
-        JLabel movieDirector = new JLabel(movie.getDirector().getFirstName());
+        JLabel movieDirector = new JLabel(movie.getDirector().getFullName());
         movieDirector.setMinimumSize(movieNameDimension);
         movieDirector.setMaximumSize(movieNameDimension);
         movieDirector.setPreferredSize(movieNameDimension);
@@ -166,6 +166,15 @@ public class MoviesPage extends JFrame {
         movieDirector.setOpaque(false);
         movieDirector.setFont(new Font(null, Font.ITALIC, 16));
         moviePanel.add(movieDirector);
+
+        JLabel genre = new JLabel(movie.getGenre().toString());
+        genre.setMinimumSize(movieNameDimension);
+        genre.setMaximumSize(movieNameDimension);
+        genre.setPreferredSize(movieNameDimension);
+        genre.setToolTipText(movie.getName());
+        genre.setOpaque(false);
+        genre.setFont(new Font(null, Font.ITALIC, 16));
+        moviePanel.add(genre);
 
         JPanel movieFooter = new JPanel();
         movieFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
