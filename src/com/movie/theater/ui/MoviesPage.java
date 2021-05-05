@@ -167,7 +167,11 @@ public class MoviesPage extends JFrame {
         movieDirector.setFont(new Font(null, Font.ITALIC, 16));
         moviePanel.add(movieDirector);
 
-        JLabel genre = new JLabel(movie.getGenre().toString());
+        String genre1 = movie.getGenre().toString().toLowerCase();
+        String firstLetter = String.valueOf(genre1.charAt(0));
+        genre1 = genre1.replace(firstLetter, firstLetter.toUpperCase());
+        genre1 = genre1.replace("_", " ");
+        JLabel genre = new JLabel(genre1);
         genre.setMinimumSize(movieNameDimension);
         genre.setMaximumSize(movieNameDimension);
         genre.setPreferredSize(movieNameDimension);
@@ -414,6 +418,7 @@ public class MoviesPage extends JFrame {
             String genreName = genre.name().toLowerCase();
             String firstLetter = String.valueOf(genreName.charAt(0));
             genreName = genreName.replace(firstLetter, firstLetter.toUpperCase());
+            genreName = genreName.replace("_", " ");
             JCheckBox genreCheckBox = new JCheckBox(genreName);
             genreCheckBox.addItemListener((ItemEvent e) -> genreCheckBoxItemChanged(e, genre));
             genreCheckBox.setForeground(Color.WHITE);

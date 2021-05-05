@@ -110,7 +110,7 @@ public class SessionsPage extends JFrame {
         movieName.setOpaque(true);
         sessionPanel.add(movieName);
 
-        JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFirstName());
+        JLabel movieDirector = new JLabel(session.getMovie().getDirector().getFullName());
         movieDirector.setMinimumSize(movieNameDimension);
         movieDirector.setMaximumSize(movieNameDimension);
         movieDirector.setPreferredSize(movieNameDimension);
@@ -322,6 +322,7 @@ public class SessionsPage extends JFrame {
             String genreName = genre.name().toLowerCase();
             String firstLetter = String.valueOf(genreName.charAt(0));
             genreName = genreName.replace(firstLetter, firstLetter.toUpperCase());
+            genreName = genreName.replace("_", " ");
             JCheckBox genreCheckBox = new JCheckBox(genreName);
             genreCheckBox.addItemListener((ItemEvent e) -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
