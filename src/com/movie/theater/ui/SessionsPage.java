@@ -42,6 +42,9 @@ public class SessionsPage extends JFrame {
     private JPanel sessionsPanel;
 
     public SessionsPage() throws HeadlessException {
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")));
+
         Dimension UIDim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setMinimumSize(UIDim);
         this.setMaximumSize(UIDim);

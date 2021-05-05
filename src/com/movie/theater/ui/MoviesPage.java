@@ -39,6 +39,8 @@ public class MoviesPage extends JFrame {
     private JPanel moviesPanel = new JPanel();
 
     public MoviesPage() throws HeadlessException {
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(getClass().getResource("/com/movie/theater/icons/movie-3.png")));
         Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
 
         this.setMinimumSize(uidim);

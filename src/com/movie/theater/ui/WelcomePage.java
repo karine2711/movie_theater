@@ -23,6 +23,7 @@ public class WelcomePage extends JFrame {
     private JLabel welcome2;
     private JLabel label1;
     private JLabel welcome3;
+
     public WelcomePage() {
         initComponents();
     }
