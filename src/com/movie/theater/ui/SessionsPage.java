@@ -123,6 +123,10 @@ public class SessionsPage extends JFrame {
         movieDirector.setFont(new Font(null, Font.PLAIN, 16));
         sessionPanel.add(movieDirector);
 
+        String genre1 = session.getMovie().getGenre().toString().toLowerCase();
+        String firstLetter = String.valueOf(genre1.charAt(0));
+        genre1 = genre1.replace(firstLetter, firstLetter.toUpperCase());
+        genre1 = genre1.replace("_", " ");
         JLabel genre = new JLabel(session.getMovie().getGenre().toString());
         genre.setMinimumSize(movieNameDimension);
         genre.setMaximumSize(movieNameDimension);
