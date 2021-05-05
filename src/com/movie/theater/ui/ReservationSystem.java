@@ -28,14 +28,6 @@ public class ReservationSystem extends JFrame {
         reservationSystem();
     }
 
-    public static void main(String[] args) {
-        Movie movie1 = new Movie("movie 1", new Director("name1", "surname1"), Genre.ACTION);
-        MovieSession session1 = new MovieSession(movie1, LocalDateTime.now(), Duration.ofHours(2), 15);
-        ReservationSystem reservationSystem = new ReservationSystem(session1);
-        reservationSystem.reservationSystem();
-
-    }
-
     private void reservationSystem() {
         this.setBounds(0, 0, 700, 800);
         this.setResizable(false);

@@ -79,11 +79,6 @@ public class SessionsPage extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SessionsPage sessionsPage = new SessionsPage();
-
-    }
-
     private void populateWithSessions(List<MovieSession> sessionsList) {
         sessions.removeAll();
         sessions.setBackground(new Color(100, 17, 173));
