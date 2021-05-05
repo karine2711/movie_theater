@@ -27,27 +27,25 @@ import java.util.List;
 public class SessionsPage extends JFrame {
 
     private static final GridBagConstraints gridBagConstraints = new GridBagConstraints();
-    JPanel filterPanel;
-    JPanel sessions = new JPanel();
-    List<SessionFilter> sessionFilters = new ArrayList<>();
-    SessionByDateFilter sessionByDateFilter = new SessionByDateFilter();
-    SessionByGenreFilter sessionByGenreFilter = new SessionByGenreFilter();
-    SessionByMovieFilter sessionByMovieFilter = new SessionByMovieFilter();
-    SessionByPriceFilter sessionByPriceFilter = new SessionByPriceFilter();
-    SessionManager sessionManager = SessionManager.getSessionManager();
-    MovieManager movieManager = MovieManager.getMovieManager();
-    boolean isValidPrice;
-    List<JCheckBox> checkBoxes = new ArrayList<>();
-    List<JTextField> textFields = new ArrayList<>();
-    JDateChooser dateChooser = new JDateChooser();
-    private JButton mainMenuButton;
+    private JPanel filterPanel;
+    private JPanel sessions = new JPanel();
+    private List<SessionFilter> sessionFilters = new ArrayList<>();
+    private SessionByDateFilter sessionByDateFilter = new SessionByDateFilter();
+    private SessionByGenreFilter sessionByGenreFilter = new SessionByGenreFilter();
+    private SessionByMovieFilter sessionByMovieFilter = new SessionByMovieFilter();
+    private SessionByPriceFilter sessionByPriceFilter = new SessionByPriceFilter();
+    private SessionManager sessionManager = SessionManager.getSessionManager();
+    private MovieManager movieManager = MovieManager.getMovieManager();
+    private List<JCheckBox> checkBoxes = new ArrayList<>();
+    private List<JTextField> textFields = new ArrayList<>();
+    private JDateChooser dateChooser = new JDateChooser();
     private JPanel sessionsPanel;
 
     public SessionsPage() throws HeadlessException {
-        Dimension uidim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setMinimumSize(uidim);
-        this.setMaximumSize(uidim);
-        this.setPreferredSize(uidim);
+        Dimension UIDim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setMinimumSize(UIDim);
+        this.setMaximumSize(UIDim);
+        this.setPreferredSize(UIDim);
         GridBagLayout layout = new GridBagLayout();
         gridBagConstraints.fill = GridBagConstraints.VERTICAL;
         gridBagConstraints.weightx = 1;
@@ -74,7 +72,6 @@ public class SessionsPage extends JFrame {
         this.getContentPane().add(sessionsPanel, gridBagConstraints);
 
 
-        ///filter panel
         initFilterPanel();
 
 
@@ -101,7 +98,6 @@ public class SessionsPage extends JFrame {
             sessionPanel.setPreferredSize(dimension);
             sessionPanel.setMinimumSize(dimension);
             sessionPanel.setMaximumSize(dimension);
-
             sessionPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
             JLabel movieName = new JLabel(session.getMovie().getName(), SwingConstants.CENTER);
@@ -156,7 +152,6 @@ public class SessionsPage extends JFrame {
             price.setFont(new Font(null, Font.PLAIN, 16));
             sessionPanel.add(price);
 
-
             JPanel sessionFooter = new JPanel();
             sessionFooter.setLayout(new FlowLayout(FlowLayout.RIGHT));
             Dimension footerDimension = new Dimension(300, 35);
@@ -189,7 +184,6 @@ public class SessionsPage extends JFrame {
                 dispose();
             });
 
-
             sessionFooter.add(getTicket);
             sessionFooter.add(deleteButton);
             sessionPanel.add(sessionFooter);
@@ -208,10 +202,10 @@ public class SessionsPage extends JFrame {
         createFilterPanel();
         addAddSessionButton();
         addFiltersLabel();
-        addFiltersChecks();
+        addFiltersChecks1();
         filterPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        addFiltersChecks1();
+        addFiltersChecks2();
         filterPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         addFilterButton();
         filterPanel.add(Box.createRigidArea(new Dimension(0, 15)));
@@ -254,42 +248,38 @@ public class SessionsPage extends JFrame {
         populateWithSessions(filteredList);
     }
 
-    private void addFiltersChecks() {
-        JPanel filtersChecks = new JPanel();
-        filtersChecks.setLayout(new BoxLayout(filtersChecks, BoxLayout.X_AXIS));
-        filtersChecks.add(getGenreFiltersBox());
-        filtersChecks.add(Box.createRigidArea(new Dimension(30, 0)));
-        filtersChecks.add(getMovieFiltersBox());
-//        filtersChecks.add(Box.createRigidArea(new Dimension(30, 0)));
-//        filtersChecks.add(getPriceFiltersBox());
-//        filtersChecks.add(Box.createRigidArea(new Dimension(30, 0)));
-//        filtersChecks.add(getDateFiltersBox());
-
+    private void addFiltersChecks1() {
+        JPanel filtersChecks1 = new JPanel();
+        filtersChecks1.setLayout(new BoxLayout(filtersChecks1, BoxLayout.X_AXIS));
+        filtersChecks1.add(getGenreFiltersBox());
+        filtersChecks1.add(Box.createRigidArea(new Dimension(30, 0)));
+        filtersChecks1.add(getMovieFiltersBox());
 
         Dimension dimension = new Dimension(350, 200);
-        filtersChecks.setPreferredSize(dimension);
-        filtersChecks.setMinimumSize(dimension);
-        filtersChecks.setMaximumSize(dimension);
-        filtersChecks.setOpaque(false);
+        filtersChecks1.setPreferredSize(dimension);
+        filtersChecks1.setMinimumSize(dimension);
+        filtersChecks1.setMaximumSize(dimension);
+        filtersChecks1.setOpaque(false);
 
-        filterPanel.add(filtersChecks);
+        filterPanel.add(filtersChecks1);
 
     }
 
-    private void addFiltersChecks1() {
+    private void addFiltersChecks2() {
 
-        JPanel filtersChecks1 = new JPanel();
-        filtersChecks1.setLayout(new BoxLayout(filtersChecks1, BoxLayout.X_AXIS));
-        filtersChecks1.add(getDateFiltersBox());
-        filtersChecks1.add(Box.createRigidArea(new Dimension(30, 0)));
-        filtersChecks1.add(getPriceFiltersBox());
+        JPanel filtersChecks2 = new JPanel();
+        filtersChecks2.setLayout(new BoxLayout(filtersChecks2, BoxLayout.X_AXIS));
+        filtersChecks2.add(getDateFiltersBox());
+        filtersChecks2.add(Box.createRigidArea(new Dimension(30, 0)));
+        filtersChecks2.add(getPriceFiltersBox());
 
         Dimension dimension1 = new Dimension(350, 90);
-        filtersChecks1.setPreferredSize(dimension1);
-        filtersChecks1.setMinimumSize(dimension1);
-        filtersChecks1.setMaximumSize(dimension1);
-        filtersChecks1.setOpaque(false);
-        filterPanel.add(filtersChecks1);
+        filtersChecks2.setPreferredSize(dimension1);
+        filtersChecks2.setMinimumSize(dimension1);
+        filtersChecks2.setMaximumSize(dimension1);
+        filtersChecks2.setOpaque(false);
+
+        filterPanel.add(filtersChecks2);
     }
 
     private JPanel getDateFiltersBox() {
@@ -297,15 +287,18 @@ public class SessionsPage extends JFrame {
         JPanel datesContainer = new JPanel();
         datesContainer.setOpaque(false);
         datesContainer.setLayout(new BoxLayout(datesContainer, BoxLayout.Y_AXIS));
+
         JLabel dates = new JLabel("Dates");
         dates.setForeground(Color.WHITE);
         dates.setFont(new Font(null, Font.BOLD, 16));
+
         datesContainer.add(dates);
         datesContainer.add(Box.createRigidArea(new Dimension(0, 25)));
         datesContainer.add(dateChooser);
+
         dateChooser.getDateEditor().setEnabled(false);
-//        dateChooser.setMinSelectableDate(new Date());
         dateChooser.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
+
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (dateChooser.getDate() == null) return;
@@ -323,15 +316,14 @@ public class SessionsPage extends JFrame {
         JPanel genresContainer = new JPanel();
         genresContainer.setOpaque(false);
         genresContainer.setLayout(new BoxLayout(genresContainer, BoxLayout.Y_AXIS));
+
         JLabel genres = new JLabel("Genres");
         genres.setForeground(Color.WHITE);
         genres.setFont(new Font(null, Font.BOLD, 16));
         genresContainer.add(genres);
 
-
         JPanel genreFiltersBox = new JPanel();
         genreFiltersBox.setLayout(new BoxLayout(genreFiltersBox, BoxLayout.Y_AXIS));
-
         genreFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
 
         for (Genre genre : Genre.values()) {
@@ -347,11 +339,13 @@ public class SessionsPage extends JFrame {
                 }
                 System.out.println(sessionByGenreFilter);
             });
+
             genreCheckBox.setForeground(Color.BLACK);
             genreCheckBox.setOpaque(false);
             checkBoxes.add(genreCheckBox);
             genreFiltersBox.add(genreCheckBox);
         }
+
         genresContainer.add(new JScrollPane(genreFiltersBox));
         return genresContainer;
 
@@ -362,21 +356,20 @@ public class SessionsPage extends JFrame {
         JPanel moviesContainer = new JPanel();
         moviesContainer.setOpaque(false);
         moviesContainer.setLayout(new BoxLayout(moviesContainer, BoxLayout.Y_AXIS));
+
         JLabel movies = new JLabel("Movies");
         movies.setForeground(Color.WHITE);
         movies.setFont(new Font(null, Font.BOLD, 16));
         moviesContainer.add(movies);
 
-
         JPanel movieFiltersBox = new JPanel();
         movieFiltersBox.setLayout(new BoxLayout(movieFiltersBox, BoxLayout.Y_AXIS));
-
         movieFiltersBox.setAlignmentX(CENTER_ALIGNMENT);
         movieFiltersBox.setOpaque(false);
+
         Dimension dimension = new Dimension(100, 200);
         movieFiltersBox.setPreferredSize(dimension);
         movieFiltersBox.setMinimumSize(dimension);
-
         movieFiltersBox.setMaximumSize(new Dimension(100, 200));
 
         for (Movie movie : movieManager.getMovieList()) {
@@ -389,6 +382,7 @@ public class SessionsPage extends JFrame {
                     sessionByMovieFilter.removeMovie(movie);
                 }
             });
+
             movieCheckBox.setForeground(Color.BLACK);
             movieCheckBox.setOpaque(false);
             checkBoxes.add(movieCheckBox);
@@ -404,6 +398,7 @@ public class SessionsPage extends JFrame {
         JPanel priceContainer = new JPanel();
         priceContainer.setOpaque(false);
         priceContainer.setLayout(new BoxLayout(priceContainer, BoxLayout.Y_AXIS));
+
         JLabel price = new JLabel("Price");
         price.setForeground(Color.WHITE);
         price.setFont(new Font(null, Font.BOLD, 16));
@@ -411,18 +406,25 @@ public class SessionsPage extends JFrame {
 
         JLabel minLabel = new JLabel("Minimum");
         minLabel.setForeground(Color.WHITE);
+
         JLabel maxLabel = new JLabel("Maximum");
         maxLabel.setForeground(Color.WHITE);
+
         JTextField minimum = new JTextField();
         JTextField maximum = new JTextField();
+
         priceContainer.add(minLabel);
         priceContainer.add(minimum);
+
         validateMinPrice(minimum);
         validateMaxPrice(maximum);
+
         priceContainer.add(maxLabel);
         priceContainer.add(maximum);
+
         textFields.add(minimum);
         textFields.add(maximum);
+
         return priceContainer;
     }
 
@@ -507,7 +509,9 @@ public class SessionsPage extends JFrame {
     private void addAddSessionButton() {
         filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+
         Dimension dimension = new Dimension(200, 100);
+
         JButton button = new JButton("Add Session");
         button.addActionListener(e -> {
             AddSessionPage addSessionPage = new AddSessionPage();
@@ -522,6 +526,7 @@ public class SessionsPage extends JFrame {
                 }
             });
         });
+
         button.setPreferredSize(dimension);
         button.setMinimumSize(dimension);
         button.setMaximumSize(dimension);
@@ -529,18 +534,22 @@ public class SessionsPage extends JFrame {
         button.setBorder(BorderFactory.createBevelBorder(0));
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
+
         filterPanel.add(button);
     }
 
     private void addFiltersLabel() {
         filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+
         JLabel filtersLabel = new JLabel("Filters");
+
         filtersLabel.setAlignmentX(CENTER_ALIGNMENT);
         filtersLabel.setForeground(Color.white);
+
         filterPanel.add(filtersLabel);
+
         this.pack();
         this.setVisible(true);
-//        filterPanel.add(Box.createRigidArea(new Dimension(0, 50)));
     }
 
     private void initMainContainer() {
@@ -560,30 +569,23 @@ public class SessionsPage extends JFrame {
 
     private void addSessionsLabel() {
         JLabel sessionsLabel = new JLabel("Sessions");
-        Dimension label = new Dimension(sessionsPanel.getWidth() / 2, 500);
         sessionsLabel.setForeground(Color.WHITE);
         sessionsLabel.setFont(new Font(null, Font.PLAIN, 50));
         sessionsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        sessionsLabel.setPreferredSize(label);
-//        sessionsLabel.setMaximumSize(label);
-//        sessionsLabel.setMinimumSize(label);
         sessionsPanel.add(sessionsLabel);
-    }
-
-    private void filterBoxItemStateChanged(ItemEvent e) {
-        e.setSource(Genre.values());
-        System.out.println("sdsd");
     }
 
     private void addMainMenuButton() {
         JButton mainMenuButton = new JButton("Main Menu");
         mainMenuButton.setBackground(Color.WHITE);
         mainMenuButton.setForeground(Color.black);
+
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weighty = 0.2;
+
         this.getContentPane().add(mainMenuButton, gridBagConstraints);
 
         mainMenuButton.addActionListener((e) -> {
