@@ -13,6 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * @author Asya
@@ -107,7 +110,12 @@ public class AddMoviePage extends JFrame {
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
         String extension = filename.substring(filename.lastIndexOf('.'));
-        f.renameTo(new File("src/com/movie/theater/icons/" + movieNameField.getText().replaceAll(" ", "_") + "." + extension.toLowerCase()));
+        try {
+            Files.copy(f.toPath(), Path.of("src/com/movie/theater/icons/" + movieNameField.getText().replaceAll(" ", "_") + "." + extension.toLowerCase()));
+        } catch (IOException exception) {
+            JOptionPane.showMessageDialog(this, "Failed to upload image");
+        };
+
     }
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
