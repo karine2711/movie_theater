@@ -1,11 +1,9 @@
 package com.movie.theater.service;
 
 import com.movie.theater.exception.OverlappingException;
-import com.movie.theater.model.Movie;
 import com.movie.theater.model.MovieSession;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +31,10 @@ public final class SessionManager {
     }
 
     public void addSession(MovieSession session) throws IOException {
-        LocalDateTime start = session.getLocalDateTime();
-        LocalDateTime end = session.getEndTime();
-        List<MovieSession> overlaps = SESSION_LIST.stream().filter(s -> overlaps(s, session)).collect(Collectors.toList());
+        List<MovieSession> overlaps = SESSION_LIST
+                .stream()
+                .filter(s -> overlaps(s, session))
+                .collect(Collectors.toList());
         if (overlaps.isEmpty()) {
             SESSION_LIST.add(session);
             SerializationUtil.serializeSessions();
@@ -48,32 +47,14 @@ public final class SessionManager {
                         .append(movieSession.getEndTime()).append(" \n");
             }
             builder.append("}");
-
             throw new OverlappingException(builder.toString());
         }
-    }
-
-    public void addSession(Movie movie, LocalDateTime localDateTime,
-                           Duration duration, double priceForSession) throws IOException {
-        MovieSession session = new MovieSession(movie, localDateTime,
-                duration, priceForSession);
-        addSession(session);
-    }
-
-    public void deleteSession(Movie movie, LocalDateTime localDateTime,
-                              Duration duration, double priceForSession) throws IOException {
-        MovieSession session = new MovieSession(movie, localDateTime,
-                duration, priceForSession);
-        deleteSession(session);
-
     }
 
     public void deleteSession(MovieSession session) throws IOException {
         SESSION_LIST.remove(session);
         SerializationUtil.serializeSessions();
-
     }
-
 
     private boolean overlaps(MovieSession session1, MovieSession session2) {
         LocalDateTime start1 = session1.getLocalDateTime();
@@ -89,6 +70,5 @@ public final class SessionManager {
     private boolean isBetween(LocalDateTime time, LocalDateTime start, LocalDateTime end) {
         return time.isAfter(start) && time.isBefore(end);
     }
-
 
 }

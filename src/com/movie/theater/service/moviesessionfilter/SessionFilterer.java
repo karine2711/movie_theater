@@ -17,7 +17,6 @@ public class SessionFilterer {
         return this;
     }
 
-
     public void filter(SessionFilter... filterList) {
         filter(List.of(filterList));
     }

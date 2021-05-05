@@ -12,12 +12,18 @@ import java.util.stream.Collectors;
 public class MovieByDirectorFilter implements MovieFilter {
     private final Set<Director> directors = new HashSet<>();
 
-
     public MovieByDirectorFilter() {
     }
-    //    public MovieByDirectorFilter(String firstName, String lastName) {
-//        this.director = new Director(firstName, lastName);
-//    }
+
+    @Override
+    public void filter(List<Movie> list) {
+        if (directors.isEmpty()) return;
+        List<Movie> temp = list.stream()
+                .filter(s -> directors.contains(s.getDirector()))
+                .collect(Collectors.toList());
+        list.clear();
+        list.addAll(temp);
+    }
 
     public void addDirector(Director director) {
         directors.add(director);
@@ -29,16 +35,6 @@ public class MovieByDirectorFilter implements MovieFilter {
 
     public void reset() {
         directors.clear();
-    }
-
-    @Override
-    public void filter(List<Movie> list) {
-        if (directors.isEmpty()) return;
-        List<Movie> temp = list.stream()
-                .filter(s -> directors.contains(s.getDirector()))
-                .collect(Collectors.toList());
-        list.clear();
-        list.addAll(temp);
     }
 
     @Override

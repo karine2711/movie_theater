@@ -9,6 +9,15 @@ import java.util.stream.Collectors;
 public class SessionByDateFilter implements SessionFilter {
     private LocalDate date;
 
+    @Override
+    public void filter(List<MovieSession> list) {
+        if (date == null) return;
+        List<MovieSession> filteredList =
+                list.stream().filter(s -> s.getLocalDateTime().toLocalDate().equals(date)).collect(Collectors.toList());
+        list.clear();
+        list.addAll(filteredList);
+    }
+
     public void setDate(LocalDate date) {
 
         this.date = date;
@@ -18,12 +27,4 @@ public class SessionByDateFilter implements SessionFilter {
         this.date = null;
     }
 
-    @Override
-    public void filter(List<MovieSession> list) {
-        if (date == null) return;
-        List<MovieSession> filteredList =
-                list.stream().filter(s -> s.getLocalDateTime().toLocalDate().equals(date)).collect(Collectors.toList());
-        list.clear();
-        list.addAll(filteredList);
-    }
 }

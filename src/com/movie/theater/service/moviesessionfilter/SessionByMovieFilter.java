@@ -11,28 +11,6 @@ import java.util.stream.Collectors;
 public class SessionByMovieFilter implements SessionFilter {
     private final Set<Movie> movies = new HashSet<>();
 
-    public SessionByMovieFilter(Movie movie) {
-        movies.add(movie);
-    }
-
-    public SessionByMovieFilter() {
-
-    }
-
-    public void addMovie(Movie movie) {
-        movies.add(movie);
-    }
-
-
-    public void removeMovie(Movie movie) {
-        movies.remove(movie);
-    }
-
-
-    public void reset() {
-        movies.clear();
-    }
-
     @Override
     public void filter(List<MovieSession> list) {
         if (movies.isEmpty()) return;
@@ -41,6 +19,18 @@ public class SessionByMovieFilter implements SessionFilter {
                         .collect(Collectors.toList());
         list.clear();
         list.addAll(temp);
+    }
+
+    public void addMovie(Movie movie) {
+        movies.add(movie);
+    }
+
+    public void removeMovie(Movie movie) {
+        movies.remove(movie);
+    }
+
+    public void reset() {
+        movies.clear();
     }
 
 

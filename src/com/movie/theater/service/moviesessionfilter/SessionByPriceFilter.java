@@ -9,8 +9,13 @@ public class SessionByPriceFilter implements SessionFilter {
     private int minPrice = 100;
     private int maxPrice = 9990;
 
-    public SessionByPriceFilter() {
-
+    @Override
+    public void filter(List<MovieSession> list) {
+        List<MovieSession> temp =
+                list.stream().filter(s -> s.getPriceForSession() >= minPrice && s.getPriceForSession() <= maxPrice)
+                        .collect(Collectors.toList());
+        list.clear();
+        list.addAll(temp);
     }
 
     public void setMinPrice(int minPrice) {
@@ -26,12 +31,5 @@ public class SessionByPriceFilter implements SessionFilter {
         maxPrice = 9990;
     }
 
-    @Override
-    public void filter(List<MovieSession> list) {
-        List<MovieSession> temp =
-                list.stream().filter(s -> s.getPriceForSession() >= minPrice && s.getPriceForSession() <= maxPrice)
-                        .collect(Collectors.toList());
-        list.clear();
-        list.addAll(temp);
-    }
+
 }

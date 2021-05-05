@@ -52,25 +52,24 @@ public class AddSessionPage extends JFrame {
     private JButton submitButton;
     private JLabel durationText;
     private JTextField durationField;
+
     public AddSessionPage() {
         initComponents();
-        List<String> movies = movieManager.getMovieList().stream().map(Movie::getName).collect(Collectors.toList());
+        List<String> movies = movieManager.getMovieList()
+                .stream()
+                .map(Movie::getName)
+                .collect(Collectors.toList());
+        movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
+
         addValidation();
-        dateField.setMinSelectableDate(new Date());
-        dateField.getDateEditor().setEnabled(false);
         durationField.setToolTipText("Format: hour:minute");
         priceField.setToolTipText("100 to 9990");
-        movieField.setModel(new DefaultComboBoxModel(movies.toArray()));
         pack();
     }
+
     public AddSessionPage(Movie currentMovie) {
         this();
         movieField.setSelectedItem(currentMovie.getName());
-    }
-
-    public static void main(String[] args) {
-        AddSessionPage newPage = new AddSessionPage();
-        newPage.setVisible(true);
     }
 
     public void addValidation() {
@@ -127,12 +126,12 @@ public class AddSessionPage extends JFrame {
                 }
             }
         });
-
+        dateField.setMinSelectableDate(new Date());
+        dateField.getDateEditor().setEnabled(false);
     }
 
     private void makeSessionFromText() {
         String stringPrice = priceField.getText();
-        String duration = durationField.getText();
         if (!isValidDuration) {
             JOptionPane.showMessageDialog(this, "Duration must be in format hh:mm, for example 2:30");
         }
@@ -148,19 +147,19 @@ public class AddSessionPage extends JFrame {
         int hour = timeField.getHours();
         int minute = timeField.getMinutes();
         LocalDateTime movieStartTime = LocalDateTime.of(localDate, LocalTime.of(hour, minute));
+
         Movie movie = movieManager.getMovieList()
                 .stream()
                 .filter(m -> m.getName()
-                        .equals(movieField.getSelectedItem().toString())).findFirst()
+                        .equals(movieField.getSelectedItem().toString()))
+                .findFirst()
                 .get();
 
-
         MovieSession session = new MovieSession(movie, movieStartTime, Duration.ofMinutes(2), price);
-        System.out.println(session);
         try {
             sessionManager.addSession(session);
         } catch (IOException e) {
-            e.printStackTrace();
+            showExitCase();
         } catch (OverlappingException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -168,7 +167,6 @@ public class AddSessionPage extends JFrame {
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
-
         makeSessionFromText();
         dispose();
     }
@@ -183,6 +181,11 @@ public class AddSessionPage extends JFrame {
             durationField.setBackground(Color.WHITE);
             priceField.setBackground(Color.WHITE);
         }
+    }
+
+    private void showExitCase() {
+        JOptionPane.showMessageDialog(this, "Sorry something went wrong! The program need to exit");
+        System.exit(-1);
     }
 
     private void sessionsMenuActionPerformed(ActionEvent e) {

@@ -2,7 +2,6 @@ package com.movie.theater.service;
 
 import com.movie.theater.exception.AlreadyInMovieListException;
 import com.movie.theater.model.Director;
-import com.movie.theater.model.Genre;
 import com.movie.theater.model.Movie;
 
 import java.io.EOFException;
@@ -34,12 +33,6 @@ public final class MovieManager {
 
     public static MovieManager getMovieManager() {
         return MOVIE_MANAGER;
-    }
-
-    public void addMovie(String name, Director director, Genre genre) throws AlreadyInMovieListException, IOException {
-        Movie movie = new Movie(name, director, genre);
-        addMovie(movie);
-        SerializationUtil.serializeMovies();
     }
 
     public void addMovie(Movie movie) throws AlreadyInMovieListException, IOException {

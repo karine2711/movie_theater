@@ -61,8 +61,8 @@ public class MovieTheater {
 
 
 //        ArrayList<MovieSession> movieSessions = (ArrayList<MovieSession>) SerializationUtil.readFromFile("src\\resources\\test.txt");
-
         SerializationUtil.writeToFile("src/resources/movie-list.txt", new ArrayList<>(movies));
+        SerializationUtil.writeToFile("src/resources/session-list.txt", new ArrayList<>(sessions));
 //        System.out.println(movieSessions);
 //        movieSessions.add(session1);
 //        SerializationUtil.writeToFile("src\\resources\\test.txt", movieSessions);

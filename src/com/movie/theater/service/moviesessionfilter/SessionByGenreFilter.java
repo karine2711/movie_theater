@@ -8,17 +8,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//similar to MovieByGenre filter
 public class SessionByGenreFilter implements SessionFilter {
     private final Set<Genre> genres = new HashSet<>();
 
-//    private final Genre genre;
-
-    public SessionByGenreFilter(Genre genre) {
-        genres.add(genre);
-    }
-
-    public SessionByGenreFilter() {
+    @Override
+    public void filter(List<MovieSession> list) {
+        if (genres.isEmpty()) return;
+        List<MovieSession> temp =
+                list.stream().filter(s -> genres.contains(s.getMovie().getGenre())).collect(Collectors.toList());
+        list.clear();
+        list.addAll(temp);
     }
 
     public void addGenre(Genre genre) {
@@ -33,12 +32,4 @@ public class SessionByGenreFilter implements SessionFilter {
         genres.clear();
     }
 
-    @Override
-    public void filter(List<MovieSession> list) {
-        if (genres.isEmpty()) return;
-        List<MovieSession> temp =
-                list.stream().filter(s -> genres.contains(s.getMovie().getGenre())).collect(Collectors.toList());
-        list.clear();
-        list.addAll(temp);
-    }
 }

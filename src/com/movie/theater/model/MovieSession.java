@@ -11,11 +11,11 @@ import java.util.List;
 
 public class MovieSession implements Serializable {
     private static final long serialVersionUID = 2L;
-    private LocalDateTime localDateTime;
     private final ArrayList<Seat> reservationState;
+    private final Movie movie;
+    private LocalDateTime localDateTime;
     private double priceForSession;
     private Duration duration;
-    private final Movie movie;
 
 
     public MovieSession(Movie movie, LocalDateTime localDateTime, Duration duration, double priceForSession) {

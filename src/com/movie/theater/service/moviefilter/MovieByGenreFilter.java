@@ -12,19 +12,7 @@ import java.util.stream.Collectors;
 public class MovieByGenreFilter implements MovieFilter {
     private final Set<Genre> genres = new HashSet<>();
 
-    public MovieByGenreFilter(Genre genre) {
-        genres.add(genre);
-    }
-
     public MovieByGenreFilter() {
-    }
-
-    public void addGenre(Genre genre) {
-        genres.add(genre);
-    }
-
-    public void removeGenre(Genre genre) {
-        genres.remove(genre);
     }
 
     @Override
@@ -34,6 +22,14 @@ public class MovieByGenreFilter implements MovieFilter {
                 list.stream().filter(s -> genres.contains(s.getGenre())).collect(Collectors.toList());
         list.clear();
         list.addAll(temp);
+    }
+
+    public void addGenre(Genre genre) {
+        genres.add(genre);
+    }
+
+    public void removeGenre(Genre genre) {
+        genres.remove(genre);
     }
 
     public void reset() {
