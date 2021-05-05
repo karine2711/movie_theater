@@ -52,6 +52,10 @@ public final class SessionManager {
         }
     }
 
+    public boolean exists(MovieSession session){
+        return  SESSION_LIST.contains(session);
+    }
+
     public void deleteSession(MovieSession session) throws IOException {
         SESSION_LIST.remove(session);
         File file = new File("src/resources/sessions/" + session.getFileName());

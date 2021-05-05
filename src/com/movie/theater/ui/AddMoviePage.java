@@ -10,12 +10,16 @@ import com.movie.theater.model.Movie;
 import com.movie.theater.service.MovieManager;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 /**
  * @author Asya
@@ -41,11 +45,44 @@ public class AddMoviePage extends JFrame {
     private JComboBox genreField;
     private JButton upload;
     private JLabel genreText2;
+    private boolean movieExists;
 
     public AddMoviePage() {
         initComponents();
+        addValidation();
         genreField.setModel(new DefaultComboBoxModel(Genre.values()));
     }
+
+    public void addValidation() {
+        movieNameField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validate();
+            }
+
+            private void validate() {
+                if (MovieManager.getMovieManager().exists(movieNameField.getText())) {
+                    movieNameField.setBackground(new Color(255, 153, 153));
+                    movieExists = true;
+                } else {
+                    movieNameField.setBackground(Color.WHITE);
+                    movieExists = false;
+                }
+            }
+        });
+
+    }
+
 
     public static void main(String[] args) {
         AddMoviePage newPage = new AddMoviePage();
@@ -71,6 +108,10 @@ public class AddMoviePage extends JFrame {
     }
 
     private void submitButtonActionPerformed(ActionEvent e) {
+        if (movieExists) {
+            JOptionPane.showMessageDialog(this,"Movie already exists!");
+            return;
+        }
         makeMovieFromText();
         dispose();
     }
@@ -90,6 +131,10 @@ public class AddMoviePage extends JFrame {
     }
 
     private void addSessionActionPerformed(ActionEvent e) {
+        if (movieExists) {
+            JOptionPane.showMessageDialog(this,"Movie already exists!");
+            return;
+        }
         Movie created = makeMovieFromText();
         AddSessionPage addSession = new AddSessionPage(created);
         addSession.pack();
@@ -98,6 +143,10 @@ public class AddMoviePage extends JFrame {
     }
 
     private void addAnotherMovieActionPerformed(ActionEvent e) {
+        if (movieExists) {
+            JOptionPane.showMessageDialog(this,"Movie already exists!");
+            return;
+        }
         makeMovieFromText();
         movieNameField.setText("");
         dirNameField.setText("");
@@ -111,10 +160,10 @@ public class AddMoviePage extends JFrame {
         String filename = f.getAbsolutePath();
         String extension = filename.substring(filename.lastIndexOf('.'));
         try {
-            Files.copy(f.toPath(), Path.of("src/com/movie/theater/icons/" + movieNameField.getText().replaceAll(" ", "_") + "." + extension.toLowerCase()));
+            Files.copy(f.toPath(), Path.of("src/com/movie/theater/icons/" + movieNameField.getText().replaceAll(" ", "_") + "." + extension.toLowerCase()), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException exception) {
             JOptionPane.showMessageDialog(this, "Failed to upload image");
-        };
+        }
 
     }
     // JFormDesigner - End of variables declaration  //GEN-END:variables

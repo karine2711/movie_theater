@@ -47,6 +47,11 @@ public final class MovieManager {
         SerializationUtil.serializeMovie(movie);
     }
 
+    public boolean exists(String movie){
+        return MOVIE_LIST.stream().anyMatch(m->m.getName().equals(movie));
+    }
+
+
     public void deleteMovie(Movie movie) {
         MOVIE_LIST.remove(movie);
         File moviesDir = new File(MOVIE_LIST_DIR);
